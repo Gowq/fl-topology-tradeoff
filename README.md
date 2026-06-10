@@ -36,13 +36,34 @@ paired topology win rate `TOTAL win 56/64`.
 
 ### Option A — Docker (self-contained)
 
+Two levels of reproduction are supported from the same image family:
+
+**1. Rebuild the figures from the shipped results (fast, CPU, no GPU/data):**
 ```bash
-docker compose build
-docker compose run --rm repro
+docker compose run --rm repro            # default target: figures
 ```
 
-The image installs a **CPU** build of PyTorch by default (runs anywhere). For
-full experiment reruns, a CUDA build + `--gpus all` is strongly recommended.
+**2. Reproduce the experiments themselves.** The entrypoint downloads the
+datasets, then runs the requested experiment and writes fresh result files into
+`experiments/<exp>/results/` (the same files the figures are built from):
+```bash
+docker compose run --rm repro smoke      # fast end-to-end stack check (1 seed, CPU)
+docker compose run --rm repro exp01      # reproduce one experiment on CPU
+```
+
+**GPU reproduction (recommended for the full sweep).** Build the CUDA image and
+use the `repro-gpu` service (needs the NVIDIA Container Toolkit); device
+selection is automatic:
+```bash
+docker compose build repro-gpu
+docker compose run --rm repro-gpu exp03  # the 320-config attack/aggregation sweep
+docker compose run --rm repro-gpu all    # reproduce exp01-04 + figures end to end
+```
+
+Targets accepted by both services: `figures` (default), `smoke`, `exp01`/`exp02`/
+`exp03`/`exp04`, `defense-semantic`, `defense-losses`, `all`. Experiment runs are
+heavy — Exp.03 is 960 runs and is intended for a GPU host; `smoke` and `figures`
+run in minutes on a laptop.
 
 ### Option B — native
 

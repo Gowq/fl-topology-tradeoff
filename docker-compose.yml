@@ -1,19 +1,37 @@
 services:
+  # CPU image: figures + CPU experiment runs. Works anywhere.
+  #   docker compose run --rm repro                 # figures from shipped results
+  #   docker compose run --rm repro smoke           # fast end-to-end stack check
+  #   docker compose run --rm repro exp01           # reproduce one experiment (CPU)
   repro:
-    build: .
-    image: fl-topology-tradeoff:latest
+    build:
+      context: .
+      args:
+        TORCH_CHANNEL: cpu
+    image: fl-topology-tradeoff:cpu
     volumes:
       - ./data:/workspace/data
       - ./figures:/workspace/figures
       - ./experiments:/workspace/experiments
-    # Default command regenerates figures from the shipped results.
-    # Override to run an experiment, e.g.:
-    #   docker compose run --rm repro bash scripts/run.sh defense-semantic --smoke-seeds 1
-    # For GPU: install a CUDA torch build and uncomment the deploy block below.
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           count: all
-    #           capabilities: [gpu]
+
+  # GPU image: full experiment reproduction. Requires the NVIDIA Container Toolkit.
+  #   docker compose build repro-gpu
+  #   docker compose run --rm repro-gpu all         # reproduce exp01-04 + figures
+  #   docker compose run --rm repro-gpu exp03       # the 320-config attack/aggregation sweep
+  repro-gpu:
+    build:
+      context: .
+      args:
+        TORCH_CHANNEL: cu121
+    image: fl-topology-tradeoff:gpu
+    volumes:
+      - ./data:/workspace/data
+      - ./figures:/workspace/figures
+      - ./experiments:/workspace/experiments
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]

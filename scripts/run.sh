@@ -44,7 +44,20 @@ case "${1:-list}" in
     run_exp defense_robust_losses 10_FL_VFL_Robust_Losses.py "${@:2}" ;;
   figures)
     cd "$ROOT" && python3 figures/generate_figures.py ;;
+  smoke)
+    # fast end-to-end stack check (1 seed, smallest matrix) — minutes on CPU
+    run_exp defense_robust_losses 10_FL_VFL_Robust_Losses.py --smoke-seeds 1 ;;
+  all|reproduce)
+    # full reproduction of the four primary experiments, then figures.
+    # heavy: days of GPU time for Exp.03; intended for GPU hosts.
+    bash "$0" exp01
+    bash "$0" exp02
+    bash "$0" exp03
+    bash "$0" exp04
+    bash "$0" figures ;;
   list|*)
-    echo "experiments: exp01|baseline  exp02|frontier  exp03|attacks  exp04|overhead"
-    echo "             defense-semantic  defense-losses  figures" ;;
+    echo "usage: scripts/run.sh <target>"
+    echo "  primary:    exp01|baseline  exp02|frontier  exp03|attacks  exp04|overhead"
+    echo "  defenses:   defense-semantic [--smoke-seeds N]   defense-losses [--smoke-seeds N]"
+    echo "  pipelines:  all|reproduce (exp01-04 + figures)   smoke (fast stack check)   figures" ;;
 esac
