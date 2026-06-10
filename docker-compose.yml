@@ -1,0 +1,19 @@
+services:
+  repro:
+    build: .
+    image: fl-topology-tradeoff:latest
+    volumes:
+      - ./data:/workspace/data
+      - ./figures:/workspace/figures
+      - ./experiments:/workspace/experiments
+    # Default command regenerates figures from the shipped results.
+    # Override to run an experiment, e.g.:
+    #   docker compose run --rm repro bash scripts/run.sh defense-semantic --smoke-seeds 1
+    # For GPU: install a CUDA torch build and uncomment the deploy block below.
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]

@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+.DS_Store
+# Public datasets are downloaded by scripts/prepare_data.sh, never committed.
+data/
+# Per-experiment runtime symlinks/outputs (committed results live in */results/).
+experiments/*/code/data
+experiments/*/code/results
+experiments/*/code/logs
+*.log
