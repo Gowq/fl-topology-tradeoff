@@ -530,7 +530,8 @@ def benchmark_vfl(fusion, epsilon, silo_loaders, label_loader, test_silo_loaders
         params['lr'] *= 0.3
     use_dp = epsilon > 0
     noise_multiplier, _, _ = dp_plan_from_loaders(
-        epsilon, list(silo_loaders.values()), params['batch_size'], NUM_ROUNDS, LOCAL_EPOCHS, DP_DELTA
+        epsilon, list(silo_loaders.values()), params['batch_size'], NUM_ROUNDS, LOCAL_EPOCHS, DP_DELTA,
+        mechanisms_per_step=len(silo_loaders) + 1,
     )
 
     silo_defs = {'body_upper': 15, 'body_lower': 15, 'objects': 15, 'ambient': 10}

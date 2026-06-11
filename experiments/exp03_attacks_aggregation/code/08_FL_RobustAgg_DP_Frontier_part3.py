@@ -506,6 +506,15 @@ def run_vertical_fl_robust(fusion_mode, dp_epsilon, attack_type, attack_ratio, s
     )
     if use_dp:
         coordinator.make_fusion_head_private(label_loader, noise_multiplier)
+        # mechanisms_per_step above assumes num_silos encoders + 1 trainable
+        # fusion head (IntermediateFusionVFL and LateFusionVFL both have
+        # parameter-bearing heads). Guard the accounting against future
+        # parameter-less fusion variants:
+        assert coordinator.fusion_head_dp_enabled, (
+            "fusion head has no trainable parameters; mechanisms_per_step "
+            "accounting of len(silo_loaders)+1 would overcount — update the "
+            "dp_plan_from_loaders call accordingly"
+        )
 
     round_metrics = []
     best_f1 = 0.0

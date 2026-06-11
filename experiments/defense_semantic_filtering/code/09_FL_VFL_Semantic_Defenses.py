@@ -443,6 +443,7 @@ def run_vertical_fl_semantic_defense(
         num_rounds,
         epochs,
         p8.DP_DELTA,
+        mechanisms_per_step=len(silo_loaders) + 1,
     )
 
     silos, malicious_names = build_silos(silo_loaders, params, attack_type, attack_ratio, seed)
