@@ -593,7 +593,8 @@ def run_vertical_fl(fusion_mode, dp_epsilon, seed, num_rounds=NUM_ROUNDS, epochs
     silo_loaders, label_loader, test_silo_loaders, test_label_loader = partition_opportunity_vertical(params['batch_size'])
     use_dp = dp_epsilon > 0
     noise_multiplier, dp_sample_rate, dp_steps_per_round = dp_plan_from_loaders(
-        dp_epsilon, list(silo_loaders.values()), params['batch_size'], num_rounds, epochs, DP_DELTA
+        dp_epsilon, list(silo_loaders.values()), params['batch_size'], num_rounds, epochs, DP_DELTA,
+        mechanisms_per_step=len(silo_loaders) + 1,
     )
     silos = {name: VerticalSilo(i, name, ch, DEVICE, params, fusion_mode) for i, (name, ch) in enumerate({'body_upper':15, 'body_lower':15, 'objects':15, 'ambient':10}.items())}
     if use_dp:

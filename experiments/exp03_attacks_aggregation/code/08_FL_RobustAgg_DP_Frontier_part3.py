@@ -467,7 +467,8 @@ def run_vertical_fl_robust(fusion_mode, dp_epsilon, attack_type, attack_ratio, s
     if silo_loaders is None:
         raise RuntimeError("Data Partition Failed")
     noise_multiplier, dp_sample_rate, dp_steps_per_round = dp_plan_from_loaders(
-        dp_epsilon, list(silo_loaders.values()), params['batch_size'], num_rounds, epochs, DP_DELTA
+        dp_epsilon, list(silo_loaders.values()), params['batch_size'], num_rounds, epochs, DP_DELTA,
+        mechanisms_per_step=len(silo_loaders) + 1,
     )
 
     silo_names = list(silo_loaders.keys())

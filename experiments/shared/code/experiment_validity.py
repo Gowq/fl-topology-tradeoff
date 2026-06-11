@@ -114,20 +114,33 @@ def dp_plan_from_loaders(
     total_rounds: int,
     local_epochs: int,
     delta: float,
+    mechanisms_per_step: int = 1,
 ) -> tuple[float, float, int]:
-    """Return noise multiplier, sample rate, and optimizer steps per round."""
+    """Return noise multiplier, sample rate, and composition-adjusted steps/round.
+
+    `mechanisms_per_step` is the number of independent DP-SGD mechanisms a single
+    participant's data passes through in one training step. For HFL this is 1
+    (one model per client). For VFL a person's features are split across the silo
+    encoders and the fusion head, so the person is touched by `(num_silos + 1)`
+    mechanisms per step; under person-level accounting these compose
+    sequentially. We therefore calibrate the noise for the full composed budget
+    and inflate the reported steps by the same factor, so the composed epsilon
+    over *all* mechanisms meets the target — making VFL and HFL epsilons an
+    apples-to-apples comparison rather than per-mechanism figures.
+    """
 
     if target_epsilon <= 0:
         return 0.0, 0.0, 0
+    mechanisms_per_step = max(1, int(mechanisms_per_step))
     sample_rate = participant_sample_rate(loaders, batch_size)
     steps_per_round = max(len(loader) for loader in loaders) * int(local_epochs)
     noise_multiplier = calibrated_noise_multiplier(
         target_epsilon=target_epsilon,
         sample_rate=sample_rate,
-        epochs=int(total_rounds) * int(local_epochs),
+        epochs=int(total_rounds) * int(local_epochs) * mechanisms_per_step,
         delta=delta,
     )
-    return noise_multiplier, sample_rate, steps_per_round
+    return noise_multiplier, sample_rate, steps_per_round * mechanisms_per_step
 
 
 def composed_epsilon(
