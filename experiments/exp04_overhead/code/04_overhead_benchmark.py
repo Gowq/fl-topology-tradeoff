@@ -37,6 +37,7 @@ from experiment_validity import (
     calibrated_noise_multiplier,
     composed_epsilon,
     dp_plan_from_loaders,
+    vfl_mechanisms_per_step,
     select_malicious_indices,
     label_flip_ratio_for_vfl,
     attach_dp_to_fusion_head,
@@ -529,9 +530,11 @@ def benchmark_vfl(fusion, epsilon, silo_loaders, label_loader, test_silo_loaders
     if fusion == 'Intermediate':
         params['lr'] *= 0.3
     use_dp = epsilon > 0
+    fusion_head = (IntermediateFusionVFL(dropout_p=params['dropout']) if fusion == 'Intermediate'
+                   else LateFusionVFL())
     noise_multiplier, _, _ = dp_plan_from_loaders(
         epsilon, list(silo_loaders.values()), params['batch_size'], NUM_ROUNDS, LOCAL_EPOCHS, DP_DELTA,
-        mechanisms_per_step=len(silo_loaders) + 1,
+        mechanisms_per_step=vfl_mechanisms_per_step(silo_loaders, fusion_head),
     )
 
     silo_defs = {'body_upper': 15, 'body_lower': 15, 'objects': 15, 'ambient': 10}
@@ -540,8 +543,6 @@ def benchmark_vfl(fusion, epsilon, silo_loaders, label_loader, test_silo_loaders
     if use_dp:
         for s in silos.values():
             s.make_private(silo_loaders[s.name], noise_multiplier)
-    fusion_head = (IntermediateFusionVFL(dropout_p=params['dropout']) if fusion == 'Intermediate'
-                   else LateFusionVFL())
     coordinator = VerticalCoordinator(silos, fusion_head, DEVICE, params)
     if use_dp:
         coordinator.make_fusion_head_private(label_loader, noise_multiplier)

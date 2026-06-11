@@ -69,6 +69,7 @@ from experiment_validity import (
     calibrated_noise_multiplier,
     composed_epsilon,
     dp_plan_from_loaders,
+    vfl_mechanisms_per_step,
     select_malicious_indices,
     label_flip_ratio_for_vfl,
     attach_dp_to_fusion_head,
@@ -466,9 +467,17 @@ def run_vertical_fl_robust(fusion_mode, dp_epsilon, attack_type, attack_ratio, s
 
     if silo_loaders is None:
         raise RuntimeError("Data Partition Failed")
+
+    if fusion_mode == 'Intermediate':
+        fusion_head = IntermediateFusionVFL(dropout_p=params['dropout'])
+    elif fusion_mode == 'Late':
+        fusion_head = LateFusionVFL(dropout_p=params['dropout'])
+    else:
+        raise ValueError(f"Unsupported fusion_mode={fusion_mode}")
+
     noise_multiplier, dp_sample_rate, dp_steps_per_round = dp_plan_from_loaders(
         dp_epsilon, list(silo_loaders.values()), params['batch_size'], num_rounds, epochs, DP_DELTA,
-        mechanisms_per_step=len(silo_loaders) + 1,
+        mechanisms_per_step=vfl_mechanisms_per_step(silo_loaders, fusion_head),
     )
 
     silo_names = list(silo_loaders.keys())
@@ -490,11 +499,6 @@ def run_vertical_fl_robust(fusion_mode, dp_epsilon, attack_type, attack_ratio, s
         for silo in silos.values():
             silo.make_private(silo_loaders[silo.silo_name], noise_multiplier=noise_multiplier)
 
-    if fusion_mode == 'Intermediate':
-        fusion_head = IntermediateFusionVFL(dropout_p=params['dropout'])
-    elif fusion_mode == 'Late':
-        fusion_head = LateFusionVFL(dropout_p=params['dropout'])
-
     label_corruption_ratio = label_flip_ratio_for_vfl(attack_type, attack_ratio)
     use_label_attack = label_corruption_ratio > 0
 
@@ -505,15 +509,10 @@ def run_vertical_fl_robust(fusion_mode, dp_epsilon, attack_type, attack_ratio, s
         attack_ratio=attack_ratio
     )
     if use_dp:
+        fusion_has_params = any(p.requires_grad for p in fusion_head.parameters())
         coordinator.make_fusion_head_private(label_loader, noise_multiplier)
-        # mechanisms_per_step above assumes num_silos encoders + 1 trainable
-        # fusion head (IntermediateFusionVFL and LateFusionVFL both have
-        # parameter-bearing heads). Guard the accounting against future
-        # parameter-less fusion variants:
-        assert coordinator.fusion_head_dp_enabled, (
-            "fusion head has no trainable parameters; mechanisms_per_step "
-            "accounting of len(silo_loaders)+1 would overcount — update the "
-            "dp_plan_from_loaders call accordingly"
+        assert (not fusion_has_params) or coordinator.fusion_head_dp_enabled, (
+            "fusion head has trainable parameters but DP was not enabled for it"
         )
 
     round_metrics = []

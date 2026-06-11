@@ -44,6 +44,7 @@ from experiment_validity import (
     calibrated_noise_multiplier,
     composed_epsilon,
     dp_plan_from_loaders,
+    vfl_mechanisms_per_step,
     select_malicious_indices,
     label_flip_ratio_for_vfl,
     attach_dp_to_fusion_head,
@@ -602,14 +603,6 @@ def run_vertical_fl(fusion_mode, dp_epsilon, seed, num_rounds=NUM_ROUNDS, epochs
     
     silo_loaders, label_loader, test_silo_loaders, test_label_loader = partition_opportunity_vertical(params['batch_size'])
     use_dp = dp_epsilon > 0
-    noise_multiplier, dp_sample_rate, dp_steps_per_round = dp_plan_from_loaders(
-        dp_epsilon, list(silo_loaders.values()), params['batch_size'], num_rounds, epochs, DP_DELTA,
-        mechanisms_per_step=len(silo_loaders) + 1,
-    )
-    silos = {name: VerticalSilo(i, name, ch, DEVICE, params, fusion_mode) for i, (name, ch) in enumerate({'body_upper':15, 'body_lower':15, 'objects':15, 'ambient':10}.items())}
-    if use_dp:
-        for silo in silos.values(): silo.make_private(silo_loaders[silo.silo_name], noise_multiplier=noise_multiplier)
-    
     # v24: Support all fusion modes including Early
     if fusion_mode == 'Early':
         fusion_head = EarlyFusionVFL(dropout_p=params['dropout'])
@@ -617,7 +610,15 @@ def run_vertical_fl(fusion_mode, dp_epsilon, seed, num_rounds=NUM_ROUNDS, epochs
         fusion_head = IntermediateFusionVFL(dropout_p=params['dropout'])
     else:  # Late
         fusion_head = LateFusionVFL()
-    
+
+    noise_multiplier, dp_sample_rate, dp_steps_per_round = dp_plan_from_loaders(
+        dp_epsilon, list(silo_loaders.values()), params['batch_size'], num_rounds, epochs, DP_DELTA,
+        mechanisms_per_step=vfl_mechanisms_per_step(silo_loaders, fusion_head),
+    )
+    silos = {name: VerticalSilo(i, name, ch, DEVICE, params, fusion_mode) for i, (name, ch) in enumerate({'body_upper':15, 'body_lower':15, 'objects':15, 'ambient':10}.items())}
+    if use_dp:
+        for silo in silos.values(): silo.make_private(silo_loaders[silo.silo_name], noise_multiplier=noise_multiplier)
+
     coordinator = VerticalCoordinator(silos, fusion_head, DEVICE, params)
     if use_dp:
         coordinator.make_fusion_head_private(label_loader, noise_multiplier)

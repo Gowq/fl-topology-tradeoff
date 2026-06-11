@@ -143,6 +143,13 @@ def dp_plan_from_loaders(
     return noise_multiplier, sample_rate, steps_per_round * mechanisms_per_step
 
 
+def vfl_mechanisms_per_step(loaders: Sequence[object], fusion_head) -> int:
+    """Return DP mechanisms touched by one VFL participant per optimizer step."""
+
+    fusion_has_params = any(p.requires_grad for p in fusion_head.parameters())
+    return len(loaders) + int(fusion_has_params)
+
+
 def composed_epsilon(
     noise_multiplier: float,
     sample_rate: float,

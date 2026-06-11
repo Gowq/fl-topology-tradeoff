@@ -445,6 +445,13 @@ def run_vertical_fl_semantic_defense(
         raise RuntimeError("Data Partition Failed")
 
     use_dp = dp_epsilon > 0
+    if fusion_mode == "Intermediate":
+        fusion_head = p8.IntermediateFusionVFL(dropout_p=params["dropout"])
+    elif fusion_mode == "Late":
+        fusion_head = p8.LateFusionVFL(dropout_p=params["dropout"])
+    else:
+        raise ValueError(f"Unsupported fusion_mode={fusion_mode}")
+
     noise_multiplier, dp_sample_rate, dp_steps_per_round = p8.dp_plan_from_loaders(
         dp_epsilon,
         list(silo_loaders.values()),
@@ -452,20 +459,13 @@ def run_vertical_fl_semantic_defense(
         num_rounds,
         epochs,
         p8.DP_DELTA,
-        mechanisms_per_step=len(silo_loaders) + 1,
+        mechanisms_per_step=p8.vfl_mechanisms_per_step(silo_loaders, fusion_head),
     )
 
     silos, malicious_names = build_silos(silo_loaders, params, attack_type, attack_ratio, seed)
     if use_dp:
         for silo in silos.values():
             silo.make_private(silo_loaders[silo.silo_name], noise_multiplier=noise_multiplier)
-
-    if fusion_mode == "Intermediate":
-        fusion_head = p8.IntermediateFusionVFL(dropout_p=params["dropout"])
-    elif fusion_mode == "Late":
-        fusion_head = p8.LateFusionVFL(dropout_p=params["dropout"])
-    else:
-        raise ValueError(f"Unsupported fusion_mode={fusion_mode}")
 
     corruption_ratio = label_corruption_ratio(attack_type, attack_ratio)
     defense = defense_for(defense_name, attack_ratio)
