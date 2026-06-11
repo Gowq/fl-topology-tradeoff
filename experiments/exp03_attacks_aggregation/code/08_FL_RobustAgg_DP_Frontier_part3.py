@@ -711,8 +711,8 @@ if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('--part', type=str, default='all',
-                        choices=['a', 'b', 'c', 'all'],
-                        help='Sub-part: a (0-15), b (16-31), c (32-47), all (0-47)')
+                        choices=['a', 'b', 'c', 'd', 'all'],
+                        help='Sub-part: a (0-15), b (16-31), c (32-47), d (48-63), all (0-63)')
     parser.add_argument('--smoke-only', action='store_true',
                         help='Run smoke test only and exit')
     args = parser.parse_args()
