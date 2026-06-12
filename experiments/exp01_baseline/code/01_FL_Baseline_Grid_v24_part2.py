@@ -593,7 +593,7 @@ def run_horizontal_fl(dataset_name, fusion_mode, dp_epsilon, seed, num_rounds=NU
         else: print('.', end='', flush=True)
     return round_metrics
 
-def run_vertical_fl(fusion_mode, dp_epsilon, seed, num_rounds=NUM_ROUNDS, epochs=LOCAL_EPOCHS):
+def run_vertical_fl(fusion_mode, dp_epsilon, seed, num_rounds=NUM_ROUNDS, epochs=LOCAL_EPOCHS, early_stopping=True):
     set_seed(seed)
     params = DATASET_PARAMS[DATASET_OPPORTUNITY].copy()
     
@@ -640,7 +640,7 @@ def run_vertical_fl(fusion_mode, dp_epsilon, seed, num_rounds=NUM_ROUNDS, epochs
             break
         
         # v24: Loss stagnation detection
-        if round_idx > 0:
+        if early_stopping and round_idx > 0:
             loss_change_pct = abs(loss - prev_loss) / max(prev_loss, 1e-6)
             if loss_change_pct < LOSS_STAGNATION_THRESHOLD:
                 loss_stagnation_count += 1
@@ -671,7 +671,7 @@ def run_vertical_fl(fusion_mode, dp_epsilon, seed, num_rounds=NUM_ROUNDS, epochs
             rounds_without_improvement += 1
         
         # v24: Relaxed warmup (10 → 5)
-        if rounds_without_improvement >= EARLY_STOP_PATIENCE and round_idx >= WARMUP_ROUNDS:
+        if early_stopping and rounds_without_improvement >= EARLY_STOP_PATIENCE and round_idx >= WARMUP_ROUNDS:
             print(f" [EARLY STOP: No F1 improvement for {EARLY_STOP_PATIENCE} rounds] ", end='')
             break
         

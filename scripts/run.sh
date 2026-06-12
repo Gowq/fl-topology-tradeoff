@@ -32,6 +32,8 @@ case "${1:-list}" in
     run_exp exp01_baseline 01_FL_Baseline_Grid_v24_cifar100.py ;;
   exp02|frontier)
     run_exp exp02_dp_frontier 06_FL_Frontier_v24.py ;;
+  exp06-fixed|frontier-fixed)
+    run_exp exp02_dp_frontier 06_FL_Frontier_FixedRounds_v25.py "${@:2}" ;;
   exp03|attacks)
     run_exp exp03_attacks_aggregation 08_FL_RobustAgg_DP_Frontier_part1.py
     run_exp exp03_attacks_aggregation 08_FL_RobustAgg_DP_Frontier_part2.py
@@ -58,6 +60,7 @@ case "${1:-list}" in
   list|*)
     echo "usage: scripts/run.sh <target>"
     echo "  primary:    exp01|baseline  exp02|frontier  exp03|attacks  exp04|overhead"
+    echo "  diagnostic: exp06-fixed|frontier-fixed [--part all|a|b|c|d] [--smoke-only]"
     echo "  defenses:   defense-semantic [--smoke-seeds N]   defense-losses [--smoke-seeds N]"
     echo "  pipelines:  all|reproduce (exp01-04 + figures)   smoke (fast stack check)   figures" ;;
 esac

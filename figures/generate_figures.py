@@ -119,7 +119,6 @@ for topo, color, marker, label in [("horizontal", "#2E86AB", "o", "HFL Intermedi
                 linewidth=1.4, color=color, label=label)
 floor_line(ax)
 ax.set_xticks(XPOS); ax.set_xticklabels([xlab(e) for e in EPS_ALL])
-ax.axvline(4.5, color="gray", linewidth=0.8, linestyle="--")
 ax.set_xlabel("Privacy Budget (ε, RDP accountant)")
 ax.set_ylabel("F1 Score (Macro)"); ax.set_ylim(0, 1.05)
 ax.legend(loc="upper left", bbox_to_anchor=(0.0, 0.92))
@@ -146,10 +145,14 @@ for topo, fusion, color, marker, label in [
         ("horizontal", "Late", "#3BB273", "^", "HFL Late"),
         ("vertical", "Intermediate", "#C73E1D", "s", "VFL Intermediate"),
         ("vertical", "Late", "#F18F01", "D", "VFL Late")]:
-    means = [e01.get(("OPPORTUNITY", topo, fusion, e), (np.nan,))[0] for e in EPS01]
-    ax.plot(EPS01, means, marker=marker, markersize=4.5, linewidth=1.3, color=color, label=label)
+    means = []
+    for e in EPS_ALL:
+        src = e01.get(("OPPORTUNITY", topo, fusion, e)) if e in EPS01 \
+              else e06.get((topo, fusion, e))
+        means.append(src[0] if src else np.nan)
+    ax.plot(XPOS, means, marker=marker, markersize=4.5, linewidth=1.3, color=color, label=label)
 floor_line(ax)
-ax.set_xticks([0, 1, 3, 5, 8]); ax.set_xticklabels(["0\n(no DP)", "1", "3", "5", "8"])
+ax.set_xticks(XPOS); ax.set_xticklabels([xlab(e) for e in EPS_ALL])
 ax.set_xlabel("Privacy Budget (ε, RDP accountant)")
 ax.set_ylabel("F1 Score (Macro)"); ax.set_ylim(0, 1.05)
 ax.legend(loc="upper right", ncol=2, fontsize=8); fig.tight_layout()

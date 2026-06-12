@@ -505,7 +505,7 @@ def evaluate(model, loader, device):
     return acc, f1, all_preds  # Return predictions for diagnostic
 
 # --- RUNNERS ---
-def run_horizontal_fl(dataset_name, fusion_mode, dp_epsilon, seed, num_rounds=NUM_ROUNDS, epochs=LOCAL_EPOCHS):
+def run_horizontal_fl(dataset_name, fusion_mode, dp_epsilon, seed, num_rounds=NUM_ROUNDS, epochs=LOCAL_EPOCHS, early_stopping=True):
     set_seed(seed)
     params = DATASET_PARAMS[dataset_name].copy()
     
@@ -566,7 +566,7 @@ def run_horizontal_fl(dataset_name, fusion_mode, dp_epsilon, seed, num_rounds=NU
             rounds_without_improvement += 1
         
         # Early stop if no improvement for patience rounds
-        if rounds_without_improvement >= EARLY_STOP_PATIENCE and round_idx >= 10:  # Allow warmup
+        if early_stopping and rounds_without_improvement >= EARLY_STOP_PATIENCE and round_idx >= 10:  # Allow warmup
             print(f" [EARLY STOP: No improvement for {EARLY_STOP_PATIENCE} rounds] ", end='')
             break
         

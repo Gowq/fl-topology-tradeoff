@@ -159,6 +159,18 @@ even at ε = 200 both recover < half their no-DP utility.
 bash scripts/run.sh exp02
 ```
 
+### Diagnostic Exp. 06 — Fixed-Round Frontier Tail  (`exp02_dp_frontier`)
+**What:** reruns the high-budget OPPORTUNITY frontier tail at ε ∈ {100,200}
+with patience/loss-stagnation early stopping disabled, while preserving the same
+DP calibration, seeds, topology/fusion grid, and best-checkpoint reporting.
+**Purpose:** determine whether the small HFL-over-VFL crossover at ε = 200 is a
+topology effect or an artifact of VFL saturating and stopping before consuming
+the target privacy budget. Run `--smoke-only` before Pegasus/Grid deployment.
+```bash
+bash scripts/run.sh exp06-fixed --smoke-only
+bash scripts/run.sh exp06-fixed --part all
+```
+
 ### Exp. 03 — Byzantine Attacks × Aggregation under DP  (`exp03_attacks_aggregation`)
 **What:** the central factorial sweep — 4 attacks (Label Flip, Sign Flip,
 Scaling, Free-Rider) × ratios {10,25,50,75}% × {Intermediate, Late} ×
