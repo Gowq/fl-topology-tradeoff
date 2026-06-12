@@ -28,7 +28,7 @@ python figures/generate_figures.py     # writes figures/*.pdf from experiments/*
 ```
 
 `figures/generate_figures.py` prints the headline numbers as it runs, e.g. the
-paired topology win rate `TOTAL win 56/64`.
+paired topology win rate `TOTAL win 55/64`.
 
 ---
 
@@ -166,9 +166,9 @@ Scaling, Free-Rider) × ratios {10,25,50,75}% × {Intermediate, Late} ×
 **320 configurations, 960 runs, 3 seeds.** Identical ratio grids enable a paired
 cell-by-cell comparison.
 **Shows:** Topology is the dominant **relative** defense lever — VFL beats the
-best per-cell HFL aggregator in **56/64** matched cells (paired sign test,
-p < 10⁻⁹), and **47/48** under the parameter-space attacks (Sign Flip, Scaling,
-Free-Rider), but only **9/16** under Label Flip, where both sit at the floor. The
+best per-cell HFL aggregator in **55/64** matched cells (paired sign test,
+p < 10⁻⁹), and **48/48** under the parameter-space attacks (Sign Flip, Scaling,
+Free-Rider), but only **7/16** under Label Flip, where both sit at the floor. The
 shield is a *parameter-space* shield, not a universal one. No classical
 aggregator dominates: Krum averages below the floor yet is the best HFL option in
 21/64 cells (notably Sign Flip); Median has the worst single cell (0.002 at 50 %
