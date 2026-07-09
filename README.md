@@ -28,7 +28,10 @@ python figures/generate_figures.py     # writes figures/*.pdf from experiments/*
 ```
 
 `figures/generate_figures.py` prints the headline numbers as it runs, e.g. the
-paired topology win rate `TOTAL win 55/64`.
+paired topology win rate `TOTAL win 55/64`. The paper/manuscript must use these
+shipped artifact results as the canonical source for all experimental figures;
+older workspace copies such as `mestrado/experiments/results` are not
+authoritative.
 
 ---
 
@@ -61,9 +64,9 @@ docker compose run --rm repro-gpu all    # reproduce exp01-04 + figures end to e
 ```
 
 Targets accepted by both services: `figures` (default), `smoke`, `exp01`/`exp02`/
-`exp03`/`exp04`, `defense-semantic`, `defense-losses`, `all`. Experiment runs are
-heavy — Exp.03 is 960 runs and is intended for a GPU host; `smoke` and `figures`
-run in minutes on a laptop.
+`exp03`/`exp04`, diagnostic `exp05-fixed`, `defense-semantic`,
+`defense-losses`, `all`. Experiment runs are heavy — Exp.03 is 960 runs and is
+intended for a GPU host; `smoke` and `figures` run in minutes on a laptop.
 
 ### Option B — native
 
@@ -93,7 +96,7 @@ bash scripts/prepare_data.sh
 
 The primary metric is **F1-macro**: OPPORTUNITY is severely imbalanced (a
 majority-class predictor scores ≈ 0.85 accuracy on the null class), so the
-random-prediction floor is `1/19 ≈ 0.053` (18 activity classes + null). Results
+random-prediction floor is `1/18 ≈ 0.056` (18 classes, including null). Results
 near or below this floor indicate no real utility regardless of accuracy.
 
 ---
@@ -117,10 +120,12 @@ this way (`experiments/shared/code/experiment_validity.py`:
 ```
 experiments/
   shared/code/                    # DP calibration, timeout utils, helpers (used by all)
-  exp01_baseline/                 # Paper Exp. 01 — privacy–utility baseline
-  exp02_dp_frontier/              # Paper Exp. 02 — DP utility frontier (ε up to 200)
-  exp03_attacks_aggregation/      # Paper Exp. 03 — attacks × aggregation under DP
-  exp04_overhead/                 # Paper Exp. 04 — operational overhead
+  exp01_baseline/                 # Paper Exp. 01 — Privacy–Utility Baseline
+  exp02_dp_frontier/              # Paper Exp. 02 — DP Budget-Behavior Analysis
+  exp03_attacks_aggregation/      # Paper Exp. 03 — Byzantine Attacks × Aggregation under Calibrated DP
+  exp04_overhead/                 # Paper Exp. 04 — Operational Overhead
+  exp02_dp_frontier/              # Paper Exp. 05 — Fixed-Round High-Budget Diagnostic
+                                   # (diagnostic code/results live alongside Exp. 02 frontier code)
   defense_semantic_filtering/     # Preliminary — semantic defenses (future work)
   defense_robust_losses/          # Preliminary — noise-robust loss defenses (future work)
 figures/generate_figures.py       # regenerates all paper figures from results/
@@ -148,7 +153,7 @@ viable range under DP.
 bash scripts/run.sh exp01
 ```
 
-### Exp. 02 — DP Utility Frontier  (`exp02_dp_frontier`)
+### Exp. 02 — DP Budget-Behavior Analysis  (`exp02_dp_frontier`)
 **What:** extends the baseline to ε ∈ {10,20,50,100,200}, OPPORTUNITY HFL+VFL ×
 {Intermediate, Late}, 3 seeds.
 **Shows:** Useful utility re-emerges only at high budgets. VFL crosses 2× the
@@ -159,19 +164,7 @@ even at ε = 200 both recover < half their no-DP utility.
 bash scripts/run.sh exp02
 ```
 
-### Diagnostic Exp. 06 — Fixed-Round Frontier Tail  (`exp02_dp_frontier`)
-**What:** reruns the high-budget OPPORTUNITY frontier tail at ε ∈ {100,200}
-with patience/loss-stagnation early stopping disabled, while preserving the same
-DP calibration, seeds, topology/fusion grid, and best-checkpoint reporting.
-**Purpose:** determine whether the small HFL-over-VFL crossover at ε = 200 is a
-topology effect or an artifact of VFL saturating and stopping before consuming
-the target privacy budget. Run `--smoke-only` before Pegasus/Grid deployment.
-```bash
-bash scripts/run.sh exp06-fixed --smoke-only
-bash scripts/run.sh exp06-fixed --part all
-```
-
-### Exp. 03 — Byzantine Attacks × Aggregation under DP  (`exp03_attacks_aggregation`)
+### Exp. 03 — Byzantine Attacks × Aggregation under Calibrated DP  (`exp03_attacks_aggregation`)
 **What:** the central factorial sweep — 4 attacks (Label Flip, Sign Flip,
 Scaling, Free-Rider) × ratios {10,25,50,75}% × {Intermediate, Late} ×
 ε ∈ {20,100} × 5 methods (HFL FedAvg/Krum/Trimmed-Mean/Median + VFL coordinator).
@@ -197,6 +190,44 @@ Worst case (VFL + DP) is 4.7× HFL (≈ 62 s/round) and ≤ 511 MB peak memory �
 deployable on commodity hardware.
 ```bash
 bash scripts/run.sh exp04
+```
+
+### Exp. 05 — Fixed-Round High-Budget Diagnostic  (`exp02_dp_frontier`)
+**What:** reruns the high-budget OPPORTUNITY frontier tail at ε ∈ {100,200}
+with patience/loss-stagnation early stopping disabled, while preserving the same
+DP calibration, seeds, topology/fusion grid, and best-checkpoint reporting.
+These clean-tail runs are reported separately from the early-stopped Exp. 01/02
+fusion-mode curves rather than being spliced into them.
+**Purpose:** determine whether the small HFL-over-VFL crossover at ε = 200 is a
+topology effect or an artifact of VFL saturating and stopping before consuming
+the target privacy budget. The shipped GridUNESP and Pegasus repetitions are in
+`experiments/exp02_dp_frontier/results/fixed_round_tail/` and are rendered by
+`figures/generate_figures.py` as `opportunity_fixed_round_high_budget.pdf`. Run
+`--smoke-only` before Pegasus/Grid deployment.
+```bash
+bash scripts/run.sh exp05-fixed --smoke-only
+bash scripts/run.sh exp05-fixed --part all
+```
+
+**Attack extension — does removing early stopping change attack resistance?**
+The same Exp. 05 logic is extended from the clean tail to the attack regime: a
+compact audit (HFL/VFL × {Intermediate, Late} × {Label Flip, Sign Flip} ×
+ratios {25,75}% × ε ∈ {100,200} × {early, fixed}, 3 seeds) reruns each cell with
+patience-based early stopping **on** and **off** to test whether the stopping
+protocol influences the observed DP-and-attack resistance. Data ship in
+`experiments/exp02_dp_frontier/results/attack_earlystop_audit/`
+(`exp05_attack_earlystop_audit_part{a..h}.json`); the figure is rendered as
+`audit_signflip_earlystop.pdf`.
+**Shows:** the topology ranking is **protocol-invariant** — removing early
+stopping does not change who wins. Under Sign Flip (parameter-space corruption)
+VFL beats HFL in **16/16** matched cells under *both* protocols, holding
+**0.157 mean F1 ≈ 2.8× the floor** while HFL sits **at the floor (0.99×)** and
+drops below it under heavy attack. Early stopping only compresses VFL's margin
+(it halts before VFL's slow climb peaks); it never reverses the ranking. Under
+Label Flip the semantic boundary holds regardless of protocol (both at floor).
+```bash
+python experiments/exp02_dp_frontier/code/05_FL_AttackEarlyStop_Audit_v25.py --smoke-only
+sbatch scripts/grid/run_exp05_attack_earlystop_audit.sh
 ```
 
 ### Preliminary — Defenses for the semantic channel
