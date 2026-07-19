@@ -196,6 +196,7 @@ def private_train(model, loader, device, lr, epochs, noise_multiplier):
     torch, nn, _, _ = _torch()
     from opacus import PrivacyEngine
 
+    model.train()
     optimizer = torch.optim.SGD(model.parameters(), lr=lr, momentum=0.9)
     engine = PrivacyEngine()
     model, optimizer, private_loader = engine.make_private(
@@ -206,7 +207,6 @@ def private_train(model, loader, device, lr, epochs, noise_multiplier):
         max_grad_norm=MAX_GRAD_NORM,
     )
     losses = []
-    model.train()
     for _ in range(epochs):
         for values, target in private_loader:
             values, target = to_device(values, target, device)

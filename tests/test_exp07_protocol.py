@@ -1,3 +1,4 @@
+import ast
 import importlib.util
 import sys
 import unittest
@@ -21,6 +22,21 @@ from tune_exp07 import tuning_jobs
 
 
 class ProtocolTests(unittest.TestCase):
+    def test_private_training_enables_train_mode_before_opacus_wrap(self):
+        source = (CODE / "run_exp07.py").read_text(encoding="utf-8")
+        tree = ast.parse(source)
+        private_train = next(
+            node
+            for node in tree.body
+            if isinstance(node, ast.FunctionDef) and node.name == "private_train"
+        )
+        calls = {
+            ast.unparse(node.func): node.lineno
+            for node in ast.walk(private_train)
+            if isinstance(node, ast.Call)
+        }
+        self.assertLess(calls["model.train"], calls["engine.make_private"])
+
     def test_tuning_is_partitioned_into_unique_single_seed_jobs(self):
         jobs = tuning_jobs()
         self.assertEqual(len(jobs), 72)
