@@ -73,7 +73,8 @@ bash scripts/run.sh exp07 --config-index 0 --device cuda \
 
 # GridUNESP: submit partitioned tuning, aggregation, and seven main portions
 # with Slurm dependencies.
-bash scripts/grid/submit_exp07_mhealth.sh
+smoke_job=$(sbatch --parsable scripts/grid/run_exp07_mhealth_tuning_smoke.sh)
+EXP07_SMOKE_JOB_ID="$smoke_job" bash scripts/grid/submit_exp07_mhealth.sh
 
 # Validate all 510 results, aggregate five-seed confidence intervals, and flag
 # unexpected high-budget curve reversals for inspection.

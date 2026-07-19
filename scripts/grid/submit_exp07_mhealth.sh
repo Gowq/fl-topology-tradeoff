@@ -5,13 +5,21 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$ROOT"
 mkdir -p logs
 
-tuning_job=$(sbatch --parsable scripts/grid/run_exp07_mhealth_tuning.sh)
+tuning_dependency=()
+if [ -n "${EXP07_SMOKE_JOB_ID:-}" ]; then
+    tuning_dependency=(--dependency="afterok:${EXP07_SMOKE_JOB_ID}")
+fi
+
+tuning_job=$(sbatch \
+    --parsable \
+    "${tuning_dependency[@]}" \
+    scripts/grid/run_exp07_mhealth_tuning.sh)
 aggregate_job=$(sbatch \
     --parsable \
     --dependency="afterok:${tuning_job}" \
     scripts/grid/run_exp07_mhealth_tuning_aggregate.sh)
 
-echo "tuning=${tuning_job}"
+echo "tuning=${tuning_job} dependency=${EXP07_SMOKE_JOB_ID:+afterok:${EXP07_SMOKE_JOB_ID}}"
 echo "aggregate=${aggregate_job} dependency=afterok:${tuning_job}"
 
 portions=(
