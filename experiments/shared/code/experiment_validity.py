@@ -76,8 +76,9 @@ def participant_sample_rate(loaders: Sequence[object], batch_size: int) -> float
 def calibrated_noise_multiplier(
     target_epsilon: float,
     sample_rate: float,
-    epochs: int,
+    epochs: int | None,
     delta: float,
+    steps: int | None = None,
 ) -> float:
     """Calibrate Gaussian noise for a target epsilon over the full training run."""
 
@@ -85,19 +86,26 @@ def calibrated_noise_multiplier(
         return 0.0
     if sample_rate <= 0 or sample_rate > 1:
         raise ValueError(f"Invalid sample_rate={sample_rate}")
-    if epochs <= 0:
+    if steps is not None and steps <= 0:
+        raise ValueError(f"Invalid steps={steps}")
+    if steps is None and (epochs is None or epochs <= 0):
         raise ValueError(f"Invalid epochs={epochs}")
 
     try:
         from opacus.accountants.utils import get_noise_multiplier
 
+        schedule = (
+            {"steps": int(steps)}
+            if steps is not None
+            else {"epochs": int(epochs)}
+        )
         return float(
             get_noise_multiplier(
                 target_epsilon=float(target_epsilon),
                 target_delta=float(delta),
                 sample_rate=float(sample_rate),
-                epochs=int(epochs),
                 accountant="rdp",
+                **schedule,
             )
         )
     except Exception as exc:  # pragma: no cover - only used when Opacus API changes
@@ -134,13 +142,16 @@ def dp_plan_from_loaders(
     mechanisms_per_step = max(1, int(mechanisms_per_step))
     sample_rate = participant_sample_rate(loaders, batch_size)
     steps_per_round = max(len(loader) for loader in loaders) * int(local_epochs)
+    steps_per_round = max(len(loader) for loader in loaders) * int(local_epochs)
+    composed_steps_per_round = steps_per_round * mechanisms_per_step
     noise_multiplier = calibrated_noise_multiplier(
         target_epsilon=target_epsilon,
         sample_rate=sample_rate,
-        epochs=int(total_rounds) * int(local_epochs) * mechanisms_per_step,
+        epochs=None,
         delta=delta,
+        steps=int(total_rounds) * composed_steps_per_round,
     )
-    return noise_multiplier, sample_rate, steps_per_round * mechanisms_per_step
+    return noise_multiplier, sample_rate, composed_steps_per_round
 
 
 def vfl_mechanisms_per_step(loaders: Sequence[object], fusion_head) -> int:

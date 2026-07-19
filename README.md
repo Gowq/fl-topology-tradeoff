@@ -3,7 +3,8 @@
 Reproducibility artifact for the paper of the same title. It contains the code,
 the result files, and a figure generator for every experiment reported in the
 paper, on **OPPORTUNITY** (18-class multimodal Human Activity Recognition) and
-**CIFAR-10/100** image baselines.
+**CIFAR-10/100** image baselines. Exp. 07 adds a preregistered generalization
+study on the independent **MHEALTH** multimodal HAR benchmark.
 
 The study jointly evaluates Horizontal (HFL) and Vertical (VFL) federated
 learning across four axes — accountant-calibrated Differential Privacy, four
@@ -64,7 +65,8 @@ docker compose run --rm repro-gpu all    # reproduce exp01-04 + figures end to e
 ```
 
 Targets accepted by both services: `figures` (default), `smoke`, `exp01`/`exp02`/
-`exp03`/`exp04`, diagnostic `exp05-fixed`, `defense-semantic`,
+`exp03`/`exp04`, diagnostics `exp06-fixed` and `exp07`, `exp07-tune`,
+`defense-semantic`,
 `defense-losses`, `all`. Experiment runs are heavy — Exp.03 is 960 runs and is
 intended for a GPU host; `smoke` and `figures` run in minutes on a laptop.
 
@@ -87,6 +89,8 @@ into `./data`:
 
 - **OPPORTUNITY** — downloaded from UCI (#226) and unzipped to
   `data/OpportunityUCIDataset/`.
+- **MHEALTH** — downloaded from UCI (#319), checksum-verified, and unzipped to
+  `data/MHEALTHDATASET/` for Exp. 07.
 - **CIFAR-10/100** — fetched by torchvision (CIFAR-10 pre-fetched by the script;
   CIFAR-100 downloads on first use).
 
@@ -124,8 +128,8 @@ experiments/
   exp02_dp_frontier/              # Paper Exp. 02 — DP Budget-Behavior Analysis
   exp03_attacks_aggregation/      # Paper Exp. 03 — Byzantine Attacks × Aggregation under Calibrated DP
   exp04_overhead/                 # Paper Exp. 04 — Operational Overhead
-  exp02_dp_frontier/              # Paper Exp. 05 — Fixed-Round High-Budget Diagnostic
-                                   # (diagnostic code/results live alongside Exp. 02 frontier code)
+  exp02_dp_frontier/              # Exp. 05/06 diagnostics live alongside Exp. 02
+  exp07_mhealth_generalization/   # Exp. 07 — independent multimodal generalization audit
   defense_semantic_filtering/     # Preliminary — semantic defenses (future work)
   defense_robust_losses/          # Preliminary — noise-robust loss defenses (future work)
 figures/generate_figures.py       # regenerates all paper figures from results/
@@ -192,26 +196,9 @@ deployable on commodity hardware.
 bash scripts/run.sh exp04
 ```
 
-### Exp. 05 — Fixed-Round High-Budget Diagnostic  (`exp02_dp_frontier`)
-**What:** reruns the high-budget OPPORTUNITY frontier tail at ε ∈ {100,200}
-with patience/loss-stagnation early stopping disabled, while preserving the same
-DP calibration, seeds, topology/fusion grid, and best-checkpoint reporting.
-These clean-tail runs are reported separately from the early-stopped Exp. 01/02
-fusion-mode curves rather than being spliced into them.
-**Purpose:** determine whether the small HFL-over-VFL crossover at ε = 200 is a
-topology effect or an artifact of VFL saturating and stopping before consuming
-the target privacy budget. The shipped GridUNESP and Pegasus repetitions are in
-`experiments/exp02_dp_frontier/results/fixed_round_tail/` and are rendered by
-`figures/generate_figures.py` as `opportunity_fixed_round_high_budget.pdf`. Run
-`--smoke-only` before Pegasus/Grid deployment.
-```bash
-bash scripts/run.sh exp05-fixed --smoke-only
-bash scripts/run.sh exp05-fixed --part all
-```
+### Exp. 05 — Attack Early-Stopping Audit  (`exp02_dp_frontier`)
 
-**Attack extension — does removing early stopping change attack resistance?**
-The same Exp. 05 logic is extended from the clean tail to the attack regime: a
-compact audit (HFL/VFL × {Intermediate, Late} × {Label Flip, Sign Flip} ×
+**What:** a compact audit (HFL/VFL × {Intermediate, Late} × {Label Flip, Sign Flip} ×
 ratios {25,75}% × ε ∈ {100,200} × {early, fixed}, 3 seeds) reruns each cell with
 patience-based early stopping **on** and **off** to test whether the stopping
 protocol influences the observed DP-and-attack resistance. Data ship in
@@ -228,6 +215,24 @@ Label Flip the semantic boundary holds regardless of protocol (both at floor).
 ```bash
 python experiments/exp02_dp_frontier/code/05_FL_AttackEarlyStop_Audit_v25.py --smoke-only
 sbatch scripts/grid/run_exp05_attack_earlystop_audit.sh
+```
+
+### Exp. 06 — Fixed-Round High-Budget Diagnostic  (`exp02_dp_frontier`)
+
+**What:** reruns the high-budget OPPORTUNITY frontier tail at ε ∈ {100,200}
+with patience/loss-stagnation early stopping disabled, while preserving the same
+DP calibration, seeds, topology/fusion grid, and best-checkpoint reporting.
+These clean-tail runs are reported separately from the early-stopped Exp. 01/02
+fusion-mode curves rather than being spliced into them.
+**Purpose:** determine whether the small HFL-over-VFL crossover at ε = 200 is a
+topology effect or an artifact of VFL saturating and stopping before consuming
+the target privacy budget. The shipped GridUNESP and Pegasus repetitions are in
+`experiments/exp02_dp_frontier/results/fixed_round_tail/` and are rendered by
+`figures/generate_figures.py` as `opportunity_fixed_round_high_budget.pdf`. Run
+`--smoke-only` before Pegasus/Grid deployment.
+```bash
+bash scripts/run.sh exp06-fixed --smoke-only
+bash scripts/run.sh exp06-fixed --part all
 ```
 
 ### Preliminary — Defenses for the semantic channel
@@ -250,6 +255,29 @@ breadth-first sweeps explore whether that gap can be closed:
   ```bash
   bash scripts/run.sh defense-losses --smoke-seeds 1
   ```
+
+### Exp. 07 — MHEALTH Generalization and Reviewer Audit
+
+**What:** an independent 12-class multimodal HAR replication with natural HFL
+clients (subjects) and natural VFL parties (three body-worn devices). Five
+focused arms cover intermediate epsilon values, real-client scale N={2,4,8},
+five seeds, fixed-round tail replication, model replacement and clean-label
+sensor backdoor attacks, plus FLTrust and FoolsGold baselines.
+
+**Status:** code and preregistered 510-job matrix are included; no full-run
+result is claimed yet. Tune on held-out subject 9 before executing the matrix;
+subject 10 remains untouched for final evaluation. See
+`experiments/exp07_mhealth_generalization/README.md` and
+`docs/research/mhealth_dataset_selection.md`.
+
+```bash
+for i in 0 1 2 3 4; do
+  bash scripts/run.sh exp07 --smoke-only --config-index "$i" --device cpu
+done
+bash scripts/run.sh exp07-tune --job-index 0 --device cuda
+bash scripts/run.sh exp07-tune --aggregate
+bash scripts/run.sh exp07 --list
+```
 
 ---
 
