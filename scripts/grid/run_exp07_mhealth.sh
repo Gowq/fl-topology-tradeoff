@@ -12,7 +12,7 @@
 
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+ROOT="${SLURM_SUBMIT_DIR:?SLURM_SUBMIT_DIR is required for Grid jobs}"
 HYPERPARAMETERS="$ROOT/experiments/exp07_mhealth_generalization/results/tuned_hyperparameters.json"
 cd "$ROOT"
 

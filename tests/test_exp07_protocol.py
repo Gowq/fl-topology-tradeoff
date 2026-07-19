@@ -35,6 +35,7 @@ class ProtocolTests(unittest.TestCase):
 
     def test_grid_main_job_passes_absolute_tuning_path(self):
         source = (GRID_SCRIPTS / "run_exp07_mhealth.sh").read_text(encoding="utf-8")
+        self.assertIn('ROOT="${SLURM_SUBMIT_DIR:', source)
         self.assertIn('HYPERPARAMETERS="$ROOT/experiments/', source)
         self.assertIn('--hyperparameters-file "$HYPERPARAMETERS"', source)
 
