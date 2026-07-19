@@ -12,6 +12,10 @@
 
 set -euo pipefail
 
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+HYPERPARAMETERS="$ROOT/experiments/exp07_mhealth_generalization/results/tuned_hyperparameters.json"
+cd "$ROOT"
+
 source "$(conda info --base)/etc/profile.d/conda.sh"
 conda activate fl_env_grid
 
@@ -19,5 +23,4 @@ mkdir -p logs
 srun --unbuffered bash scripts/run.sh exp07 \
     --config-index "$SLURM_ARRAY_TASK_ID" \
     --device cuda \
-    --hyperparameters-file \
-      experiments/exp07_mhealth_generalization/results/tuned_hyperparameters.json
+    --hyperparameters-file "$HYPERPARAMETERS"

@@ -33,6 +33,11 @@ class ProtocolTests(unittest.TestCase):
                 source = (GRID_SCRIPTS / script_name).read_text(encoding="utf-8")
                 self.assertIn("srun --unbuffered bash scripts/run.sh", source)
 
+    def test_grid_main_job_passes_absolute_tuning_path(self):
+        source = (GRID_SCRIPTS / "run_exp07_mhealth.sh").read_text(encoding="utf-8")
+        self.assertIn('HYPERPARAMETERS="$ROOT/experiments/', source)
+        self.assertIn('--hyperparameters-file "$HYPERPARAMETERS"', source)
+
     def test_private_training_enables_train_mode_before_opacus_wrap(self):
         source = (CODE / "run_exp07.py").read_text(encoding="utf-8")
         tree = ast.parse(source)
