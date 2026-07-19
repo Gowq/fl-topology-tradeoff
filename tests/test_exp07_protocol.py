@@ -8,6 +8,7 @@ import numpy as np
 
 
 CODE = Path(__file__).parents[1] / "experiments/exp07_mhealth_generalization/code"
+GRID_SCRIPTS = Path(__file__).parents[1] / "scripts/grid"
 sys.path.insert(0, str(CODE))
 
 from mhealth_data import (
@@ -22,6 +23,16 @@ from tune_exp07 import tuning_jobs
 
 
 class ProtocolTests(unittest.TestCase):
+    def test_grid_gpu_jobs_run_inside_a_slurm_job_step(self):
+        for script_name in (
+            "run_exp07_mhealth.sh",
+            "run_exp07_mhealth_tuning.sh",
+            "run_exp07_mhealth_tuning_smoke.sh",
+        ):
+            with self.subTest(script=script_name):
+                source = (GRID_SCRIPTS / script_name).read_text(encoding="utf-8")
+                self.assertIn("srun --unbuffered bash scripts/run.sh", source)
+
     def test_private_training_enables_train_mode_before_opacus_wrap(self):
         source = (CODE / "run_exp07.py").read_text(encoding="utf-8")
         tree = ast.parse(source)
