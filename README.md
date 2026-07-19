@@ -271,7 +271,9 @@ subject 10 remains untouched for final evaluation. See
 `docs/research/mhealth_dataset_selection.md`.
 
 ```bash
-bash scripts/run.sh exp07 --smoke-only --config-index 0 --device cpu
+for i in 0 1 2 3 4; do
+  bash scripts/run.sh exp07 --smoke-only --config-index "$i" --device cpu
+done
 bash scripts/run.sh exp07-tune --device cuda
 bash scripts/run.sh exp07 --list
 ```

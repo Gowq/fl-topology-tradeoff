@@ -57,8 +57,10 @@ against the sensor backdoor through its coordinator.
 ```bash
 bash scripts/prepare_data.sh
 
-# Validate parsing/training paths first.
-bash scripts/run.sh exp07 --smoke-only --config-index 0 --device cpu
+# Validate all five parsing/training paths first (clean, attack, HFL-DP, VFL-DP).
+for i in 0 1 2 3 4; do
+  bash scripts/run.sh exp07 --smoke-only --config-index "$i" --device cpu
+done
 
 # Select HFL/VFL parameters independently on subject 9.
 bash scripts/run.sh exp07-tune --device cuda

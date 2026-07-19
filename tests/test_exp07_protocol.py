@@ -38,6 +38,10 @@ class ProtocolTests(unittest.TestCase):
         configs = smoke_protocol()
         self.assertEqual({config.topology for config in configs}, {"hfl", "vfl"})
         self.assertIn("fltrust", {config.aggregator for config in configs})
+        self.assertEqual(
+            {config.topology for config in configs if config.epsilon > 0},
+            {"hfl", "vfl"},
+        )
 
     def test_analysis_aggregates_seeds_and_flags_tail_increase(self):
         self.assertEqual(completeness([])["expected"], 510)

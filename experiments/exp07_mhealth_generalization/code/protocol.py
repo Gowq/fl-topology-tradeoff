@@ -138,7 +138,7 @@ def build_protocol() -> list[ExperimentConfig]:
 
 
 def smoke_protocol() -> list[ExperimentConfig]:
-    """Minimal topology + attack path for CPU/data-pipeline validation."""
+    """Minimal clean, attack, and DP paths for pre-deployment validation."""
 
     return [
         ExperimentConfig("smoke", "hfl", 0.0, SEEDS[0], client_count=2),
@@ -153,4 +153,6 @@ def smoke_protocol() -> list[ExperimentConfig]:
             aggregator="fltrust",
         ),
         ExperimentConfig("smoke", "vfl", 0.0, SEEDS[0], client_count=2),
+        ExperimentConfig("smoke", "hfl", 3.0, SEEDS[0], client_count=2),
+        ExperimentConfig("smoke", "vfl", 3.0, SEEDS[0], client_count=2),
     ]
