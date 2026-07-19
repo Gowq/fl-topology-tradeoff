@@ -68,7 +68,7 @@ case "${1:-list}" in
     echo "  primary:    exp01|baseline  exp02|frontier  exp03|attacks  exp04|overhead"
     echo "  diagnostic: exp06-fixed|frontier-fixed [--part all|a|b|c|d] [--smoke-only]"
     echo "  extension:  exp07|mhealth-generalization [--config-index N|--list|--smoke-only]"
-    echo "              exp07-tune|mhealth-tune [--smoke-only]"
+    echo "              exp07-tune|mhealth-tune [--job-index N|--aggregate|--list]"
     echo "              exp07-analyze|mhealth-analyze [--allow-partial]"
     echo "  defenses:   defense-semantic [--smoke-seeds N]   defense-losses [--smoke-seeds N]"
     echo "  pipelines:  all|reproduce (exp01-04 + figures)   smoke (fast stack check)   figures" ;;

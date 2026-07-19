@@ -17,9 +17,16 @@ from mhealth_data import (
 )
 from analyze_exp07 import completeness, summarize, tail_shape_flags
 from protocol import build_protocol, smoke_protocol
+from tune_exp07 import tuning_jobs
 
 
 class ProtocolTests(unittest.TestCase):
+    def test_tuning_is_partitioned_into_unique_single_seed_jobs(self):
+        jobs = tuning_jobs()
+        self.assertEqual(len(jobs), 72)
+        self.assertEqual(len({job["job_id"] for job in jobs}), 72)
+        self.assertEqual({job["topology"] for job in jobs}, {"hfl", "vfl"})
+
     def test_config_ids_are_unique_and_all_arms_are_present(self):
         configs = build_protocol()
         self.assertEqual(len(configs), 510)

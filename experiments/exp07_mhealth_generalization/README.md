@@ -62,27 +62,32 @@ for i in 0 1 2 3 4; do
   bash scripts/run.sh exp07 --smoke-only --config-index "$i" --device cpu
 done
 
-# Select HFL/VFL parameters independently on subject 9.
-bash scripts/run.sh exp07-tune --device cuda
+# Tune one topology/candidate/seed per job, then aggregate all 72 parts.
+bash scripts/run.sh exp07-tune --job-index 0 --device cuda
+bash scripts/run.sh exp07-tune --aggregate
 
 # Inspect or run one preregistered job.
 bash scripts/run.sh exp07 --list
 bash scripts/run.sh exp07 --config-index 0 --device cuda \
   --hyperparameters-file experiments/exp07_mhealth_generalization/results/tuned_hyperparameters.json
 
-# GridUNESP/Pegasus.
-sbatch scripts/grid/run_exp07_mhealth_tuning.sh
-sbatch scripts/grid/run_exp07_mhealth.sh
+# GridUNESP: submit partitioned tuning, aggregation, and seven main portions
+# with Slurm dependencies.
+bash scripts/grid/submit_exp07_mhealth.sh
 
 # Validate all 510 results, aggregate five-seed confidence intervals, and flag
 # unexpected high-budget curve reversals for inspection.
 bash scripts/run.sh exp07-analyze
 ```
 
-Run tuning to completion before submitting the 510-job array. Each job writes
-one JSON result atomically and exits successfully when that result already
-exists. There is no patience-based stopping: all curve and tail cells consume
-the same fixed number of rounds.
+Tuning is split into 72 array tasks (one topology/candidate/seed per task), so
+no tuning task contains the whole search. The main matrix is submitted as seven
+scientifically aligned array portions; each array task still runs exactly one
+configuration. The aggregation job and every main portion use `afterok`
+dependencies, so the main matrix cannot start without complete tuning. Each job
+writes one JSON result atomically and exits successfully when that result
+already exists. There is no patience-based stopping: all curve and tail cells
+consume the same fixed number of rounds.
 
 ## Metrics and interpretation guardrails
 

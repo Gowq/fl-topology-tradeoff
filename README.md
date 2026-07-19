@@ -274,7 +274,8 @@ subject 10 remains untouched for final evaluation. See
 for i in 0 1 2 3 4; do
   bash scripts/run.sh exp07 --smoke-only --config-index "$i" --device cpu
 done
-bash scripts/run.sh exp07-tune --device cuda
+bash scripts/run.sh exp07-tune --job-index 0 --device cuda
+bash scripts/run.sh exp07-tune --aggregate
 bash scripts/run.sh exp07 --list
 ```
 
