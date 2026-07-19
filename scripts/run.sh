@@ -34,6 +34,12 @@ case "${1:-list}" in
     run_exp exp02_dp_frontier 06_FL_Frontier_v24.py ;;
   exp06-fixed|frontier-fixed)
     run_exp exp02_dp_frontier 06_FL_Frontier_FixedRounds_v25.py "${@:2}" ;;
+  exp07|mhealth-generalization)
+    run_exp exp07_mhealth_generalization run_exp07.py "${@:2}" ;;
+  exp07-tune|mhealth-tune)
+    run_exp exp07_mhealth_generalization tune_exp07.py "${@:2}" ;;
+  exp07-analyze|mhealth-analyze)
+    run_exp exp07_mhealth_generalization analyze_exp07.py "${@:2}" ;;
   exp03|attacks)
     run_exp exp03_attacks_aggregation 08_FL_RobustAgg_DP_Frontier_part1.py
     run_exp exp03_attacks_aggregation 08_FL_RobustAgg_DP_Frontier_part2.py
@@ -61,6 +67,9 @@ case "${1:-list}" in
     echo "usage: scripts/run.sh <target>"
     echo "  primary:    exp01|baseline  exp02|frontier  exp03|attacks  exp04|overhead"
     echo "  diagnostic: exp06-fixed|frontier-fixed [--part all|a|b|c|d] [--smoke-only]"
+    echo "  extension:  exp07|mhealth-generalization [--config-index N|--list|--smoke-only]"
+    echo "              exp07-tune|mhealth-tune [--smoke-only]"
+    echo "              exp07-analyze|mhealth-analyze [--allow-partial]"
     echo "  defenses:   defense-semantic [--smoke-seeds N]   defense-losses [--smoke-seeds N]"
     echo "  pipelines:  all|reproduce (exp01-04 + figures)   smoke (fast stack check)   figures" ;;
 esac
