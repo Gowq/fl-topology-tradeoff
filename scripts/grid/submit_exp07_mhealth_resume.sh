@@ -15,7 +15,7 @@ sys.path.insert(0, str(experiment / "code"))
 from protocol import build_protocol
 
 tuned = json.loads((results / "tuned_hyperparameters.json").read_text())
-if set(tuned) != {"hfl", "vfl"}:
+if set(tuned.get("selected", {})) != {"hfl", "vfl"}:
     raise SystemExit("invalid tuned_hyperparameters.json")
 
 expected = {config.config_id for config in build_protocol()[380:510]}
