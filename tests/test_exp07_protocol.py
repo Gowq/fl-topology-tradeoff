@@ -1,8 +1,11 @@
 import ast
 import importlib.util
 import sys
+import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import MagicMock, patch
 
 import numpy as np
 
@@ -11,6 +14,7 @@ CODE = Path(__file__).parents[1] / "experiments/exp07_mhealth_generalization/cod
 GRID_SCRIPTS = Path(__file__).parents[1] / "scripts/grid"
 sys.path.insert(0, str(CODE))
 
+import run_exp07
 from mhealth_data import (
     MODALITY_COLUMNS,
     apply_sensor_trigger,
@@ -19,10 +23,52 @@ from mhealth_data import (
 )
 from analyze_exp07 import completeness, summarize, tail_shape_flags
 from protocol import build_protocol, smoke_protocol
+from run_exp07 import parse_config_indices
 from tune_exp07 import tuning_jobs
 
 
 class ProtocolTests(unittest.TestCase):
+    def test_batch_loads_dataset_once_and_runs_every_config(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            args = SimpleNamespace(
+                config_index=None,
+                config_indices=[0, 1, 2],
+                smoke_only=False,
+                list=False,
+                dry_run=False,
+                output_dir=Path(temporary),
+                data_root=Path("unused"),
+                window_size=128,
+                stride=64,
+                hyperparameters_file=None,
+            )
+            splits = object()
+            fake_torch = MagicMock()
+            fake_torch.cuda.is_available.return_value = False
+            with (
+                patch.object(run_exp07, "parse_args", return_value=args),
+                patch.object(run_exp07, "load_splits", return_value=splits) as load,
+                patch.object(run_exp07, "run_config", return_value={}) as run,
+                patch.object(run_exp07, "atomic_json"),
+                patch.object(run_exp07, "_torch", return_value=(fake_torch, None, None, None)),
+            ):
+                self.assertEqual(run_exp07.main(), 0)
+            load.assert_called_once_with(args.data_root, 128, 64)
+            self.assertEqual(run.call_count, 3)
+            self.assertTrue(all(call.kwargs["splits"] is splits for call in run.call_args_list))
+
+    def test_batch_indices_are_unique_and_preserve_order(self):
+        self.assertEqual(parse_config_indices("9,2,17"), [9, 2, 17])
+        with self.assertRaises(ValueError):
+            parse_config_indices("9,2,9")
+
+    def test_grid_main_job_uses_batched_configs_and_realistic_walltime(self):
+        source = (GRID_SCRIPTS / "run_exp07_mhealth.sh").read_text(encoding="utf-8")
+        self.assertIn("#SBATCH --time=00:30:00", source)
+        self.assertIn('EXP07_BATCH_MANIFEST', source)
+        self.assertIn('--config-indices "$config_indices"', source)
+        self.assertNotIn("sleep 60", source)
+
     def test_grid_gpu_jobs_run_inside_a_slurm_job_step(self):
         for script_name in (
             "run_exp07_mhealth.sh",

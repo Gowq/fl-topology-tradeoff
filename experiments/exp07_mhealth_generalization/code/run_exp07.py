@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import gc
 import json
 import os
 import random
@@ -398,12 +399,13 @@ def run_vfl(config, train_subjects, validation_subjects, test_subjects, params, 
     return model, round_metrics, evaluate_backdoor(model, triggered_test, device), sorted(malicious)
 
 
-def run_config(config, args):
+def run_config(config, args, splits=None, tuning=None):
     torch, _, _, _ = _torch()
     set_seed(config.seed)
     selected = {}
     if args.hyperparameters_file:
-        tuning = json.loads(args.hyperparameters_file.read_text(encoding="utf-8"))
+        if tuning is None:
+            tuning = json.loads(args.hyperparameters_file.read_text(encoding="utf-8"))
         tuning_topology = "hfl" if config.topology == "hfl" else "vfl"
         selected = tuning["selected"][tuning_topology]
     explicit = {
@@ -420,7 +422,9 @@ def run_config(config, args):
         "local_epochs": args.local_epochs,
         "batch_size": args.batch_size,
     }
-    train, validation, test = load_splits(args.data_root, args.window_size, args.stride)
+    if splits is None:
+        splits = load_splits(args.data_root, args.window_size, args.stride)
+    train, validation, test = splits
     device = torch.device(args.device)
     started = time.time()
     runner = run_hfl if config.topology == "hfl" else run_vfl
@@ -456,9 +460,20 @@ def atomic_json(path: Path, payload) -> None:
     os.replace(temporary, path)
 
 
+def parse_config_indices(value: str) -> list[int]:
+    indices = [int(part.strip()) for part in value.split(",") if part.strip()]
+    if not indices:
+        raise ValueError("at least one config index is required")
+    if len(indices) != len(set(indices)):
+        raise ValueError("config indices must be unique")
+    return indices
+
+
 def parse_args():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--config-index", type=int)
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--config-index", type=int)
+    selection.add_argument("--config-indices", type=parse_config_indices)
     parser.add_argument("--smoke-only", action="store_true")
     parser.add_argument("--list", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
@@ -487,21 +502,47 @@ def main() -> int:
     if args.list or args.dry_run:
         print(json.dumps([config.to_dict() for config in configs], indent=2))
         return 0
-    if args.config_index is None:
-        raise SystemExit("--config-index is required unless --list/--dry-run is used")
-    if not 0 <= args.config_index < len(configs):
-        raise SystemExit(f"--config-index must be in [0, {len(configs) - 1}]")
+    indices = args.config_indices
+    if indices is None and args.config_index is not None:
+        indices = [args.config_index]
+    if indices is None:
+        raise SystemExit("--config-index or --config-indices is required unless --list/--dry-run is used")
+    invalid = [index for index in indices if not 0 <= index < len(configs)]
+    if invalid:
+        raise SystemExit(f"config indices must be in [0, {len(configs) - 1}]: {invalid}")
     if args.smoke_only:
         args.rounds = 1
         args.local_epochs = 1
-    config = configs[args.config_index]
-    output = args.output_dir / f"{config.config_id}.json"
-    if output.exists():
-        print(f">>> Already complete: {output}")
+
+    pending = []
+    for index in indices:
+        config = configs[index]
+        output = args.output_dir / f"{config.config_id}.json"
+        if output.exists():
+            print(f">>> Already complete: {output}")
+        else:
+            pending.append((index, config, output))
+    if not pending:
         return 0
-    print(f">>> Exp. 07 config {args.config_index}/{len(configs) - 1}: {config.config_id}")
-    atomic_json(output, run_config(config, args))
-    print(f">>> Wrote {output}")
+
+    splits = load_splits(args.data_root, args.window_size, args.stride)
+    tuning = None
+    if args.hyperparameters_file:
+        tuning = json.loads(args.hyperparameters_file.read_text(encoding="utf-8"))
+
+    for position, (index, config, output) in enumerate(pending, start=1):
+        print(
+            f">>> Exp. 07 batch {position}/{len(pending)}, "
+            f"config {index}/{len(configs) - 1}: {config.config_id}"
+        )
+        payload = run_config(config, args, splits=splits, tuning=tuning)
+        atomic_json(output, payload)
+        print(f">>> Wrote {output}")
+        del payload
+        gc.collect()
+        torch, _, _, _ = _torch()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
     return 0
 
 
