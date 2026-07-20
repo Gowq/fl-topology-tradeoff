@@ -54,8 +54,8 @@ last_task=$((batch_count - 1))
 
 job_id=$(sbatch \
     --parsable \
-    --array="0-${last_task}%2" \
+    --array="0-${last_task}%4" \
     --export="ALL,EXP07_BATCH_MANIFEST=${manifest}" \
     --job-name=exp07_batches \
     scripts/grid/run_exp07_mhealth.sh)
-echo "main=${job_id} array=0-${last_task}%2 manifest=${manifest}"
+echo "main=${job_id} array=0-${last_task}%4 manifest=${manifest}"

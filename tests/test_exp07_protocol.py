@@ -64,7 +64,7 @@ class ProtocolTests(unittest.TestCase):
 
     def test_grid_main_job_uses_batched_configs_and_realistic_walltime(self):
         source = (GRID_SCRIPTS / "run_exp07_mhealth.sh").read_text(encoding="utf-8")
-        self.assertIn("#SBATCH --time=00:30:00", source)
+        self.assertIn("#SBATCH --time=1-00:00:00", source)
         self.assertIn('EXP07_BATCH_MANIFEST', source)
         self.assertIn('--config-indices "$config_indices"', source)
         self.assertNotIn("sleep 60", source)
