@@ -265,7 +265,7 @@ def run_hfl(config, train_subjects, validation_subjects, test_subjects, params, 
     )
     trusted_loader = make_loader(validation_subjects, params["batch_size"], True)
     model = MultimodalClassifier(
-        topology="hfl",
+        topology="hfl", fusion=getattr(config, "fusion", "intermediate"),
         hidden_dim=params["hidden_dim"], dropout=params["dropout"]
     ).to(device)
     use_dp = config.epsilon > 0
@@ -331,8 +331,11 @@ def make_vfl_private(model, noise_multiplier):
 
     for name in list(model.encoders):
         model.encoders[name] = GradSampleModule(model.encoders[name])
-    model.coordinator = GradSampleModule(model.coordinator)
-    return [*model.encoders.values(), model.coordinator]
+    private_modules = [*model.encoders.values()]
+    if any(parameter.requires_grad for parameter in model.coordinator.parameters()):
+        model.coordinator = GradSampleModule(model.coordinator)
+        private_modules.append(model.coordinator)
+    return private_modules
 
 
 def run_vfl(config, train_subjects, validation_subjects, test_subjects, params, device):
@@ -353,10 +356,13 @@ def run_vfl(config, train_subjects, validation_subjects, test_subjects, params, 
     )
     model = MultimodalClassifier(
         topology=config.topology,
+        fusion=getattr(config, "fusion", "intermediate"),
         hidden_dim=params["hidden_dim"], dropout=params["dropout"]
     ).to(device)
     use_dp = config.epsilon > 0
-    mechanism_count = len(model.encoders) + 1
+    mechanism_count = len(model.encoders) + int(
+        any(parameter.requires_grad for parameter in model.coordinator.parameters())
+    )
     sigma, sample_rate, steps_per_round = dp_plan_from_loaders(
         config.epsilon,
         [loader],

@@ -40,6 +40,14 @@ case "${1:-list}" in
     run_exp exp07_mhealth_generalization tune_exp07.py "${@:2}" ;;
   exp07-analyze|mhealth-analyze)
     run_exp exp07_mhealth_generalization analyze_exp07.py "${@:2}" ;;
+  exp08|mhealth-fixed-replication)
+    run_exp exp08_mhealth_fixed_rounds run_exp08.py "${@:2}" ;;
+  exp08-analyze|mhealth-fixed-analyze)
+    run_exp exp08_mhealth_fixed_rounds analyze_exp08.py "${@:2}" ;;
+  exp09|opportunity-attack-transfer)
+    run_exp exp09_opportunity_attack_defense run_exp09.py "${@:2}" ;;
+  exp09-analyze|opportunity-attack-analyze)
+    run_exp exp09_opportunity_attack_defense analyze_exp09.py "${@:2}" ;;
   exp03|attacks)
     run_exp exp03_attacks_aggregation 08_FL_RobustAgg_DP_Frontier_part1.py
     run_exp exp03_attacks_aggregation 08_FL_RobustAgg_DP_Frontier_part2.py
@@ -70,6 +78,8 @@ case "${1:-list}" in
     echo "  extension:  exp07|mhealth-generalization [--config-index N|--list|--smoke-only]"
     echo "              exp07-tune|mhealth-tune [--job-index N|--aggregate|--list]"
     echo "              exp07-analyze|mhealth-analyze [--allow-partial]"
+    echo "              exp08|mhealth-fixed-replication [--config-index N|--list|--smoke-only]"
+    echo "              exp09|opportunity-attack-transfer [--config-index N|--list|--smoke-only]"
     echo "  defenses:   defense-semantic [--smoke-seeds N]   defense-losses [--smoke-seeds N]"
     echo "  pipelines:  all|reproduce (exp01-04 + figures)   smoke (fast stack check)   figures" ;;
 esac
