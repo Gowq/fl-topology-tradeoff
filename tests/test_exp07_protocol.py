@@ -1,5 +1,7 @@
 import ast
 import importlib.util
+import os
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -64,9 +66,12 @@ class ProtocolTests(unittest.TestCase):
 
     def test_grid_main_job_uses_batched_configs_and_realistic_walltime(self):
         source = (GRID_SCRIPTS / "run_exp07_mhealth.sh").read_text(encoding="utf-8")
-        self.assertIn("#SBATCH --time=00:30:00", source)
+        self.assertIn("#SBATCH --time=1-00:00:00", source)
         self.assertIn('EXP07_BATCH_MANIFEST', source)
+        self.assertIn('EXP07_CONFIG_INDICES', source)
         self.assertIn('--config-indices "$config_indices"', source)
+        self.assertIn('schedule_exp07_cuda_retry.sh "$config_indices" "$retries"', source)
+        self.assertNotIn('scontrol requeue "$SLURM_JOB_ID"', source)
         self.assertNotIn("sleep 60", source)
 
     def test_grid_gpu_jobs_run_inside_a_slurm_job_step(self):
@@ -84,6 +89,40 @@ class ProtocolTests(unittest.TestCase):
         self.assertIn('ROOT="${SLURM_SUBMIT_DIR:', source)
         self.assertIn('HYPERPARAMETERS="$ROOT/experiments/', source)
         self.assertIn('--hyperparameters-file "$HYPERPARAMETERS"', source)
+
+    def test_cuda_failure_schedules_delayed_single_batch_retry(self):
+        helper = GRID_SCRIPTS / "schedule_exp07_cuda_retry.sh"
+        with tempfile.TemporaryDirectory() as temporary:
+            temporary_path = Path(temporary)
+            capture = temporary_path / "sbatch-args.txt"
+            fake_sbatch = temporary_path / "sbatch"
+            fake_sbatch.write_text(
+                '#!/bin/bash\nprintf "%s\\n" "$@" > "$SBATCH_CAPTURE"\nprintf "999999\\n"\n',
+                encoding="utf-8",
+            )
+            fake_sbatch.chmod(0o755)
+            environment = os.environ.copy()
+            environment["PATH"] = f"{temporary_path}:{environment['PATH']}"
+            environment["SBATCH_CAPTURE"] = str(capture)
+
+            completed = subprocess.run(
+                ["bash", str(helper), "9,2,17", "2"],
+                cwd=Path(__file__).parents[1],
+                env=environment,
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+
+            arguments = capture.read_text(encoding="utf-8").splitlines()
+            self.assertIn("--array=0", arguments)
+            self.assertIn("--begin=now+5minutes", arguments)
+            self.assertIn("--dependency=singleton", arguments)
+            self.assertIn(
+                "--export=ALL,EXP07_CONFIG_INDICES=9,2,17,EXP07_CUDA_RETRY=3",
+                arguments,
+            )
+            self.assertIn("retry_job=999999", completed.stdout)
 
     def test_private_training_enables_train_mode_before_opacus_wrap(self):
         source = (CODE / "run_exp07.py").read_text(encoding="utf-8")
