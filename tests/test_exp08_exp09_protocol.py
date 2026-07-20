@@ -1,6 +1,8 @@
 import importlib.util
+import os
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -85,18 +87,71 @@ class Exp09ProtocolTests(unittest.TestCase):
                 )
                 self.assertEqual(completed.stdout.count('"config_id"'), count)
 
-    def test_grid_launchers_use_gpu_job_steps_and_exact_arrays(self):
+    def test_grid_launchers_batch_configs_and_isolate_singleton_retries(self):
         cases = (
-            ("run_exp08_mhealth_fixed.sh", "#SBATCH --array=0-23%4"),
-            ("run_exp09_opportunity_attack_defense.sh", "#SBATCH --array=0-209%4"),
+            ("run_exp08_mhealth_fixed.sh", "#SBATCH --array=0-5%4", "EXP08_BATCH_SIZE=4", "exp08_r_"),
+            ("run_exp09_opportunity_attack_defense.sh", "#SBATCH --array=0-20%4", "EXP09_BATCH_SIZE=10", "exp09_r_"),
         )
-        for filename, array in cases:
+        for filename, array, batch_size, retry_prefix in cases:
             source = (ROOT / "scripts/grid" / filename).read_text(encoding="utf-8")
             self.assertIn(array, source)
+            self.assertIn(batch_size, source)
             self.assertIn("#SBATCH --requeue", source)
             self.assertIn("retries >= 12", source)
             self.assertIn("srun --unbuffered bash scripts/run.sh", source)
             self.assertIn("--begin=now+5minutes", source)
+            self.assertIn(f'--job-name="{retry_prefix}$retry_key"', source)
+            self.assertIn("config_indices+=", source)
+
+    def test_failed_cuda_guard_retries_the_exact_batch_with_a_unique_name(self):
+        cases = (
+            (
+                "run_exp08_mhealth_fixed.sh", "2", "exp08_r_8_9_10_11",
+                "EXP08_CONFIG_INDICES=8,9,10,11",
+            ),
+            (
+                "run_exp09_opportunity_attack_defense.sh", "20",
+                "exp09_r_200_201_202_203_204_205_206_207_208_209",
+                "EXP09_CONFIG_INDICES=200,201,202,203,204,205,206,207,208,209",
+            ),
+        )
+        for filename, task_id, job_name, exported_batch in cases:
+            with self.subTest(script=filename), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                fake_bin = root / "bin"
+                conda_base = root / "conda"
+                profile = conda_base / "etc/profile.d"
+                fake_bin.mkdir()
+                profile.mkdir(parents=True)
+                (profile / "conda.sh").write_text("conda() { :; }\n", encoding="utf-8")
+                (fake_bin / "conda").write_text(
+                    f'#!/bin/bash\nprintf "%s\\n" "{conda_base}"\n', encoding="utf-8"
+                )
+                (fake_bin / "srun").write_text("#!/bin/bash\nexit 1\n", encoding="utf-8")
+                capture = root / "sbatch.txt"
+                (fake_bin / "sbatch").write_text(
+                    '#!/bin/bash\nprintf "%s\\n" "$@" > "$SBATCH_CAPTURE"\n',
+                    encoding="utf-8",
+                )
+                for executable in fake_bin.iterdir():
+                    executable.chmod(0o755)
+                environment = os.environ.copy()
+                environment.update({
+                    "PATH": f"{fake_bin}:{environment['PATH']}",
+                    "SBATCH_CAPTURE": str(capture),
+                    "SLURM_SUBMIT_DIR": str(root),
+                    "SLURM_ARRAY_TASK_ID": task_id,
+                    "SLURM_JOB_ID": "123",
+                })
+                subprocess.run(
+                    ["bash", str(ROOT / "scripts/grid" / filename)],
+                    env=environment, check=True, capture_output=True, text=True,
+                )
+                arguments = capture.read_text(encoding="utf-8").splitlines()
+                self.assertIn(f"--job-name={job_name}", arguments)
+                self.assertIn("--dependency=singleton", arguments)
+                export = next(arg for arg in arguments if arg.startswith("--export="))
+                self.assertIn(exported_batch, export)
 
 
 if __name__ == "__main__":

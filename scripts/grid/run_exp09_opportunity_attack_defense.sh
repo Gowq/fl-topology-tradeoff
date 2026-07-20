@@ -8,7 +8,7 @@
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:1
 #SBATCH --nodes=1
-#SBATCH --array=0-209%4
+#SBATCH --array=0-20%4
 #SBATCH --requeue
 
 set -euo pipefail
@@ -19,7 +19,19 @@ cd "$ROOT"
 source "$(conda info --base)/etc/profile.d/conda.sh"
 conda activate fl_env_grid
 mkdir -p logs "$RESULTS"
-config_indices="${EXP09_CONFIG_INDICES:-$SLURM_ARRAY_TASK_ID}"
+EXP09_BATCH_SIZE=10
+EXP09_CONFIG_COUNT=210
+if [[ -n "${EXP09_CONFIG_INDICES:-}" ]]; then
+    config_indices="$EXP09_CONFIG_INDICES"
+else
+    start=$((SLURM_ARRAY_TASK_ID * EXP09_BATCH_SIZE))
+    stop=$((start + EXP09_BATCH_SIZE - 1))
+    (( stop >= EXP09_CONFIG_COUNT )) && stop=$((EXP09_CONFIG_COUNT - 1))
+    config_indices=""
+    for ((index = start; index <= stop; index++)); do
+        config_indices+="${config_indices:+,}$index"
+    done
+fi
 
 if ! srun --unbuffered python3 -c \
     "import torch; assert torch.cuda.is_available(); torch.zeros(1, device='cuda'); torch.cuda.synchronize()"; then
@@ -28,7 +40,10 @@ if ! srun --unbuffered python3 -c \
         echo "[cuda-guard] retry limit reached for $config_indices" >&2
         exit 1
     fi
-    sbatch --array=0 --begin=now+5minutes --dependency=singleton \
+    retry_key="${config_indices//,/_}"
+    echo "[cuda-guard] no usable GPU; scheduling batch $config_indices retry $((retries + 1))" >&2
+    sbatch --array=0 --job-name="exp09_r_$retry_key" \
+        --begin=now+5minutes --dependency=singleton \
         --export="ALL,EXP09_CONFIG_INDICES=$config_indices,EXP09_CUDA_RETRY=$((retries + 1))" \
         scripts/grid/run_exp09_opportunity_attack_defense.sh
     exit 0
