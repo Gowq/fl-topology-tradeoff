@@ -8,7 +8,8 @@
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:1
 #SBATCH --nodes=1
-#SBATCH --array=0-209
+#SBATCH --array=0-209%4
+#SBATCH --requeue
 
 set -euo pipefail
 
@@ -23,7 +24,7 @@ config_indices="${EXP09_CONFIG_INDICES:-$SLURM_ARRAY_TASK_ID}"
 if ! srun --unbuffered python3 -c \
     "import torch; assert torch.cuda.is_available(); torch.zeros(1, device='cuda'); torch.cuda.synchronize()"; then
     retries="${EXP09_CUDA_RETRY:-0}"
-    if (( retries >= 5 )); then
+    if (( retries >= 12 )); then
         echo "[cuda-guard] retry limit reached for $config_indices" >&2
         exit 1
     fi

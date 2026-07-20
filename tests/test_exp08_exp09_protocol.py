@@ -87,12 +87,14 @@ class Exp09ProtocolTests(unittest.TestCase):
 
     def test_grid_launchers_use_gpu_job_steps_and_exact_arrays(self):
         cases = (
-            ("run_exp08_mhealth_fixed.sh", "#SBATCH --array=0-23"),
-            ("run_exp09_opportunity_attack_defense.sh", "#SBATCH --array=0-209"),
+            ("run_exp08_mhealth_fixed.sh", "#SBATCH --array=0-23%4"),
+            ("run_exp09_opportunity_attack_defense.sh", "#SBATCH --array=0-209%4"),
         )
         for filename, array in cases:
             source = (ROOT / "scripts/grid" / filename).read_text(encoding="utf-8")
             self.assertIn(array, source)
+            self.assertIn("#SBATCH --requeue", source)
+            self.assertIn("retries >= 12", source)
             self.assertIn("srun --unbuffered bash scripts/run.sh", source)
             self.assertIn("--begin=now+5minutes", source)
 
