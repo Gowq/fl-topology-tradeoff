@@ -58,8 +58,33 @@ class SensorEncoder(nn.Module):
         return self.network(values)
 
 
+class LateFusionBranch(nn.Module):
+    """One independently trainable sensor branch for late fusion."""
+
+    def __init__(
+        self,
+        input_channels: int,
+        embedding_dim: int,
+        dropout: float,
+        num_classes: int,
+    ):
+        super().__init__()
+        self.encoder = SensorEncoder(input_channels, embedding_dim, dropout)
+        self.classifier = nn.Linear(embedding_dim, num_classes)
+
+    def forward(self, values: torch.Tensor) -> torch.Tensor:
+        return self.classifier(self.encoder(values))
+
+
+class MeanLogitFusion(nn.Module):
+    """Parameter-free coordinator used by the Exp. 06 late-fusion protocol."""
+
+    def forward(self, logits: list[torch.Tensor]) -> torch.Tensor:
+        return torch.stack(logits, dim=0).mean(dim=0)
+
+
 class MultimodalClassifier(nn.Module):
-    """Intermediate-fusion model; encoders become VFL feature silos."""
+    """MHEALTH intermediate/late fusion model with VFL-private branches."""
 
     def __init__(
         self,
@@ -68,21 +93,38 @@ class MultimodalClassifier(nn.Module):
         hidden_dim: int = 128,
         dropout: float = 0.25,
         num_classes: int = 12,
+        fusion: str = "intermediate",
     ):
         super().__init__()
+        if fusion not in {"intermediate", "late"}:
+            raise ValueError(f"Unsupported fusion mode: {fusion}")
+        self.fusion = fusion
         self.groups = groups_for_topology(topology)
-        self.encoders = nn.ModuleDict(
-            {
-                name: SensorEncoder(len(indices), embedding_dim, dropout)
-                for name, indices in self.groups.items()
-            }
-        )
-        self.coordinator = nn.Sequential(
-            nn.Linear(len(self.groups) * embedding_dim, hidden_dim),
-            nn.ReLU(),
-            nn.Dropout(dropout),
-            nn.Linear(hidden_dim, num_classes),
-        )
+        if fusion == "intermediate":
+            self.encoders = nn.ModuleDict(
+                {
+                    name: SensorEncoder(len(indices), embedding_dim, dropout)
+                    for name, indices in self.groups.items()
+                }
+            )
+            self.coordinator = nn.Sequential(
+                nn.Linear(len(self.groups) * embedding_dim, hidden_dim),
+                nn.ReLU(),
+                nn.Dropout(dropout),
+                nn.Linear(hidden_dim, num_classes),
+            )
+        else:
+            # Each item remains one DP mechanism in VFL: its encoder and local
+            # classifier are clipped/noised together before mean-logit fusion.
+            self.encoders = nn.ModuleDict(
+                {
+                    name: LateFusionBranch(
+                        len(indices), embedding_dim, dropout, num_classes
+                    )
+                    for name, indices in self.groups.items()
+                }
+            )
+            self.coordinator = MeanLogitFusion()
 
     def encode(self, modalities: dict[str, torch.Tensor]) -> list[torch.Tensor]:
         combined = torch.cat([modalities[name] for name in INPUT_ORDER], dim=1)
@@ -92,7 +134,10 @@ class MultimodalClassifier(nn.Module):
         ]
 
     def forward(self, modalities: dict[str, torch.Tensor]) -> torch.Tensor:
-        return self.coordinator(torch.cat(self.encode(modalities), dim=1))
+        encoded = self.encode(modalities)
+        if self.fusion == "late":
+            return self.coordinator(encoded)
+        return self.coordinator(torch.cat(encoded, dim=1))
 
 
 def model_kwargs(lr: float, dropout: float, hidden_dim: int) -> dict[str, float | int]:

@@ -16,4 +16,6 @@ source "$(conda info --base)/etc/profile.d/conda.sh"
 conda activate fl_env_grid
 
 mkdir -p logs
-bash scripts/run.sh exp07-tune --job-index "$SLURM_ARRAY_TASK_ID" --device cuda
+srun --unbuffered bash scripts/run.sh exp07-tune \
+    --job-index "$SLURM_ARRAY_TASK_ID" \
+    --device cuda

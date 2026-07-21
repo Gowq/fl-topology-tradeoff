@@ -1,14 +1,22 @@
+import ast
 import importlib.util
+import os
+import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import MagicMock, patch
 
 import numpy as np
 
 
 CODE = Path(__file__).parents[1] / "experiments/exp07_mhealth_generalization/code"
+GRID_SCRIPTS = Path(__file__).parents[1] / "scripts/grid"
 sys.path.insert(0, str(CODE))
 
+import run_exp07
 from mhealth_data import (
     MODALITY_COLUMNS,
     apply_sensor_trigger,
@@ -17,10 +25,120 @@ from mhealth_data import (
 )
 from analyze_exp07 import completeness, summarize, tail_shape_flags
 from protocol import build_protocol, smoke_protocol
+from run_exp07 import parse_config_indices
 from tune_exp07 import tuning_jobs
 
 
 class ProtocolTests(unittest.TestCase):
+    def test_batch_loads_dataset_once_and_runs_every_config(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            args = SimpleNamespace(
+                config_index=None,
+                config_indices=[0, 1, 2],
+                smoke_only=False,
+                list=False,
+                dry_run=False,
+                output_dir=Path(temporary),
+                data_root=Path("unused"),
+                window_size=128,
+                stride=64,
+                hyperparameters_file=None,
+            )
+            splits = object()
+            fake_torch = MagicMock()
+            fake_torch.cuda.is_available.return_value = False
+            with (
+                patch.object(run_exp07, "parse_args", return_value=args),
+                patch.object(run_exp07, "load_splits", return_value=splits) as load,
+                patch.object(run_exp07, "run_config", return_value={}) as run,
+                patch.object(run_exp07, "atomic_json"),
+                patch.object(run_exp07, "_torch", return_value=(fake_torch, None, None, None)),
+            ):
+                self.assertEqual(run_exp07.main(), 0)
+            load.assert_called_once_with(args.data_root, 128, 64)
+            self.assertEqual(run.call_count, 3)
+            self.assertTrue(all(call.kwargs["splits"] is splits for call in run.call_args_list))
+
+    def test_batch_indices_are_unique_and_preserve_order(self):
+        self.assertEqual(parse_config_indices("9,2,17"), [9, 2, 17])
+        with self.assertRaises(ValueError):
+            parse_config_indices("9,2,9")
+
+    def test_grid_main_job_uses_batched_configs_and_realistic_walltime(self):
+        source = (GRID_SCRIPTS / "run_exp07_mhealth.sh").read_text(encoding="utf-8")
+        self.assertIn("#SBATCH --time=1-00:00:00", source)
+        self.assertIn('EXP07_BATCH_MANIFEST', source)
+        self.assertIn('EXP07_CONFIG_INDICES', source)
+        self.assertIn('--config-indices "$config_indices"', source)
+        self.assertIn('schedule_exp07_cuda_retry.sh "$config_indices" "$retries"', source)
+        self.assertNotIn('scontrol requeue "$SLURM_JOB_ID"', source)
+        self.assertNotIn("sleep 60", source)
+
+    def test_grid_gpu_jobs_run_inside_a_slurm_job_step(self):
+        for script_name in (
+            "run_exp07_mhealth.sh",
+            "run_exp07_mhealth_tuning.sh",
+            "run_exp07_mhealth_tuning_smoke.sh",
+        ):
+            with self.subTest(script=script_name):
+                source = (GRID_SCRIPTS / script_name).read_text(encoding="utf-8")
+                self.assertIn("srun --unbuffered bash scripts/run.sh", source)
+
+    def test_grid_main_job_passes_absolute_tuning_path(self):
+        source = (GRID_SCRIPTS / "run_exp07_mhealth.sh").read_text(encoding="utf-8")
+        self.assertIn('ROOT="${SLURM_SUBMIT_DIR:', source)
+        self.assertIn('HYPERPARAMETERS="$ROOT/experiments/', source)
+        self.assertIn('--hyperparameters-file "$HYPERPARAMETERS"', source)
+
+    def test_cuda_failure_schedules_delayed_single_batch_retry(self):
+        helper = GRID_SCRIPTS / "schedule_exp07_cuda_retry.sh"
+        with tempfile.TemporaryDirectory() as temporary:
+            temporary_path = Path(temporary)
+            capture = temporary_path / "sbatch-args.txt"
+            fake_sbatch = temporary_path / "sbatch"
+            fake_sbatch.write_text(
+                '#!/bin/bash\nprintf "%s\\n" "$@" > "$SBATCH_CAPTURE"\nprintf "999999\\n"\n',
+                encoding="utf-8",
+            )
+            fake_sbatch.chmod(0o755)
+            environment = os.environ.copy()
+            environment["PATH"] = f"{temporary_path}:{environment['PATH']}"
+            environment["SBATCH_CAPTURE"] = str(capture)
+
+            completed = subprocess.run(
+                ["bash", str(helper), "9,2,17", "2"],
+                cwd=Path(__file__).parents[1],
+                env=environment,
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+
+            arguments = capture.read_text(encoding="utf-8").splitlines()
+            self.assertIn("--array=0", arguments)
+            self.assertIn("--begin=now+5minutes", arguments)
+            self.assertIn("--dependency=singleton", arguments)
+            self.assertIn(
+                "--export=ALL,EXP07_CONFIG_INDICES=9,2,17,EXP07_CUDA_RETRY=3",
+                arguments,
+            )
+            self.assertIn("retry_job=999999", completed.stdout)
+
+    def test_private_training_enables_train_mode_before_opacus_wrap(self):
+        source = (CODE / "run_exp07.py").read_text(encoding="utf-8")
+        tree = ast.parse(source)
+        private_train = next(
+            node
+            for node in tree.body
+            if isinstance(node, ast.FunctionDef) and node.name == "private_train"
+        )
+        calls = {
+            ast.unparse(node.func): node.lineno
+            for node in ast.walk(private_train)
+            if isinstance(node, ast.Call)
+        }
+        self.assertLess(calls["model.train"], calls["engine.make_private"])
+
     def test_tuning_is_partitioned_into_unique_single_seed_jobs(self):
         jobs = tuning_jobs()
         self.assertEqual(len(jobs), 72)

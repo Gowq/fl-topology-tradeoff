@@ -65,7 +65,7 @@ docker compose run --rm repro-gpu all    # reproduce exp01-04 + figures end to e
 ```
 
 Targets accepted by both services: `figures` (default), `smoke`, `exp01`/`exp02`/
-`exp03`/`exp04`, diagnostics `exp06-fixed` and `exp07`, `exp07-tune`,
+`exp03`/`exp04`, diagnostics `exp06-fixed`, `exp07`, `exp08`, and `exp09`, `exp07-tune`,
 `defense-semantic`,
 `defense-losses`, `all`. Experiment runs are heavy — Exp.03 is 960 runs and is
 intended for a GPU host; `smoke` and `figures` run in minutes on a laptop.
@@ -130,6 +130,8 @@ experiments/
   exp04_overhead/                 # Paper Exp. 04 — Operational Overhead
   exp02_dp_frontier/              # Exp. 05/06 diagnostics live alongside Exp. 02
   exp07_mhealth_generalization/   # Exp. 07 — independent multimodal generalization audit
+  exp08_mhealth_fixed_rounds/     # Exp. 08 — Exp. 06 fixed-round protocol on MHEALTH
+  exp09_opportunity_attack_defense/ # Exp. 09 — Exp. 07 robustness transfer to OPPORTUNITY
   defense_semantic_filtering/     # Preliminary — semantic defenses (future work)
   defense_robust_losses/          # Preliminary — noise-robust loss defenses (future work)
 figures/generate_figures.py       # regenerates all paper figures from results/
@@ -277,6 +279,31 @@ done
 bash scripts/run.sh exp07-tune --job-index 0 --device cuda
 bash scripts/run.sh exp07-tune --aggregate
 bash scripts/run.sh exp07 --list
+```
+
+### Exp. 08 — MHEALTH Fixed-Round Replication
+
+**What:** transfers the Exp. 06 high-budget diagnostic to MHEALTH: HFL/VFL ×
+intermediate/late fusion × epsilon {100,200} × three seeds, always for 25 rounds.
+It uses three local epochs and reports both the last round and best post-hoc
+checkpoint without early stopping.
+
+```bash
+bash scripts/run.sh exp08 --list
+sbatch scripts/grid/run_exp08_mhealth_fixed.sh
+```
+
+### Exp. 09 — OPPORTUNITY Attack/Defense Transfer
+
+**What:** transfers the Exp. 07 model-replacement, clean-label sensor-backdoor,
+FLTrust, and FoolsGold scenario to the original OPPORTUNITY split. The matrix has
+210 configurations across epsilon {0,3,20}, attack ratios {25%,50%}, and five
+seeds. See the experiment README for the preregistered dataset-specific trigger
+and disjoint FLTrust root split.
+
+```bash
+bash scripts/run.sh exp09 --list
+sbatch scripts/grid/run_exp09_opportunity_attack_defense.sh
 ```
 
 ---
