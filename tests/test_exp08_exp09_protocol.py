@@ -107,12 +107,12 @@ class Exp09ProtocolTests(unittest.TestCase):
         cases = (
             (
                 "run_exp08_mhealth_fixed.sh", "2", "exp08_r_8_9_10_11",
-                "EXP08_CONFIG_INDICES=8,9,10,11",
+                "EXP08_CONFIG_BATCH=8:9:10:11",
             ),
             (
                 "run_exp09_opportunity_attack_defense.sh", "20",
                 "exp09_r_200_201_202_203_204_205_206_207_208_209",
-                "EXP09_CONFIG_INDICES=200,201,202,203,204,205,206,207,208,209",
+                "EXP09_CONFIG_BATCH=200:201:202:203:204:205:206:207:208:209",
             ),
         )
         for filename, task_id, job_name, exported_batch in cases:
@@ -151,7 +151,32 @@ class Exp09ProtocolTests(unittest.TestCase):
                 self.assertIn(f"--job-name={job_name}", arguments)
                 self.assertIn("--dependency=singleton", arguments)
                 export = next(arg for arg in arguments if arg.startswith("--export="))
-                self.assertIn(exported_batch, export)
+                export_parts = export.removeprefix("--export=").split(",")
+                self.assertIn(exported_batch, export_parts)
+                self.assertTrue(
+                    all(part == "ALL" or "=" in part for part in export_parts),
+                    f"Slurm would parse stray environment names from {export!r}",
+                )
+
+                batch_variable, encoded_batch = exported_batch.split("=", 1)
+                retry_environment = environment.copy()
+                retry_environment.update({
+                    batch_variable: encoded_batch,
+                    "SLURM_ARRAY_TASK_ID": "0",
+                })
+                subprocess.run(
+                    ["bash", str(ROOT / "scripts/grid" / filename)],
+                    env=retry_environment, check=True, capture_output=True, text=True,
+                )
+                retry_arguments = capture.read_text(encoding="utf-8").splitlines()
+                self.assertIn(f"--job-name={job_name}", retry_arguments)
+                retry_export = next(
+                    arg for arg in retry_arguments if arg.startswith("--export=")
+                )
+                self.assertIn(
+                    exported_batch,
+                    retry_export.removeprefix("--export=").split(","),
+                )
 
 
 if __name__ == "__main__":

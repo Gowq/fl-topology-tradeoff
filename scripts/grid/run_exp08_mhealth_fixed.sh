@@ -21,7 +21,9 @@ conda activate fl_env_grid
 mkdir -p logs "$RESULTS"
 EXP08_BATCH_SIZE=4
 EXP08_CONFIG_COUNT=24
-if [[ -n "${EXP08_CONFIG_INDICES:-}" ]]; then
+if [[ -n "${EXP08_CONFIG_BATCH:-}" ]]; then
+    config_indices="${EXP08_CONFIG_BATCH//:/,}"
+elif [[ -n "${EXP08_CONFIG_INDICES:-}" ]]; then
     config_indices="$EXP08_CONFIG_INDICES"
 else
     start=$((SLURM_ARRAY_TASK_ID * EXP08_BATCH_SIZE))
@@ -41,10 +43,11 @@ if ! srun --unbuffered python3 -c \
         exit 1
     fi
     retry_key="${config_indices//,/_}"
+    encoded_batch="${config_indices//,/:}"
     echo "[cuda-guard] no usable GPU; scheduling batch $config_indices retry $((retries + 1))" >&2
     sbatch --array=0 --job-name="exp08_r_$retry_key" \
         --begin=now+5minutes --dependency=singleton \
-        --export="ALL,EXP08_CONFIG_INDICES=$config_indices,EXP08_CUDA_RETRY=$((retries + 1))" \
+        --export="ALL,EXP08_CONFIG_BATCH=$encoded_batch,EXP08_CUDA_RETRY=$((retries + 1))" \
         scripts/grid/run_exp08_mhealth_fixed.sh
     exit 0
 fi

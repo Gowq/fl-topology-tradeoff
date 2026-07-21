@@ -21,7 +21,9 @@ conda activate fl_env_grid
 mkdir -p logs "$RESULTS"
 EXP09_BATCH_SIZE=10
 EXP09_CONFIG_COUNT=210
-if [[ -n "${EXP09_CONFIG_INDICES:-}" ]]; then
+if [[ -n "${EXP09_CONFIG_BATCH:-}" ]]; then
+    config_indices="${EXP09_CONFIG_BATCH//:/,}"
+elif [[ -n "${EXP09_CONFIG_INDICES:-}" ]]; then
     config_indices="$EXP09_CONFIG_INDICES"
 else
     start=$((SLURM_ARRAY_TASK_ID * EXP09_BATCH_SIZE))
@@ -41,10 +43,11 @@ if ! srun --unbuffered python3 -c \
         exit 1
     fi
     retry_key="${config_indices//,/_}"
+    encoded_batch="${config_indices//,/:}"
     echo "[cuda-guard] no usable GPU; scheduling batch $config_indices retry $((retries + 1))" >&2
     sbatch --array=0 --job-name="exp09_r_$retry_key" \
         --begin=now+5minutes --dependency=singleton \
-        --export="ALL,EXP09_CONFIG_INDICES=$config_indices,EXP09_CUDA_RETRY=$((retries + 1))" \
+        --export="ALL,EXP09_CONFIG_BATCH=$encoded_batch,EXP09_CUDA_RETRY=$((retries + 1))" \
         scripts/grid/run_exp09_opportunity_attack_defense.sh
     exit 0
 fi
