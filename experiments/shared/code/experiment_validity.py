@@ -142,7 +142,6 @@ def dp_plan_from_loaders(
     mechanisms_per_step = max(1, int(mechanisms_per_step))
     sample_rate = participant_sample_rate(loaders, batch_size)
     steps_per_round = max(len(loader) for loader in loaders) * int(local_epochs)
-    steps_per_round = max(len(loader) for loader in loaders) * int(local_epochs)
     composed_steps_per_round = steps_per_round * mechanisms_per_step
     noise_multiplier = calibrated_noise_multiplier(
         target_epsilon=target_epsilon,
