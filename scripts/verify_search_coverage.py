@@ -60,6 +60,7 @@ THEMATIC_TERMS = [
     "vulnerab",
     "attack",
     "no free lunch",
+    "sybil",
     "defense",
     "privacy",
     "activity recognition",
@@ -75,6 +76,7 @@ THEMATIC_TERMS = [
     "review",
     "overview",
     "concepts",
+    "concept ",
     "advances",
     "challenges",
     "perspective",
@@ -86,6 +88,7 @@ THEMATIC_TERMS = [
 SNOWBALL_KEYS = {
     "thapa2022splitfed",
     "yadav2021multimodalreview",
+    "fung2020foolsgold",
 }
 
 SUPPORTING_REFERENCE_KEYS = {
@@ -94,6 +97,12 @@ SUPPORTING_REFERENCE_KEYS = {
     "mironov2017renyi",
     "rupasinghe2022towards",
     "yousefpour2021opacus",
+    "banos2014mhealthdroid",
+    "ding2022timetrojan",
+    "bonawitz2019production",
+    "hard2018federated",
+    "pentina2023melloddy",
+    "yang2019federated",
 }
 
 
@@ -120,11 +129,37 @@ def parse_bibtex_titles(text: str) -> dict[str, str]:
     return entries
 
 
-def check_coverage(path: Path) -> int:
+def cited_keys(tex_paths: list[Path]) -> set[str]:
+    """Collect every key appearing in a \\cite-like command across .tex files."""
+    keys: set[str] = set()
+    pattern = re.compile(r"\\[a-zA-Z]*cite[a-zA-Z]*\s*(?:\[[^\]]*\])*\s*\{([^}]*)\}")
+    for tex in tex_paths:
+        text = tex.read_text(encoding="utf-8")
+        # a trailing % inside the braces comments out the newline; drop both
+        text = re.sub(r"%\s*\n\s*", "", text)
+        for match in pattern.finditer(text):
+            keys.update(k.strip() for k in match.group(1).split(",") if k.strip())
+    return keys
+
+
+def check_coverage(path: Path, tex_paths: list[Path] | None = None) -> int:
     entries = parse_bibtex_titles(path.read_text(encoding="utf-8"))
     if not entries:
         print(f"No BibTeX title entries found in {path}")
         return 2
+
+    if tex_paths:
+        cited = cited_keys(tex_paths)
+        missing = sorted(cited - entries.keys())
+        dropped = sorted(entries.keys() - cited)
+        entries = {k: v for k, v in entries.items() if k in cited}
+        print(f"Restricted to keys cited in {len(tex_paths)} .tex file(s): "
+              f"{len(entries)} of {len(entries) + len(dropped)} bib entries")
+        if dropped:
+            print(f"  uncited bib entries ignored   : {', '.join(dropped)}")
+        if missing:
+            print(f"  [!] cited but absent from .bib : {', '.join(missing)}")
+        print()
 
     related_entries = {
         key: title for key, title in entries.items()
@@ -169,13 +204,15 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--print-query", action="store_true", help="print the exact Boolean query")
     parser.add_argument("--bibtex", type=Path, help="optional .bib file to audit for coverage")
+    parser.add_argument("--tex", type=Path, nargs="*", default=None,
+                        help="restrict the audit to keys actually cited in these .tex files")
     args = parser.parse_args()
 
     if args.print_query or not args.bibtex:
         print(QUERY)
 
     if args.bibtex:
-        return check_coverage(args.bibtex)
+        return check_coverage(args.bibtex, args.tex)
     return 0
 
 
