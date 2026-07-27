@@ -91,6 +91,15 @@ SNOWBALL_KEYS = {
     "fung2020foolsgold",
 }
 
+MANUAL_INCLUSION_KEYS = {
+    # 2025-2026 arXiv preprints: no indexer in the declared set covers preprint
+    # servers, so these entered through reading and recommendation, not search.
+    "gramfeddhar",
+    "islamov2026byzclip",
+    "karakulev2025bayesian",
+    "xia2025feddproc",
+}
+
 SUPPORTING_REFERENCE_KEYS = {
     "Chavarriaga2013TheRecognition",
     "krizhevsky2009learning",
@@ -174,8 +183,11 @@ def check_coverage(path: Path, tex_paths: list[Path] | None = None) -> int:
     by_snowball: list[tuple[str, str]] = []
     uncovered: list[tuple[str, str]] = []
 
+    by_manual: list[tuple[str, str]] = []
     for key, title in sorted(related_entries.items()):
-        if key in SNOWBALL_KEYS:
+        if key in MANUAL_INCLUSION_KEYS:
+            by_manual.append((key, title))
+        elif key in SNOWBALL_KEYS:
             by_snowball.append((key, title))
         elif has_any(title, FL_TERMS) and has_any(title, THEMATIC_TERMS):
             by_query.append((key, title))
@@ -187,6 +199,7 @@ def check_coverage(path: Path, tex_paths: list[Path] | None = None) -> int:
     print(f"Related-work entries audited     : {len(related_entries)}")
     print(f"Recovered by Boolean query       : {len(by_query)}/{len(related_entries)}")
     print(f"Added by backward snowballing    : {len(by_snowball)}/{len(related_entries)}")
+    print(f"Manual inclusions (preprints)    : {len(by_manual)}/{len(related_entries)}")
     print(f"Not covered                      : {len(uncovered)}/{len(related_entries)}")
 
     if uncovered:
