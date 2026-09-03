@@ -16,6 +16,7 @@ PRIMARY_SEEDS = (42, 123, 456, 789, 2026)
 SECONDARY_SEEDS = PRIMARY_SEEDS[:3]
 SECONDARY_AGGREGATORS = ("krum", "trimmed_mean", "median")
 PARTICIPANT_COUNT = 8
+PROTOCOL_REVISION = "v3"
 
 
 @dataclass(frozen=True)
@@ -36,7 +37,7 @@ class ExperimentConfig:
         epsilon = "nodp" if self.epsilon is None else f"eps{int(self.epsilon)}"
         ratio = str(self.attack_ratio).replace(".", "p")
         return (
-            f"{self.arm}__{self.dataset}__{self.topology}__{self.fusion}__"
+            f"exp07{PROTOCOL_REVISION}__{self.arm}__{self.dataset}__{self.topology}__{self.fusion}__"
             f"{epsilon}__{self.attack}__r{ratio}__{self.aggregator}__s{self.seed}"
         )
 
@@ -103,6 +104,18 @@ def build_protocol() -> list[ExperimentConfig]:
     return configs
 
 
+def execution_blocks(arm: str, block_size: int = 6) -> list[tuple[int, ...]]:
+    """Return contiguous Grid blocks while preserving global config indices."""
+
+    if arm not in {"primary", "secondary"}:
+        raise ValueError(f"unsupported arm: {arm}")
+    if block_size <= 0:
+        raise ValueError("block_size must be positive")
+    indices = [index for index, config in enumerate(build_protocol()) if config.arm == arm]
+    return [tuple(indices[start:start + block_size])
+            for start in range(0, len(indices), block_size)]
+
+
 def smoke_protocol() -> list[ExperimentConfig]:
     """Exercise both datasets, topologies, DP, attacks, fusions and robust aggregation."""
 
@@ -118,4 +131,3 @@ def smoke_protocol() -> list[ExperimentConfig]:
         ExperimentConfig("secondary", "mhealth", "hfl", "intermediate", None,
                          "sign_flip", 0.25, "krum", 42),
     ]
-

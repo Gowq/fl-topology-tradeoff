@@ -11,7 +11,7 @@ The script is self-contained: it reads only from this repository's results
 directories, so the figures are reproducible from the committed artifacts
 without rerunning any experiment.
 """
-import json, glob, os, statistics
+import csv, json, glob, os, statistics
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
@@ -23,8 +23,9 @@ EXP  = os.path.join(ROOT, "experiments")
 FIGS = os.environ.get("OUT_FIGS", HERE)
 os.makedirs(FIGS, exist_ok=True)
 
-FLOOR = 1.0 / 19.0   # OPPORTUNITY random-prediction floor (18 classes + null)
+FLOOR = 1.0 / 18.0   # OPPORTUNITY random-prediction floor (18 classes; null is class 0)
 COL_W, PAGE_W = 3.50, 7.16
+TEXT_FIG_W = 5.45
 
 plt.style.use("seaborn-v0_8-whitegrid")
 plt.rcParams.update({
@@ -70,6 +71,20 @@ def load(*relpaths):
     return out
 
 
+def load_fixed_round_tail():
+    path = os.path.join(
+        EXP,
+        "exp02_dp_frontier",
+        "results",
+        "fixed_round_tail",
+        "exp05_fixed_rounds_grid_pegasus_comparison.csv",
+    )
+    if not os.path.exists(path):
+        return []
+    with open(path, newline="") as f:
+        return list(csv.DictReader(f))
+
+
 def floor_line(ax):
     ax.axhline(FLOOR, color="gray", linewidth=0.9, linestyle=":", zorder=1)
 
@@ -80,10 +95,12 @@ exp01 = load("exp01_baseline/results/baseline_opportunity_cifar10_part1.json",
              "exp01_baseline/results/baseline_eps3_part3.json")
 cifar100 = load("exp01_baseline/results/baseline_cifar100.json")
 frontier = load("exp02_dp_frontier/results/dp_frontier_eps10-200.json")
+fixed_round_tail = load_fixed_round_tail()
 exp03_hfl = load("exp03_attacks_aggregation/results/hfl_*.json")
 exp03_vfl = load("exp03_attacks_aggregation/results/vfl_coordinator.json")
 print(f"loaded: baseline={len(exp01)} cifar100={len(cifar100)} frontier={len(frontier)} "
-      f"attacks_hfl={len(exp03_hfl)} attacks_vfl={len(exp03_vfl)}")
+      f"fixed_round_tail={len(fixed_round_tail)} attacks_hfl={len(exp03_hfl)} "
+      f"attacks_vfl={len(exp03_vfl)}")
 
 e08 = {}
 for e in exp03_hfl + exp03_vfl:
@@ -124,6 +141,38 @@ ax.set_ylabel("F1 Score (Macro)"); ax.set_ylim(0, 1.05)
 ax.legend(loc="upper left", bbox_to_anchor=(0.0, 0.92))
 fig.tight_layout(); save(fig, "opportunity_topology_f1.pdf")
 
+# Fig: opportunity_fixed_round_high_budget
+if fixed_round_tail:
+    fixed = {}
+    for row in fixed_round_tail:
+        key = (row["topology"], row["fusion"], float(row["target_epsilon"]))
+        fixed.setdefault(key, []).append(float(row["best_f1"]))
+    fig, ax = plt.subplots(figsize=(COL_W, COL_W * 0.82))
+    for topo, fusion, color, marker, label in [
+        ("horizontal", "Intermediate", "#2E86AB", "o", "HFL Intermediate"),
+        ("vertical", "Intermediate", "#C73E1D", "s", "VFL Intermediate"),
+        ("horizontal", "Late", "#3BB273", "^", "HFL Late"),
+        ("vertical", "Late", "#F18F01", "D", "VFL Late"),
+    ]:
+        xs, means, stds = [], [], []
+        for eps in [100.0, 200.0]:
+            vals = fixed.get((topo, fusion, eps), [])
+            if not vals:
+                continue
+            xs.append(eps)
+            means.append(statistics.mean(vals))
+            stds.append(statistics.stdev(vals) if len(vals) > 1 else 0.0)
+        ax.errorbar(xs, means, yerr=stds, marker=marker, markersize=5,
+                    capsize=3, linewidth=1.4, color=color, label=label)
+    floor_line(ax)
+    ax.set_xticks([100, 200])
+    ax.set_xlabel("Privacy budget ε")
+    ax.set_ylabel("F1 (Macro)")
+    ax.set_ylim(0, 0.28)
+    ax.legend(loc="upper left", fontsize=7.5, ncol=2)
+    fig.tight_layout()
+    save(fig, "opportunity_fixed_round_high_budget.pdf")
+
 # Fig: cifar_f1_vs_epsilon
 fig, ax = plt.subplots(figsize=(COL_W, COL_W * 0.78))
 for ds, color, marker in [("CIFAR10", "#2E86AB", "o"), ("CIFAR100", "#C73E1D", "s")]:
@@ -159,10 +208,15 @@ ax.legend(loc="upper right", ncol=2, fontsize=8); fig.tight_layout()
 save(fig, "opportunity_fusion_f1.pdf")
 
 # Figs: attack curves (FedAvg HFL, VFL coordinator)
-def attack_panel(agg, fname):
-    fig, axes = plt.subplots(1, 4, figsize=(PAGE_W, PAGE_W * 0.26), sharey=True)
-    for ax, (fusion, eps) in zip(axes, [("Intermediate", 20.0), ("Intermediate", 100.0),
-                                        ("Late", 20.0), ("Late", 100.0)]):
+def attack_panel(agg, fname, layout="wide"):
+    panels = [("Intermediate", 20.0), ("Intermediate", 100.0),
+              ("Late", 20.0), ("Late", 100.0)]
+    if layout == "fusion_rows":
+        fig, axes = plt.subplots(2, 2, figsize=(TEXT_FIG_W, TEXT_FIG_W * 0.72), sharey=True)
+        axes_iter = axes.ravel()
+    else:
+        fig, axes_iter = plt.subplots(1, 4, figsize=(TEXT_FIG_W, TEXT_FIG_W * 0.24), sharey=True)
+    for ax, (fusion, eps) in zip(axes_iter, panels):
         for atk in ATTACKS:
             ys = [e08.get((agg, fusion, atk, r, eps), (np.nan,))[0] for r in RATIOS]
             ax.plot(RATIOS, ys, marker="o", markersize=3.5, linewidth=1.2,
@@ -171,16 +225,19 @@ def attack_panel(agg, fname):
         ax.set_title(f"{fusion}, ε={eps:g}", fontsize=9)
         ax.set_xticks(RATIOS); ax.set_xticklabels(["10%", "25%", "50%", "75%"])
         ax.set_xlabel("Malicious ratio"); ax.set_ylim(0, 0.30)
-    axes[0].set_ylabel("F1 (Macro)"); axes[-1].legend(loc="upper right", fontsize=7.5)
+    axes_iter[0].set_ylabel("F1 (Macro)")
+    if layout == "fusion_rows":
+        axes_iter[2].set_ylabel("F1 (Macro)")
+    axes_iter[-1].legend(loc="upper right", fontsize=7.5)
     fig.tight_layout(); save(fig, fname)
 
-attack_panel("fedavg", "f1_by_attack_hfl.pdf")
-attack_panel("coordinator", "f1_by_attack_vfl.pdf")
+attack_panel("fedavg", "f1_by_attack_hfl.pdf", layout="fusion_rows")
+attack_panel("coordinator", "f1_by_attack_vfl.pdf", layout="fusion_rows")
 
 # Figs: aggregator comparison (8)
 for atk in ATTACKS:
     for fusion in ["Intermediate", "Late"]:
-        fig, axes = plt.subplots(1, 2, figsize=(PAGE_W, PAGE_W * 0.30), sharey=True)
+        fig, axes = plt.subplots(1, 2, figsize=(TEXT_FIG_W, TEXT_FIG_W * 0.46), sharey=True)
         for ax, eps in zip(axes, [20.0, 100.0]):
             for agg in AGGS + ["coordinator"]:
                 ys, es = zip(*[e08.get((agg, fusion, atk, r, eps), (np.nan, np.nan)) for r in RATIOS])
@@ -208,6 +265,7 @@ def heatmap(fusion, fname):
         for x in [3.5, 7.5, 11.5]:
             ax.axvline(x, color="white", linewidth=1.5)
         ax.set_title(f"ε = {eps:g}  (cols per attack: 10/25/50/75%)", fontsize=8)
+    fig.subplots_adjust(hspace=0.45)
     fig.colorbar(im, ax=axes, shrink=0.85, label="Floor-adjusted F1")
     save(fig, fname)
 
@@ -215,7 +273,7 @@ heatmap("Intermediate", "heatmap_intermediate.pdf")
 heatmap("Late", "heatmap_late.pdf")
 
 # Fig: delta_topo + win rate
-fig, ax = plt.subplots(figsize=(COL_W, COL_W * 0.80))
+fig, ax = plt.subplots(figsize=(TEXT_FIG_W, TEXT_FIG_W * 0.55))
 bar_w, summary = 0.35, {}
 for k, eps in enumerate([20.0, 100.0]):
     deltas = []
@@ -235,12 +293,97 @@ for k, eps in enumerate([20.0, 100.0]):
            alpha=(0.55 if eps == 20.0 else 1.0), label=f"ε = {eps:g}")
     for x, c in zip(xs, deltas):
         ax.text(x, max(statistics.mean(c), 0) + 0.004, f"{sum(d>0 for d in c)}/{len(c)}",
-                ha="center", fontsize=7)
+                ha="center", fontsize=8)
 ax.axhline(0, color="black", linewidth=0.8)
-ax.set_xticks(range(len(ATTACKS))); ax.set_xticklabels([ATTACK_LABELS[a] for a in ATTACKS], fontsize=8)
+ax.set_xticks(range(len(ATTACKS))); ax.set_xticklabels([ATTACK_LABELS[a] for a in ATTACKS])
 ax.set_ylabel(r"$\Delta_{topo}$ = F1(VFL) − F1(best HFL)")
+ax.set_ylim(-0.032, 0.085)
 ax.legend(loc="upper right", fontsize=8); fig.tight_layout()
 save(fig, "delta_topo_winrate.pdf")
+
+# ── Exp 05 extension: attack × early-stopping audit ──────────
+AUDIT = load("exp02_dp_frontier/results/attack_earlystop_audit/"
+             "exp05_attack_earlystop_audit_part*.json")
+audit = {}
+for e in AUDIT:
+    c = e["config"]
+    audit[(c["topology"].upper(), c["fusion"], c["attack_type"],
+           round(float(c["attack_ratio"]), 2), float(c["dp_epsilon"]),
+           c["stop_protocol"])] = best_f1_stats(e)
+print(f"loaded: attack_earlystop_audit={len(AUDIT)}")
+
+# Fig: attack × early-stop by topology (Exp 05 extension under DP+attack)
+def audit_panel(attack, fname):
+    panels = [("Intermediate", 100.0), ("Intermediate", 200.0),
+              ("Late", 100.0), ("Late", 200.0)]
+    fig, axes = plt.subplots(2, 2, figsize=(TEXT_FIG_W, TEXT_FIG_W * 0.72), sharey=True)
+    axes_iter = axes.ravel()
+    series = [("HFL", "early", "#2E86AB", "o", "--", "HFL early"),
+              ("HFL", "fixed", "#2E86AB", "o", "-",  "HFL fixed"),
+              ("VFL", "early", "#C73E1D", "s", "--", "VFL early"),
+              ("VFL", "fixed", "#C73E1D", "s", "-",  "VFL fixed")]
+    aratios = [0.25, 0.75]
+    for ax, (fusion, eps) in zip(axes_iter, panels):
+        for topo, stop, color, marker, ls, label in series:
+            ys, es = zip(*[audit.get((topo, fusion, attack, r, eps, stop), (np.nan, np.nan))
+                           for r in aratios])
+            ax.errorbar(aratios, ys, yerr=es, marker=marker, markersize=4, capsize=2.5,
+                        linewidth=1.3, linestyle=ls, color=color, label=label)
+        floor_line(ax)
+        ax.set_title(f"{fusion}, ε={eps:g}", fontsize=9)
+        ax.set_xticks(aratios); ax.set_xticklabels(["25%", "75%"])
+        ax.set_xlabel("Malicious ratio"); ax.set_ylim(0, 0.24)
+    axes_iter[0].set_ylabel("F1 (Macro)")
+    axes_iter[2].set_ylabel("F1 (Macro)")
+    axes_iter[-1].legend(loc="upper right", fontsize=7, ncol=2)
+    fig.tight_layout(); save(fig, fname)
+
+audit_panel("sign_flip", "audit_signflip_earlystop.pdf")
+
+# Fig (per fusion): single axes, 4 distinctly-colored series across ratio x eps
+def audit_by_fusion(fusion, attack, fname):
+    fig, ax = plt.subplots(figsize=(COL_W, COL_W * 0.56))
+    conds = [(0.25, 100.0), (0.75, 100.0), (0.25, 200.0), (0.75, 200.0)]
+    xlabels = ["25%\n$\\varepsilon$=100", "75%\n$\\varepsilon$=100",
+               "25%\n$\\varepsilon$=200", "75%\n$\\varepsilon$=200"]
+    x = list(range(len(conds)))
+    series = [("HFL", "early", "#2E86AB", "o", "HFL early"),
+              ("HFL", "fixed", "#27AE60", "^", "HFL fixed"),
+              ("VFL", "early", "#C73E1D", "s", "VFL early"),
+              ("VFL", "fixed", "#8E44AD", "D", "VFL fixed")]
+    for topo, stop, color, marker, label in series:
+        ys, es = zip(*[audit.get((topo, fusion, attack, r, eps, stop), (np.nan, np.nan))
+                       for r, eps in conds])
+        ax.errorbar(x, ys, yerr=es, marker=marker, markersize=5, capsize=2.5,
+                    linewidth=1.5, color=color, label=label)
+    floor_line(ax)
+    ax.set_title(f"{fusion} Fusion", fontsize=10)
+    ax.set_xticks(x); ax.set_xticklabels(xlabels, fontsize=8)
+    ax.set_xlim(-0.3, len(conds) - 0.7)
+    ax.set_ylabel("F1 (Macro)"); ax.set_ylim(0, 0.24)
+    ax.legend(loc="upper left", fontsize=7, ncol=2)
+    fig.tight_layout(); save(fig, fname)
+
+audit_by_fusion("Intermediate", "sign_flip", "audit_intermediate_signflip.pdf")
+audit_by_fusion("Late", "sign_flip", "audit_late_signflip.pdf")
+
+# headline: audit sign_flip topology win-count (floor-independent)
+vw = hw = 0
+vfl_vals, hfl_vals = [], []
+for fusion in ["Intermediate", "Late"]:
+    for r in [0.25, 0.75]:
+        for eps in [100.0, 200.0]:
+            for s in ["early", "fixed"]:
+                h = audit.get(("HFL", fusion, "sign_flip", r, eps, s), (np.nan,))[0]
+                v = audit.get(("VFL", fusion, "sign_flip", r, eps, s), (np.nan,))[0]
+                if not (np.isnan(h) or np.isnan(v)):
+                    vw += v >= h; hw += v < h
+                    vfl_vals.append(v); hfl_vals.append(h)
+print(f"  AUDIT sign_flip topology: VFL {vw}/{vw + hw} | "
+      f"VFL mean {statistics.mean(vfl_vals):.3f} "
+      f"({statistics.mean(vfl_vals) / FLOOR:.2f}x floor), "
+      f"HFL mean {statistics.mean(hfl_vals):.3f} "
+      f"({statistics.mean(hfl_vals) / FLOOR:.2f}x floor)")
 
 # headline numbers
 tw = tc = 0

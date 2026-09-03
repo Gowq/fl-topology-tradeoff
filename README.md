@@ -3,8 +3,9 @@
 Reproducibility artifact for the paper of the same title. It contains the code,
 the result files, and a figure generator for every experiment reported in the
 paper, on **OPPORTUNITY** (18-class multimodal Human Activity Recognition) and
-**CIFAR-10/100** image baselines. Exp. 07 adds a preregistered generalization
-study on the independent **MHEALTH** multimodal HAR benchmark.
+**CIFAR-10/100** image baselines. Corrected Exp. 07 adds a preregistered,
+cross-dataset robustness comparison on **OPPORTUNITY** and the independent
+**MHEALTH** multimodal HAR benchmark.
 
 The study jointly evaluates Horizontal (HFL) and Vertical (VFL) federated
 learning across four axes — accountant-calibrated Differential Privacy, four
@@ -19,9 +20,12 @@ exploration of defenses for the semantic-attack failure mode.
 The result files are committed, so every figure and headline number in the
 paper can be regenerated **without rerunning any experiment or owning a GPU**:
 
+The paper-to-artifact map, complete protocol matrix, and hyperparameters are
+documented in [`docs/paper_reproducibility.md`](docs/paper_reproducibility.md).
+
 ```bash
-# with Docker (recommended)
-docker compose run --rm repro          # prepares data + writes figures/*.pdf
+# with Docker (recommended for cluster runs)
+docker compose run --rm repro-gpu list
 
 # or natively (Python 3.10+)
 pip install -r requirements.txt
@@ -38,37 +42,34 @@ authoritative.
 
 ## Installation
 
-### Option A — Docker (self-contained)
+### Option A — Docker / cluster image
 
-Two levels of reproduction are supported from the same image family:
+The Docker image is GPU-first and intended for Pegasus/Grid/cluster execution.
+It uses a CUDA/PyTorch base image and expects datasets to be mounted under
+`./data`.
 
-**1. Rebuild the figures from the shipped results (fast, CPU, no GPU/data):**
-```bash
-docker compose run --rm repro            # default target: figures
-```
+**Build the cluster image:**
 
-**2. Reproduce the experiments themselves.** The entrypoint downloads the
-datasets, then runs the requested experiment and writes fresh result files into
-`experiments/<exp>/results/` (the same files the figures are built from):
-```bash
-docker compose run --rm repro smoke      # fast end-to-end stack check (1 seed, CPU)
-docker compose run --rm repro exp01      # reproduce one experiment on CPU
-```
-
-**GPU reproduction (recommended for the full sweep).** Build the CUDA image and
-use the `repro-gpu` service (needs the NVIDIA Container Toolkit); device
-selection is automatic:
 ```bash
 docker compose build repro-gpu
-docker compose run --rm repro-gpu exp03  # the 320-config attack/aggregation sweep
-docker compose run --rm repro-gpu all    # reproduce exp01-04 + figures end to end
 ```
 
-Targets accepted by both services: `figures` (default), `smoke`, `exp01`/`exp02`/
-`exp03`/`exp04`, diagnostics `exp06-fixed` and `exp07`, `exp07-tune`,
-`defense-semantic`,
-`defense-losses`, `all`. Experiment runs are heavy — Exp.03 is 960 runs and is
-intended for a GPU host; `smoke` and `figures` run in minutes on a laptop.
+**Run a smoke or a block of Exp. 07:**
+
+```bash
+docker compose run --rm repro-gpu exp07 --smoke-only --config-index 0 --device cuda
+docker compose run --rm repro-gpu exp07 --config-start 0 --config-count 6 --device cuda
+```
+
+**Export for another cluster:**
+
+```bash
+bash scripts/docker_build_cluster_image.sh
+SAVE_TAR=1 bash scripts/docker_build_cluster_image.sh
+```
+
+More details are in `docs/docker_cluster.md`. Set `PREPARE_DATA=1` only if the
+cluster node is allowed to download public datasets itself.
 
 ### Option B — native
 
@@ -129,7 +130,8 @@ experiments/
   exp03_attacks_aggregation/      # Paper Exp. 03 — Byzantine Attacks × Aggregation under Calibrated DP
   exp04_overhead/                 # Paper Exp. 04 — Operational Overhead
   exp02_dp_frontier/              # Exp. 05/06 diagnostics live alongside Exp. 02
-  exp07_mhealth_generalization/   # Exp. 07 — independent multimodal generalization audit
+  exp07_corrected_attacks/        # Exp. 07 — corrected cross-dataset attack comparison
+  exp08_timetrojan_topology/      # Exp. 08 — TimeTrojan upstream backdoor topology comparison
   defense_semantic_filtering/     # Preliminary — semantic defenses (future work)
   defense_robust_losses/          # Preliminary — noise-robust loss defenses (future work)
 figures/generate_figures.py       # regenerates all paper figures from results/
@@ -256,27 +258,46 @@ breadth-first sweeps explore whether that gap can be closed:
   bash scripts/run.sh defense-losses --smoke-seeds 1
   ```
 
-### Exp. 07 — MHEALTH Generalization and Reviewer Audit
+### Exp. 07 — Corrected Cross-Dataset Attack Comparison
 
-**What:** an independent 12-class multimodal HAR replication with natural HFL
-clients (subjects) and natural VFL parties (three body-worn devices). Five
-focused arms cover intermediate epsilon values, real-client scale N={2,4,8},
-five seeds, fixed-round tail replication, model replacement and clean-label
-sensor backdoor attacks, plus FLTrust and FoolsGold baselines.
+**What:** a controlled eight-participant comparison of HFL and VFL on MHEALTH
+and OPPORTUNITY under Label Flip, Sign Flip, Scaling and Free-Rider. It uses
+matched intermediate/late fusion, fixed 25-round training, global topology-aware
+DP budgets, five paired primary seeds, and three-seed Krum/Trimmed Mean/Median
+secondary arms.
 
-**Status:** code and preregistered 510-job matrix are included; no full-run
-result is claimed yet. Tune on held-out subject 9 before executing the matrix;
-subject 10 remains untouched for final evaluation. See
-`experiments/exp07_mhealth_generalization/README.md` and
-`docs/research/mhealth_dataset_selection.md`.
+**Status:** code and preregistered 2,052-job matrix are included; new results
+must not be mixed with the superseded modern-attack Exp. 07 run. See
+`experiments/exp07_corrected_attacks/README.md`.
 
 ```bash
 for i in 0 1 2 3 4; do
   bash scripts/run.sh exp07 --smoke-only --config-index "$i" --device cpu
 done
-bash scripts/run.sh exp07-tune --job-index 0 --device cuda
-bash scripts/run.sh exp07-tune --aggregate
 bash scripts/run.sh exp07 --list
+bash scripts/run.sh exp07-analyze
+```
+
+### Exp. 08 — TimeTrojan Topology Comparison
+
+**What:** a controlled HFL/VFL comparison under the same upstream
+TimeTrojan-FGSM dirty-label time-series backdoor. Attack artifacts are generated
+once per dataset/seed with a centralized Exp. 06-style surrogate, frozen, and
+then reused by HFL and VFL. The primary endpoint is `ASR_uplift`; FLTrust and
+FoolsGold are included as secondary HFL-only robust aggregation arms.
+
+**Status:** code and the complete 384-job matrix are included. OPPORTUNITY
+passes the preregistered transfer/utility gate; MHEALTH fails the clean-utility
+criterion and is therefore exploratory rather than confirmatory. Prepare the 10
+attack artifacts before launching poisoned federated jobs. See
+`experiments/exp08_timetrojan_topology/README.md`.
+
+```bash
+bash scripts/run.sh exp08 --list
+bash scripts/run.sh exp08 --list-artifacts
+bash scripts/run.sh exp08 --prepare-all-artifacts --device cuda
+bash scripts/run.sh exp08 --config-index 0 --device cuda
+bash scripts/run.sh exp08-analyze --allow-partial
 ```
 
 ---

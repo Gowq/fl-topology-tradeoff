@@ -1,33 +1,36 @@
-FROM python:3.10-slim
+ARG BASE_IMAGE=pytorch/pytorch:2.11.0-cuda13.0-cudnn9-runtime
+FROM ${BASE_IMAGE}
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     MPLBACKEND=Agg \
-    PYTHONPATH=/workspace/experiments/shared/code
+    PYTHONPATH=/workspace/experiments/shared/code \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_BREAK_SYSTEM_PACKAGES=1
 
 WORKDIR /workspace
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        bash git curl build-essential libgomp1 \
+        bash ca-certificates curl git build-essential libgomp1 unzip \
     && rm -rf /var/lib/apt/lists/*
 
-# PyTorch build channel. Default CPU (universal, smaller, runs the figures path
-# and CPU experiments anywhere). For GPU reproduction build with:
-#   docker build --build-arg TORCH_CHANNEL=cu121 -t fl-topology-tradeoff:gpu .
-# and run the container with `--gpus all` (device auto-detects CUDA).
-ARG TORCH_CHANNEL=cpu
-
-COPY requirements.txt .
+COPY requirements-runtime.txt .
 RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir torch torchvision \
-         --index-url https://download.pytorch.org/whl/${TORCH_CHANNEL} \
-    && pip install --no-cache-dir -r requirements.txt
+    && pip install --no-cache-dir -r requirements-runtime.txt \
+    && python - <<'PY'
+import importlib
+import torch
+
+required = ["torchvision", "opacus", "numpy", "pandas", "sklearn", "scipy", "matplotlib", "tqdm"]
+missing = [name for name in required if importlib.util.find_spec(name) is None]
+if missing:
+    raise SystemExit(f"missing required Python packages: {missing}")
+print("torch", torch.__version__, "cuda", torch.version.cuda)
+PY
 
 COPY . .
-RUN chmod +x scripts/*.sh
+RUN chmod +x scripts/*.sh scripts/grid/*.sh scripts/pegasus/*.sh 2>/dev/null || true
 
-# Entrypoint prepares data (when reproducing) then dispatches to run.sh.
-# Default target rebuilds the figures from the shipped results.
 ENTRYPOINT ["bash", "scripts/entrypoint.sh"]
-CMD ["figures"]
+CMD ["list"]

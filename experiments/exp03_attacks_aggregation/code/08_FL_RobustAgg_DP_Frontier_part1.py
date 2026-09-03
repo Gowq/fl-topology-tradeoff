@@ -2,7 +2,7 @@
 # 08_FL_RobustAgg_DP_Frontier_part1.py
 # Experiment 08 — Part 1: HFL FedAvg + Krum under DP in the Frontier regime
 #
-# Re-roda o exp03a usando os epsilons "razoáveis" descobertos no exp06/07
+# Re-roda o exp03a usando os epsilons "razoáveis" descobertos no Exp02 frontier.
 # (acima do random floor, com sinal estatisticamente limpo). A calibração
 # DP usa o pipeline corrigido (`dp_plan_from_loaders` via Opacus
 # RDPAccountant), portanto livre do bug `σ = 1/ε` removido em 2026-05-22.
@@ -10,7 +10,7 @@
 # Aggregations : FedAvg (baseline control), Krum (Blanchard et al., 2017)
 # Attack Types : Label Flip, Sign Flip, Scaling x10, Free-Rider
 # Attack Ratios: 10%, 25%, 50%, 75% of clients
-# DP Epsilons  : 20.0, 100.0  (do exp06 frontier — VFL Interm tem sinal limpo)
+# DP Epsilons  : 20.0, 100.0  (do Exp02 frontier — VFL Interm tem sinal limpo)
 # Fusion Modes : Intermediate, Late
 # Seeds        : 42, 123, 456
 

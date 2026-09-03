@@ -1,0 +1,6582 @@
+[
+  {
+    "config": {
+      "topology": "VFL",
+      "fusion": "Late",
+      "attack_type": "label_flip",
+      "attack_ratio": 0.25,
+      "dp_epsilon": 100.0,
+      "stop_protocol": "early",
+      "aggregation": "coordinator",
+      "early_stopping": true,
+      "fixed_rounds": false,
+      "rounds": 25,
+      "epochs": 3,
+      "exp05_extension": "attack_earlystop_audit"
+    },
+    "runs": [
+      [
+        {
+          "round": 1,
+          "loss": 2.147110201431124,
+          "acc": 0.8582054858205486,
+          "f1": 0.06315961486680965,
+          "epsilon": 19.348186827375933,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.0820741919400696,
+          "acc": 0.8563458856345886,
+          "f1": 0.06796764254870928,
+          "epsilon": 25.2539803767639,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.075911046832712,
+          "acc": 0.8593677359367736,
+          "f1": 0.07030907092410531,
+          "epsilon": 30.290720882146857,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.082529210272533,
+          "acc": 0.8509995350999535,
+          "f1": 0.07013525936093493,
+          "epsilon": 34.579614351797225,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.082529210272533,
+          "acc": 0.8593677359367736,
+          "f1": 0.07030907092410531,
+          "epsilon": 34.579614351797225,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ],
+          "label_corruption_ratio": 0.25,
+          "note": "best_checkpoint"
+        }
+      ],
+      [
+        {
+          "round": 1,
+          "loss": 2.127399252005531,
+          "acc": 0.8547187354718735,
+          "f1": 0.05393046181630417,
+          "epsilon": 19.348186827375933,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.066501337944064,
+          "acc": 0.7894002789400278,
+          "f1": 0.058630193052297046,
+          "epsilon": 25.2539803767639,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.0659450262974666,
+          "acc": 0.8577405857740585,
+          "f1": 0.05854956644826254,
+          "epsilon": 30.290720882146857,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.0731934564414556,
+          "acc": 0.7447698744769874,
+          "f1": 0.05362125780925885,
+          "epsilon": 34.579614351797225,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.0731934564414556,
+          "acc": 0.7894002789400278,
+          "f1": 0.058630193052297046,
+          "epsilon": 34.579614351797225,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ],
+          "label_corruption_ratio": 0.25,
+          "note": "best_checkpoint"
+        }
+      ],
+      [
+        {
+          "round": 1,
+          "loss": 2.135024437501256,
+          "acc": 0.8602975360297536,
+          "f1": 0.07183669728134338,
+          "epsilon": 19.348186827375933,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.077515519714711,
+          "acc": 0.8217108321710832,
+          "f1": 0.05752658496622335,
+          "epsilon": 25.2539803767639,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.081081850061208,
+          "acc": 0.8593677359367736,
+          "f1": 0.07054327079696823,
+          "epsilon": 30.290720882146857,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.095461644679933,
+          "acc": 0.8556485355648535,
+          "f1": 0.06900069881201958,
+          "epsilon": 34.579614351797225,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.095461644679933,
+          "acc": 0.8602975360297536,
+          "f1": 0.07183669728134338,
+          "epsilon": 34.579614351797225,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ],
+          "label_corruption_ratio": 0.25,
+          "note": "best_checkpoint"
+        }
+      ]
+    ]
+  },
+  {
+    "config": {
+      "topology": "VFL",
+      "fusion": "Late",
+      "attack_type": "label_flip",
+      "attack_ratio": 0.25,
+      "dp_epsilon": 100.0,
+      "stop_protocol": "fixed",
+      "aggregation": "coordinator",
+      "early_stopping": false,
+      "fixed_rounds": true,
+      "rounds": 25,
+      "epochs": 3,
+      "exp05_extension": "attack_earlystop_audit"
+    },
+    "runs": [
+      [
+        {
+          "round": 1,
+          "loss": 2.1455508975893087,
+          "acc": 0.8584379358437936,
+          "f1": 0.07694566529200307,
+          "epsilon": 19.348186827375933,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.0680373495473865,
+          "acc": 0.8577405857740585,
+          "f1": 0.0728359581994065,
+          "epsilon": 25.2539803767639,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.056328393494633,
+          "acc": 0.8572756857275686,
+          "f1": 0.06912266629196002,
+          "epsilon": 30.290720882146857,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.0764371898303473,
+          "acc": 0.8428637842863784,
+          "f1": 0.06420591443344975,
+          "epsilon": 34.579614351797225,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.073736116116581,
+          "acc": 0.8479776847977685,
+          "f1": 0.06562790595773955,
+          "epsilon": 38.868507821447594,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 6,
+          "loss": 2.065186417689514,
+          "acc": 0.8535564853556485,
+          "f1": 0.06318738912064764,
+          "epsilon": 42.56574328610324,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 7,
+          "loss": 2.064608266608646,
+          "acc": 0.8514644351464435,
+          "f1": 0.0700451387586752,
+          "epsilon": 46.140649096277784,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 8,
+          "loss": 2.0769516898689573,
+          "acc": 0.8533240353324035,
+          "f1": 0.06736629918762883,
+          "epsilon": 49.71555490645232,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 9,
+          "loss": 2.0769568351906402,
+          "acc": 0.8521617852161785,
+          "f1": 0.06784375577353961,
+          "epsilon": 53.29046071662685,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 10,
+          "loss": 2.0742473647269084,
+          "acc": 0.8479776847977685,
+          "f1": 0.06571859756841325,
+          "epsilon": 56.820409074865076,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 11,
+          "loss": 2.0705598950515602,
+          "acc": 0.8277545327754533,
+          "f1": 0.05822877303689573,
+          "epsilon": 59.83361297211387,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 12,
+          "loss": 2.0756642398877165,
+          "acc": 0.8535564853556485,
+          "f1": 0.06572737901865236,
+          "epsilon": 62.84681686936266,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 13,
+          "loss": 2.0725202771414697,
+          "acc": 0.8447233844723384,
+          "f1": 0.06436873181343052,
+          "epsilon": 65.86002076661144,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 14,
+          "loss": 2.0754167526113636,
+          "acc": 0.8382147838214784,
+          "f1": 0.05942556650244149,
+          "epsilon": 68.87322466386024,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 15,
+          "loss": 2.08225736287121,
+          "acc": 0.8542538354253836,
+          "f1": 0.07061230164894824,
+          "epsilon": 71.88642856110903,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 16,
+          "loss": 2.081556033947475,
+          "acc": 0.8542538354253836,
+          "f1": 0.07021274582711255,
+          "epsilon": 74.89963245835781,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 17,
+          "loss": 2.0847861675386232,
+          "acc": 0.8475127847512784,
+          "f1": 0.06831398378633735,
+          "epsilon": 77.9128363556066,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 18,
+          "loss": 2.087484239476972,
+          "acc": 0.8535564853556485,
+          "f1": 0.06801762077182033,
+          "epsilon": 80.92604025285539,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 19,
+          "loss": 2.085379050285471,
+          "acc": 0.8537889353788936,
+          "f1": 0.07285977303095424,
+          "epsilon": 83.93924415010419,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 20,
+          "loss": 2.091118710230937,
+          "acc": 0.8523942352394235,
+          "f1": 0.06801095827358508,
+          "epsilon": 86.95244804735297,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 21,
+          "loss": 2.091410547379214,
+          "acc": 0.8447233844723384,
+          "f1": 0.061498653973185685,
+          "epsilon": 89.7708891374379,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 22,
+          "loss": 2.0991194097915433,
+          "acc": 0.8489074848907485,
+          "f1": 0.0648997461400124,
+          "epsilon": 92.3297155916231,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 23,
+          "loss": 2.1026223183344506,
+          "acc": 0.8263598326359832,
+          "f1": 0.060225282580290314,
+          "epsilon": 94.88854204580828,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 24,
+          "loss": 2.1017564145735084,
+          "acc": 0.8509995350999535,
+          "f1": 0.05109631676645871,
+          "epsilon": 97.44736849999347,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 25,
+          "loss": 2.1016660924099226,
+          "acc": 0.7742910274291027,
+          "f1": 0.05690995787358114,
+          "epsilon": 100.00619495417865,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 26,
+          "loss": 2.1016660924099226,
+          "acc": 0.8584379358437936,
+          "f1": 0.07694566529200307,
+          "epsilon": 100.00619495417865,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ],
+          "label_corruption_ratio": 0.25,
+          "note": "best_checkpoint"
+        }
+      ],
+      [
+        {
+          "round": 1,
+          "loss": 2.130014216949843,
+          "acc": 0.8558809855880986,
+          "f1": 0.05124137163215319,
+          "epsilon": 19.348186827375933,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.073564178342868,
+          "acc": 0.8493723849372385,
+          "f1": 0.0669921529236998,
+          "epsilon": 25.2539803767639,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.064184038151571,
+          "acc": 0.8363551836355184,
+          "f1": 0.0649135438240609,
+          "epsilon": 30.290720882146857,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.0546381032128194,
+          "acc": 0.7821943282194328,
+          "f1": 0.05673139700702713,
+          "epsilon": 34.579614351797225,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.062331973738301,
+          "acc": 0.8565783356578336,
+          "f1": 0.06953812892165319,
+          "epsilon": 38.868507821447594,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 6,
+          "loss": 2.05721831630798,
+          "acc": 0.8526266852626685,
+          "f1": 0.07959615574944479,
+          "epsilon": 42.56574328610324,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 7,
+          "loss": 2.0512948559967,
+          "acc": 0.805671780567178,
+          "f1": 0.06566343256197538,
+          "epsilon": 46.140649096277784,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 8,
+          "loss": 2.0499930589803532,
+          "acc": 0.8528591352859135,
+          "f1": 0.06991463050290907,
+          "epsilon": 49.71555490645232,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 9,
+          "loss": 2.0600930665187485,
+          "acc": 0.8396094839609484,
+          "f1": 0.06576624017382311,
+          "epsilon": 53.29046071662685,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 10,
+          "loss": 2.0694915260185534,
+          "acc": 0.8596001859600186,
+          "f1": 0.06678269748445187,
+          "epsilon": 56.820409074865076,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 11,
+          "loss": 2.0919014879717364,
+          "acc": 0.8465829846582985,
+          "f1": 0.06546148893600877,
+          "epsilon": 59.83361297211387,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 12,
+          "loss": 2.0944973647344596,
+          "acc": 0.8593677359367736,
+          "f1": 0.07514416876466355,
+          "epsilon": 62.84681686936266,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 13,
+          "loss": 2.090961143922739,
+          "acc": 0.8544862854486286,
+          "f1": 0.051209183104870167,
+          "epsilon": 65.86002076661144,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 14,
+          "loss": 2.101565716855553,
+          "acc": 0.8540213854021386,
+          "f1": 0.062308272567261756,
+          "epsilon": 68.87322466386024,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 15,
+          "loss": 2.0901216154901014,
+          "acc": 0.8533240353324035,
+          "f1": 0.06027170376684242,
+          "epsilon": 71.88642856110903,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 16,
+          "loss": 2.098888858044634,
+          "acc": 0.8561134356113436,
+          "f1": 0.060257824306996416,
+          "epsilon": 74.89963245835781,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 17,
+          "loss": 2.1062121818273303,
+          "acc": 0.8549511854951185,
+          "f1": 0.06192500051281068,
+          "epsilon": 77.9128363556066,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 18,
+          "loss": 2.108007565379013,
+          "acc": 0.8542538354253836,
+          "f1": 0.06203302766788191,
+          "epsilon": 80.92604025285539,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 19,
+          "loss": 2.09795688731462,
+          "acc": 0.8526266852626685,
+          "f1": 0.052678305815856016,
+          "epsilon": 83.93924415010419,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 20,
+          "loss": 2.0945087254667407,
+          "acc": 0.8519293351929336,
+          "f1": 0.06718265463848502,
+          "epsilon": 86.95244804735297,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 21,
+          "loss": 2.0986299893071685,
+          "acc": 0.8489074848907485,
+          "f1": 0.06375368052999632,
+          "epsilon": 89.7708891374379,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 22,
+          "loss": 2.102349391099811,
+          "acc": 0.8507670850767085,
+          "f1": 0.06427180550183317,
+          "epsilon": 92.3297155916231,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 23,
+          "loss": 2.0954820597103305,
+          "acc": 0.8405392840539284,
+          "f1": 0.06241938641366443,
+          "epsilon": 94.88854204580828,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 24,
+          "loss": 2.0911021083431423,
+          "acc": 0.8509995350999535,
+          "f1": 0.06547973862598958,
+          "epsilon": 97.44736849999347,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 25,
+          "loss": 2.093235331280523,
+          "acc": 0.8528591352859135,
+          "f1": 0.06731333498819321,
+          "epsilon": 100.00619495417865,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 26,
+          "loss": 2.093235331280523,
+          "acc": 0.8526266852626685,
+          "f1": 0.07959615574944479,
+          "epsilon": 100.00619495417865,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ],
+          "label_corruption_ratio": 0.25,
+          "note": "best_checkpoint"
+        }
+      ],
+      [
+        {
+          "round": 1,
+          "loss": 2.1350138822136375,
+          "acc": 0.8565783356578336,
+          "f1": 0.06855170800060154,
+          "epsilon": 19.348186827375933,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.0641288083452114,
+          "acc": 0.8563458856345886,
+          "f1": 0.06792477398347964,
+          "epsilon": 25.2539803767639,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.067151928221915,
+          "acc": 0.8544862854486286,
+          "f1": 0.06778399091166692,
+          "epsilon": 30.290720882146857,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.0674280059243224,
+          "acc": 0.8561134356113436,
+          "f1": 0.07084365368358382,
+          "epsilon": 34.579614351797225,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.0657636937823396,
+          "acc": 0.8565783356578336,
+          "f1": 0.06237278683953715,
+          "epsilon": 38.868507821447594,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 6,
+          "loss": 2.06939368654419,
+          "acc": 0.8542538354253836,
+          "f1": 0.06650153444343163,
+          "epsilon": 42.56574328610324,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 7,
+          "loss": 2.076120747707031,
+          "acc": 0.8561134356113436,
+          "f1": 0.06832773164305148,
+          "epsilon": 46.140649096277784,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 8,
+          "loss": 2.0724191255514675,
+          "acc": 0.8549511854951185,
+          "f1": 0.05121136173767753,
+          "epsilon": 49.71555490645232,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 9,
+          "loss": 2.085230295877615,
+          "acc": 0.8565783356578336,
+          "f1": 0.05457845849461615,
+          "epsilon": 53.29046071662685,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 10,
+          "loss": 2.094187500239566,
+          "acc": 0.8561134356113436,
+          "f1": 0.06891692185809833,
+          "epsilon": 56.820409074865076,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 11,
+          "loss": 2.1016122083119066,
+          "acc": 0.8584379358437936,
+          "f1": 0.06909521817928342,
+          "epsilon": 59.83361297211387,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 12,
+          "loss": 2.1014091272454807,
+          "acc": 0.8556485355648535,
+          "f1": 0.05586667409636316,
+          "epsilon": 62.84681686936266,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 13,
+          "loss": 2.0896085495349874,
+          "acc": 0.8568107856810786,
+          "f1": 0.06295865940147241,
+          "epsilon": 65.86002076661144,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 14,
+          "loss": 2.0953721213351866,
+          "acc": 0.8556485355648535,
+          "f1": 0.05123387197795315,
+          "epsilon": 68.87322466386024,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 15,
+          "loss": 2.1012786517249116,
+          "acc": 0.8551836355183635,
+          "f1": 0.05274626989823231,
+          "epsilon": 71.88642856110903,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 16,
+          "loss": 2.095455605797545,
+          "acc": 0.8579730357973036,
+          "f1": 0.06883901420025756,
+          "epsilon": 74.89963245835781,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 17,
+          "loss": 2.093015948339124,
+          "acc": 0.8558809855880986,
+          "f1": 0.05125421086333139,
+          "epsilon": 77.9128363556066,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 18,
+          "loss": 2.092312381238305,
+          "acc": 0.8530915853091585,
+          "f1": 0.05608869794916306,
+          "epsilon": 80.92604025285539,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 19,
+          "loss": 2.0957944122572676,
+          "acc": 0.8554160855416085,
+          "f1": 0.05423362437277443,
+          "epsilon": 83.93924415010419,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 20,
+          "loss": 2.088610939164466,
+          "acc": 0.8547187354718735,
+          "f1": 0.051210272694353916,
+          "epsilon": 86.95244804735297,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 21,
+          "loss": 2.096089391100575,
+          "acc": 0.8551836355183635,
+          "f1": 0.05987034535158516,
+          "epsilon": 89.7708891374379,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 22,
+          "loss": 2.0993207772683884,
+          "acc": 0.8570432357043236,
+          "f1": 0.053013881933141355,
+          "epsilon": 92.3297155916231,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 23,
+          "loss": 2.0990743613579945,
+          "acc": 0.8568107856810786,
+          "f1": 0.06732913486588994,
+          "epsilon": 94.88854204580828,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 24,
+          "loss": 2.1023598043579175,
+          "acc": 0.8563458856345886,
+          "f1": 0.05126278438739303,
+          "epsilon": 97.44736849999347,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 25,
+          "loss": 2.1052639292293667,
+          "acc": 0.8565783356578336,
+          "f1": 0.05126385932696187,
+          "epsilon": 100.00619495417865,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 26,
+          "loss": 2.1052639292293667,
+          "acc": 0.8561134356113436,
+          "f1": 0.07084365368358382,
+          "epsilon": 100.00619495417865,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ],
+          "label_corruption_ratio": 0.25,
+          "note": "best_checkpoint"
+        }
+      ]
+    ]
+  },
+  {
+    "config": {
+      "topology": "VFL",
+      "fusion": "Late",
+      "attack_type": "label_flip",
+      "attack_ratio": 0.25,
+      "dp_epsilon": 200.0,
+      "stop_protocol": "early",
+      "aggregation": "coordinator",
+      "early_stopping": true,
+      "fixed_rounds": false,
+      "rounds": 25,
+      "epochs": 3,
+      "exp05_extension": "attack_earlystop_audit"
+    },
+    "runs": [
+      [
+        {
+          "round": 1,
+          "loss": 2.112661776233952,
+          "acc": 0.8607624360762436,
+          "f1": 0.0718516759074151,
+          "epsilon": 32.82740251684421,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.060566735423105,
+          "acc": 0.8203161320316132,
+          "f1": 0.05923030683596539,
+          "epsilon": 44.5384966086324,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.060537090454759,
+          "acc": 0.8596001859600186,
+          "f1": 0.06543615937110454,
+          "epsilon": 53.92810442222759,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.059568631854455,
+          "acc": 0.8491399349139935,
+          "f1": 0.06186237546572716,
+          "epsilon": 63.008015862177736,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.059568631854455,
+          "acc": 0.8607624360762436,
+          "f1": 0.0718516759074151,
+          "epsilon": 63.008015862177736,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ],
+          "label_corruption_ratio": 0.25,
+          "note": "best_checkpoint"
+        }
+      ],
+      [
+        {
+          "round": 1,
+          "loss": 2.1033607278064883,
+          "acc": 0.8579730357973036,
+          "f1": 0.054642681076627043,
+          "epsilon": 32.82740251684421,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.0517386128084016,
+          "acc": 0.8591352859135286,
+          "f1": 0.06336904644963298,
+          "epsilon": 44.5384966086324,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.0558483142361212,
+          "acc": 0.8400743840074384,
+          "f1": 0.06341469890716521,
+          "epsilon": 53.92810442222759,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.0661052110087446,
+          "acc": 0.8342631334263133,
+          "f1": 0.06545144357456438,
+          "epsilon": 63.008015862177736,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.0661052110087446,
+          "acc": 0.8342631334263133,
+          "f1": 0.06545144357456438,
+          "epsilon": 63.008015862177736,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ],
+          "label_corruption_ratio": 0.25,
+          "note": "best_checkpoint"
+        }
+      ],
+      [
+        {
+          "round": 1,
+          "loss": 2.1021654500370532,
+          "acc": 0.8593677359367736,
+          "f1": 0.06542867165543204,
+          "epsilon": 32.82740251684421,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.0459355870642066,
+          "acc": 0.8496048349604834,
+          "f1": 0.0655487485854771,
+          "epsilon": 44.5384966086324,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.0673530790269457,
+          "acc": 0.8442584844258484,
+          "f1": 0.0685268558601892,
+          "epsilon": 53.92810442222759,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.0603943340083566,
+          "acc": 0.8303114830311483,
+          "f1": 0.06604624772109983,
+          "epsilon": 63.008015862177736,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.06341575980279,
+          "acc": 0.8275220827522083,
+          "f1": 0.06072916689442656,
+          "epsilon": 72.04705260295185,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 6,
+          "loss": 2.06341575980279,
+          "acc": 0.8442584844258484,
+          "f1": 0.0685268558601892,
+          "epsilon": 72.04705260295185,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ],
+          "label_corruption_ratio": 0.25,
+          "note": "best_checkpoint"
+        }
+      ]
+    ]
+  },
+  {
+    "config": {
+      "topology": "VFL",
+      "fusion": "Late",
+      "attack_type": "label_flip",
+      "attack_ratio": 0.25,
+      "dp_epsilon": 200.0,
+      "stop_protocol": "fixed",
+      "aggregation": "coordinator",
+      "early_stopping": false,
+      "fixed_rounds": true,
+      "rounds": 25,
+      "epochs": 3,
+      "exp05_extension": "attack_earlystop_audit"
+    },
+    "runs": [
+      [
+        {
+          "round": 1,
+          "loss": 2.122916146624701,
+          "acc": 0.8598326359832636,
+          "f1": 0.07192895232873488,
+          "epsilon": 32.82740251684421,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.057450883693159,
+          "acc": 0.8565783356578336,
+          "f1": 0.06921683408543713,
+          "epsilon": 44.5384966086324,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.0466873314121163,
+          "acc": 0.8514644351464435,
+          "f1": 0.06976474852581047,
+          "epsilon": 53.92810442222759,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.056464657069474,
+          "acc": 0.8491399349139935,
+          "f1": 0.06366442199775532,
+          "epsilon": 63.008015862177736,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.0610820777000542,
+          "acc": 0.7949790794979079,
+          "f1": 0.05707591098044943,
+          "epsilon": 72.04705260295185,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 6,
+          "loss": 2.0614210054974733,
+          "acc": 0.8589028358902836,
+          "f1": 0.06486200342770052,
+          "epsilon": 79.24935640363242,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 7,
+          "loss": 2.060269321367767,
+          "acc": 0.8516968851696886,
+          "f1": 0.07030556209972835,
+          "epsilon": 86.45166020431299,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 8,
+          "loss": 2.0666406285853474,
+          "acc": 0.8247326824732683,
+          "f1": 0.06182028190189077,
+          "epsilon": 93.65396400499354,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 9,
+          "loss": 2.0695337155575597,
+          "acc": 0.8570432357043236,
+          "f1": 0.06593905512144506,
+          "epsilon": 100.8562678056741,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 10,
+          "loss": 2.067805159001261,
+          "acc": 0.8449558344955834,
+          "f1": 0.0721612657523568,
+          "epsilon": 108.05857160635466,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 11,
+          "loss": 2.0728915998828725,
+          "acc": 0.8540213854021386,
+          "f1": 0.06912903249614372,
+          "epsilon": 115.26087540703523,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 12,
+          "loss": 2.0775583868459075,
+          "acc": 0.8561134356113436,
+          "f1": 0.06673976202462456,
+          "epsilon": 122.4631792077158,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 13,
+          "loss": 2.0876074884826585,
+          "acc": 0.8579730357973036,
+          "f1": 0.07126919479176148,
+          "epsilon": 129.66548300839636,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 14,
+          "loss": 2.0708407320566864,
+          "acc": 0.8558809855880986,
+          "f1": 0.06711961130565783,
+          "epsilon": 136.1536800791104,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 15,
+          "loss": 2.072785347501159,
+          "acc": 0.7898651789865179,
+          "f1": 0.05788734581427484,
+          "epsilon": 141.96028150821445,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 16,
+          "loss": 2.0689496592582524,
+          "acc": 0.8558809855880986,
+          "f1": 0.0681408405372005,
+          "epsilon": 147.7668829373185,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 17,
+          "loss": 2.077004632304274,
+          "acc": 0.8361227336122734,
+          "f1": 0.06661084321131355,
+          "epsilon": 153.5734843664226,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 18,
+          "loss": 2.0859693745207553,
+          "acc": 0.8472803347280334,
+          "f1": 0.06867158747713832,
+          "epsilon": 159.38008579552667,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 19,
+          "loss": 2.0784391595458156,
+          "acc": 0.8423988842398884,
+          "f1": 0.06637456769762834,
+          "epsilon": 165.18668722463076,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 20,
+          "loss": 2.093310520786285,
+          "acc": 0.8435611343561135,
+          "f1": 0.06422088952279967,
+          "epsilon": 170.99328865373482,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 21,
+          "loss": 2.087269549024825,
+          "acc": 0.8484425848442585,
+          "f1": 0.06265739787290486,
+          "epsilon": 176.7998900828389,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 22,
+          "loss": 2.094238958971746,
+          "acc": 0.8403068340306834,
+          "f1": 0.06720363008243174,
+          "epsilon": 182.60649151194298,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 23,
+          "loss": 2.1017843427504097,
+          "acc": 0.8430962343096234,
+          "f1": 0.06834851902634645,
+          "epsilon": 188.41309294104707,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 24,
+          "loss": 2.097132621113511,
+          "acc": 0.8326359832635983,
+          "f1": 0.06467074187274242,
+          "epsilon": 194.21969437015113,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 25,
+          "loss": 2.091559396158777,
+          "acc": 0.8547187354718735,
+          "f1": 0.07229124959107867,
+          "epsilon": 200.0262957992552,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 26,
+          "loss": 2.091559396158777,
+          "acc": 0.8547187354718735,
+          "f1": 0.07229124959107867,
+          "epsilon": 200.0262957992552,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ],
+          "label_corruption_ratio": 0.25,
+          "note": "best_checkpoint"
+        }
+      ],
+      [
+        {
+          "round": 1,
+          "loss": 2.106949608262291,
+          "acc": 0.8477452347745235,
+          "f1": 0.0650943387381813,
+          "epsilon": 32.82740251684421,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.0467945020347997,
+          "acc": 0.8321710832171083,
+          "f1": 0.06461386504432674,
+          "epsilon": 44.5384966086324,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.047024491428866,
+          "acc": 0.8593677359367736,
+          "f1": 0.07402891400350217,
+          "epsilon": 53.92810442222759,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.04750413384576,
+          "acc": 0.8519293351929336,
+          "f1": 0.07255749548931487,
+          "epsilon": 63.008015862177736,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.0592846138435497,
+          "acc": 0.8600650860065086,
+          "f1": 0.06942014769410655,
+          "epsilon": 72.04705260295185,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 6,
+          "loss": 2.061229673514287,
+          "acc": 0.8468154346815435,
+          "f1": 0.06541078075470251,
+          "epsilon": 79.24935640363242,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 7,
+          "loss": 2.063910725638282,
+          "acc": 0.8331008833100884,
+          "f1": 0.0615544835627774,
+          "epsilon": 86.45166020431299,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 8,
+          "loss": 2.056926930326424,
+          "acc": 0.8407717340771734,
+          "f1": 0.0665976535541753,
+          "epsilon": 93.65396400499354,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 9,
+          "loss": 2.066859052725746,
+          "acc": 0.8247326824732683,
+          "f1": 0.06186201925863436,
+          "epsilon": 100.8562678056741,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 10,
+          "loss": 2.063909430197355,
+          "acc": 0.8586703858670386,
+          "f1": 0.07151626764886435,
+          "epsilon": 108.05857160635466,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 11,
+          "loss": 2.0626632699017344,
+          "acc": 0.810320781032078,
+          "f1": 0.060227823797789064,
+          "epsilon": 115.26087540703523,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 12,
+          "loss": 2.0660359103234356,
+          "acc": 0.8303114830311483,
+          "f1": 0.06426722421346077,
+          "epsilon": 122.4631792077158,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 13,
+          "loss": 2.063798170118594,
+          "acc": 0.8286843328684332,
+          "f1": 0.0639339767114076,
+          "epsilon": 129.66548300839636,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 14,
+          "loss": 2.082451248257783,
+          "acc": 0.8512319851231985,
+          "f1": 0.06696954400134612,
+          "epsilon": 136.1536800791104,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 15,
+          "loss": 2.0754503261374864,
+          "acc": 0.8238028823802882,
+          "f1": 0.06274493325371025,
+          "epsilon": 141.96028150821445,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 16,
+          "loss": 2.0761361642943243,
+          "acc": 0.7882380288238029,
+          "f1": 0.057420154229536044,
+          "epsilon": 147.7668829373185,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 17,
+          "loss": 2.0814635986460788,
+          "acc": 0.8523942352394235,
+          "f1": 0.06235375016046967,
+          "epsilon": 153.5734843664226,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 18,
+          "loss": 2.0844513601147043,
+          "acc": 0.8321710832171083,
+          "f1": 0.06285784616034398,
+          "epsilon": 159.38008579552667,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 19,
+          "loss": 2.0751293828964528,
+          "acc": 0.8577405857740585,
+          "f1": 0.06957796195203524,
+          "epsilon": 165.18668722463076,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 20,
+          "loss": 2.0686486447714367,
+          "acc": 0.8456531845653185,
+          "f1": 0.06333568615379898,
+          "epsilon": 170.99328865373482,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 21,
+          "loss": 2.068341366605458,
+          "acc": 0.8540213854021386,
+          "f1": 0.06738436629147011,
+          "epsilon": 176.7998900828389,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 22,
+          "loss": 2.0717007227333375,
+          "acc": 0.8386796838679684,
+          "f1": 0.06260007504264778,
+          "epsilon": 182.60649151194298,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 23,
+          "loss": 2.0703697585667205,
+          "acc": 0.8496048349604834,
+          "f1": 0.0701419250169991,
+          "epsilon": 188.41309294104707,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 24,
+          "loss": 2.077300418535572,
+          "acc": 0.8551836355183635,
+          "f1": 0.06636373793236539,
+          "epsilon": 194.21969437015113,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 25,
+          "loss": 2.0779494521892174,
+          "acc": 0.8558809855880986,
+          "f1": 0.06638631572668513,
+          "epsilon": 200.0262957992552,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ]
+        },
+        {
+          "round": 26,
+          "loss": 2.0779494521892174,
+          "acc": 0.8593677359367736,
+          "f1": 0.07402891400350217,
+          "epsilon": 200.0262957992552,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_upper"
+          ],
+          "label_corruption_ratio": 0.25,
+          "note": "best_checkpoint"
+        }
+      ],
+      [
+        {
+          "round": 1,
+          "loss": 2.090144070089465,
+          "acc": 0.8563458856345886,
+          "f1": 0.0688666099314334,
+          "epsilon": 32.82740251684421,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.031629275172565,
+          "acc": 0.8570432357043236,
+          "f1": 0.06920055175722682,
+          "epsilon": 44.5384966086324,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.0283420496967115,
+          "acc": 0.8568107856810786,
+          "f1": 0.0724138114676615,
+          "epsilon": 53.92810442222759,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.039986001095996,
+          "acc": 0.8568107856810786,
+          "f1": 0.06940759708459697,
+          "epsilon": 63.008015862177736,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.0307109328534843,
+          "acc": 0.8563458856345886,
+          "f1": 0.06806860055966531,
+          "epsilon": 72.04705260295185,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 6,
+          "loss": 2.0322044587916346,
+          "acc": 0.8556485355648535,
+          "f1": 0.067761260882954,
+          "epsilon": 79.24935640363242,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 7,
+          "loss": 2.0313655299404507,
+          "acc": 0.8602975360297536,
+          "f1": 0.07220114413924773,
+          "epsilon": 86.45166020431299,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 8,
+          "loss": 2.0251913555955463,
+          "acc": 0.8547187354718735,
+          "f1": 0.06992046303469429,
+          "epsilon": 93.65396400499354,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 9,
+          "loss": 2.0307811266368008,
+          "acc": 0.8554160855416085,
+          "f1": 0.07002325821868387,
+          "epsilon": 100.8562678056741,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 10,
+          "loss": 2.0327840301676243,
+          "acc": 0.8542538354253836,
+          "f1": 0.06579421277124778,
+          "epsilon": 108.05857160635466,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 11,
+          "loss": 2.049003977765209,
+          "acc": 0.8519293351929336,
+          "f1": 0.06153407183618664,
+          "epsilon": 115.26087540703523,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 12,
+          "loss": 2.047675969400422,
+          "acc": 0.8477452347745235,
+          "f1": 0.06648564809246596,
+          "epsilon": 122.4631792077158,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 13,
+          "loss": 2.0407217935345368,
+          "acc": 0.8540213854021386,
+          "f1": 0.06817710698855234,
+          "epsilon": 129.66548300839636,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 14,
+          "loss": 2.0701675275674685,
+          "acc": 0.8598326359832636,
+          "f1": 0.07218615397482542,
+          "epsilon": 136.1536800791104,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 15,
+          "loss": 2.0708555407895006,
+          "acc": 0.8568107856810786,
+          "f1": 0.06640995591271834,
+          "epsilon": 141.96028150821445,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 16,
+          "loss": 2.07116397503203,
+          "acc": 0.8563458856345886,
+          "f1": 0.06800630545519232,
+          "epsilon": 147.7668829373185,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 17,
+          "loss": 2.0698384747448184,
+          "acc": 0.8558809855880986,
+          "f1": 0.07062080827127198,
+          "epsilon": 153.5734843664226,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 18,
+          "loss": 2.0692133474490637,
+          "acc": 0.8528591352859135,
+          "f1": 0.06381035279769458,
+          "epsilon": 159.38008579552667,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 19,
+          "loss": 2.068839020470695,
+          "acc": 0.8554160855416085,
+          "f1": 0.06954250196334161,
+          "epsilon": 165.18668722463076,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 20,
+          "loss": 2.065613093388745,
+          "acc": 0.8544862854486286,
+          "f1": 0.07023064945240994,
+          "epsilon": 170.99328865373482,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 21,
+          "loss": 2.0744819650182147,
+          "acc": 0.8533240353324035,
+          "f1": 0.052639150253000457,
+          "epsilon": 176.7998900828389,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 22,
+          "loss": 2.0776546883705223,
+          "acc": 0.8558809855880986,
+          "f1": 0.07197182784336122,
+          "epsilon": 182.60649151194298,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 23,
+          "loss": 2.079368824989154,
+          "acc": 0.8579730357973036,
+          "f1": 0.0737600245413435,
+          "epsilon": 188.41309294104707,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 24,
+          "loss": 2.0830028800189986,
+          "acc": 0.8547187354718735,
+          "f1": 0.05120385456267146,
+          "epsilon": 194.21969437015113,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 25,
+          "loss": 2.0839497690670163,
+          "acc": 0.8556485355648535,
+          "f1": 0.07142179611746437,
+          "epsilon": 200.0262957992552,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ]
+        },
+        {
+          "round": 26,
+          "loss": 2.0839497690670163,
+          "acc": 0.8579730357973036,
+          "f1": 0.0737600245413435,
+          "epsilon": 200.0262957992552,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.25,
+          "num_malicious": 1,
+          "malicious_silos": [
+            "body_lower"
+          ],
+          "label_corruption_ratio": 0.25,
+          "note": "best_checkpoint"
+        }
+      ]
+    ]
+  },
+  {
+    "config": {
+      "topology": "VFL",
+      "fusion": "Late",
+      "attack_type": "label_flip",
+      "attack_ratio": 0.75,
+      "dp_epsilon": 100.0,
+      "stop_protocol": "early",
+      "aggregation": "coordinator",
+      "early_stopping": true,
+      "fixed_rounds": false,
+      "rounds": 25,
+      "epochs": 3,
+      "exp05_extension": "attack_earlystop_audit"
+    },
+    "runs": [
+      [
+        {
+          "round": 1,
+          "loss": 2.88561599777641,
+          "acc": 0.8516968851696886,
+          "f1": 0.05111892404710085,
+          "epsilon": 19.348186827375933,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.8227148013462138,
+          "acc": 0.8507670850767085,
+          "f1": 0.051095196213929724,
+          "epsilon": 25.2539803767639,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.820298196328869,
+          "acc": 0.8540213854021386,
+          "f1": 0.05118773946360153,
+          "epsilon": 30.290720882146857,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.8203375491272715,
+          "acc": 0.8535564853556485,
+          "f1": 0.05117912694430507,
+          "epsilon": 34.579614351797225,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.8203375491272715,
+          "acc": 0.8540213854021386,
+          "f1": 0.05118773946360153,
+          "epsilon": 34.579614351797225,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ],
+          "label_corruption_ratio": 0.75,
+          "note": "best_checkpoint"
+        }
+      ],
+      [
+        {
+          "round": 1,
+          "loss": 2.882638252479211,
+          "acc": 0.8391445839144583,
+          "f1": 0.05069655094933154,
+          "epsilon": 19.348186827375933,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.819985579341266,
+          "acc": 0.8444909344490934,
+          "f1": 0.05088449094499769,
+          "epsilon": 25.2539803767639,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.822073245970216,
+          "acc": 0.8512319851231985,
+          "f1": 0.05110385441960423,
+          "epsilon": 30.290720882146857,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.819616937393025,
+          "acc": 0.8512319851231985,
+          "f1": 0.05109743675610811,
+          "epsilon": 34.579614351797225,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.819616937393025,
+          "acc": 0.8512319851231985,
+          "f1": 0.05110385441960423,
+          "epsilon": 34.579614351797225,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ],
+          "label_corruption_ratio": 0.75,
+          "note": "best_checkpoint"
+        }
+      ],
+      [
+        {
+          "round": 1,
+          "loss": 2.88394417693907,
+          "acc": 0.8533240353324035,
+          "f1": 0.05115877196649804,
+          "epsilon": 19.348186827375933,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.8251437523816243,
+          "acc": 0.8544862854486286,
+          "f1": 0.05119634550569622,
+          "epsilon": 25.2539803767639,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.8258486314509117,
+          "acc": 0.8530915853091585,
+          "f1": 0.05115125160283213,
+          "epsilon": 30.290720882146857,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.8171281950052918,
+          "acc": 0.8561134356113436,
+          "f1": 0.051255288354486755,
+          "epsilon": 34.579614351797225,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.8171281950052918,
+          "acc": 0.8561134356113436,
+          "f1": 0.051255288354486755,
+          "epsilon": 34.579614351797225,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ],
+          "label_corruption_ratio": 0.75,
+          "note": "best_checkpoint"
+        }
+      ]
+    ]
+  },
+  {
+    "config": {
+      "topology": "VFL",
+      "fusion": "Late",
+      "attack_type": "label_flip",
+      "attack_ratio": 0.75,
+      "dp_epsilon": 100.0,
+      "stop_protocol": "fixed",
+      "aggregation": "coordinator",
+      "early_stopping": false,
+      "fixed_rounds": true,
+      "rounds": 25,
+      "epochs": 3,
+      "exp05_extension": "attack_earlystop_audit"
+    },
+    "runs": [
+      [
+        {
+          "round": 1,
+          "loss": 2.8850975457490406,
+          "acc": 0.8514644351464435,
+          "f1": 0.05110497237569061,
+          "epsilon": 19.348186827375933,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.8230383418358143,
+          "acc": 0.8489074848907485,
+          "f1": 0.05102197633317965,
+          "epsilon": 25.2539803767639,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.821022317676399,
+          "acc": 0.8484425848442585,
+          "f1": 0.05101969500006989,
+          "epsilon": 30.290720882146857,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.820197249399063,
+          "acc": 0.8551836355183635,
+          "f1": 0.051231705449025916,
+          "epsilon": 34.579614351797225,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.8161664133467226,
+          "acc": 0.8549511854951185,
+          "f1": 0.05121778000584869,
+          "epsilon": 38.868507821447594,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 6,
+          "loss": 2.8192406084537134,
+          "acc": 0.8489074848907485,
+          "f1": 0.05101556170200877,
+          "epsilon": 42.56574328610324,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 7,
+          "loss": 2.8181321136034567,
+          "acc": 0.8507670850767085,
+          "f1": 0.05108235983754135,
+          "epsilon": 46.140649096277784,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 8,
+          "loss": 2.8183300083902494,
+          "acc": 0.8456531845653185,
+          "f1": 0.055260768375522476,
+          "epsilon": 49.71555490645232,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 9,
+          "loss": 2.8195417568450796,
+          "acc": 0.8486750348675035,
+          "f1": 0.05101441985244802,
+          "epsilon": 53.29046071662685,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 10,
+          "loss": 2.8171533523296612,
+          "acc": 0.8342631334263133,
+          "f1": 0.0520693841608612,
+          "epsilon": 56.820409074865076,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 11,
+          "loss": 2.8192188219334877,
+          "acc": 0.8435611343561135,
+          "f1": 0.05086052248009867,
+          "epsilon": 59.83361297211387,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 12,
+          "loss": 2.8212770717593014,
+          "acc": 0.8417015341701534,
+          "f1": 0.05080607820852801,
+          "epsilon": 62.84681686936266,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 13,
+          "loss": 2.820929523507106,
+          "acc": 0.8516968851696886,
+          "f1": 0.05111250610308991,
+          "epsilon": 65.86002076661144,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 14,
+          "loss": 2.818586526681799,
+          "acc": 0.8463505346350535,
+          "f1": 0.05096441868928642,
+          "epsilon": 68.87322466386024,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 15,
+          "loss": 2.824112208580641,
+          "acc": 0.8442584844258484,
+          "f1": 0.052791806958473624,
+          "epsilon": 71.88642856110903,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 16,
+          "loss": 2.8218282617187853,
+          "acc": 0.8428637842863784,
+          "f1": 0.0508441303494307,
+          "epsilon": 74.89963245835781,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 17,
+          "loss": 2.8239478498600112,
+          "acc": 0.8516968851696886,
+          "f1": 0.05110608977041314,
+          "epsilon": 77.9128363556066,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 18,
+          "loss": 2.8199202082316672,
+          "acc": 0.8523942352394235,
+          "f1": 0.05114151430205152,
+          "epsilon": 80.92604025285539,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 19,
+          "loss": 2.819734683560207,
+          "acc": 0.8505346350534635,
+          "f1": 0.0510812357778057,
+          "epsilon": 83.93924415010419,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 20,
+          "loss": 2.824159272319318,
+          "acc": 0.8465829846582985,
+          "f1": 0.05304130006923538,
+          "epsilon": 86.95244804735297,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 21,
+          "loss": 2.824815561489703,
+          "acc": 0.8544862854486286,
+          "f1": 0.053469245587472194,
+          "epsilon": 89.7708891374379,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 22,
+          "loss": 2.825913999081028,
+          "acc": 0.8482101348210135,
+          "f1": 0.050999301187980434,
+          "epsilon": 92.3297155916231,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 23,
+          "loss": 2.830038143636795,
+          "acc": 0.8542538354253836,
+          "f1": 0.051208092968815316,
+          "epsilon": 94.88854204580828,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 24,
+          "loss": 2.8316670735232896,
+          "acc": 0.8479776847977685,
+          "f1": 0.056173035305604864,
+          "epsilon": 97.44736849999347,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 25,
+          "loss": 2.832111513775673,
+          "acc": 0.8523942352394235,
+          "f1": 0.05385685449019231,
+          "epsilon": 100.00619495417865,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 26,
+          "loss": 2.832111513775673,
+          "acc": 0.8479776847977685,
+          "f1": 0.056173035305604864,
+          "epsilon": 100.00619495417865,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ],
+          "label_corruption_ratio": 0.75,
+          "note": "best_checkpoint"
+        }
+      ],
+      [
+        {
+          "round": 1,
+          "loss": 2.883307227842594,
+          "acc": 0.8384472338447234,
+          "f1": 0.05067363481828016,
+          "epsilon": 19.348186827375933,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.8230437339231327,
+          "acc": 0.8512319851231985,
+          "f1": 0.05109102070428037,
+          "epsilon": 25.2539803767639,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.822542054555816,
+          "acc": 0.8509995350999535,
+          "f1": 0.05108348333263566,
+          "epsilon": 30.290720882146857,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.8190898827524813,
+          "acc": 0.8526266852626685,
+          "f1": 0.05114262210510171,
+          "epsilon": 34.579614351797225,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.8196545311649883,
+          "acc": 0.8509995350999535,
+          "f1": 0.05114128460872238,
+          "epsilon": 38.868507821447594,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 6,
+          "loss": 2.8182438808723074,
+          "acc": 0.8423988842398884,
+          "f1": 0.05088029652093337,
+          "epsilon": 42.56574328610324,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 7,
+          "loss": 2.822052106522677,
+          "acc": 0.8475127847512784,
+          "f1": 0.050995859908246614,
+          "epsilon": 46.140649096277784,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 8,
+          "loss": 2.81847439014362,
+          "acc": 0.8496048349604834,
+          "f1": 0.05105105105105105,
+          "epsilon": 49.71555490645232,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 9,
+          "loss": 2.8179307687617556,
+          "acc": 0.8526266852626685,
+          "f1": 0.051136205213996935,
+          "epsilon": 53.29046071662685,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 10,
+          "loss": 2.8194971629096712,
+          "acc": 0.8544862854486286,
+          "f1": 0.051202763500619836,
+          "epsilon": 56.820409074865076,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 11,
+          "loss": 2.8215865204560426,
+          "acc": 0.8516968851696886,
+          "f1": 0.05115103795842582,
+          "epsilon": 59.83361297211387,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 12,
+          "loss": 2.822450248929696,
+          "acc": 0.8468154346815435,
+          "f1": 0.05099241342627586,
+          "epsilon": 62.84681686936266,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 13,
+          "loss": 2.818353326808146,
+          "acc": 0.8475127847512784,
+          "f1": 0.050995859908246614,
+          "epsilon": 65.86002076661144,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 14,
+          "loss": 2.8284234440191582,
+          "acc": 0.8500697350069735,
+          "f1": 0.051072565778448126,
+          "epsilon": 68.87322466386024,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 15,
+          "loss": 2.821602699753291,
+          "acc": 0.8503021850302185,
+          "f1": 0.05107369244087012,
+          "epsilon": 71.88642856110903,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 16,
+          "loss": 2.82811453338366,
+          "acc": 0.8528591352859135,
+          "f1": 0.051162985274431055,
+          "epsilon": 74.89963245835781,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 17,
+          "loss": 2.8247623503198906,
+          "acc": 0.8493723849372385,
+          "f1": 0.05111418859373033,
+          "epsilon": 77.9128363556066,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 18,
+          "loss": 2.829893511286657,
+          "acc": 0.8503021850302185,
+          "f1": 0.051092953418534814,
+          "epsilon": 80.92604025285539,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 19,
+          "loss": 2.8259392692664824,
+          "acc": 0.8470478847047884,
+          "f1": 0.052095483653221974,
+          "epsilon": 83.93924415010419,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 20,
+          "loss": 2.8188147581136294,
+          "acc": 0.8496048349604834,
+          "f1": 0.05107031075340934,
+          "epsilon": 86.95244804735297,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 21,
+          "loss": 2.8260463188013256,
+          "acc": 0.8500697350069735,
+          "f1": 0.051066147207909175,
+          "epsilon": 89.7708891374379,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 22,
+          "loss": 2.826897126216915,
+          "acc": 0.8512319851231985,
+          "f1": 0.053344225210506475,
+          "epsilon": 92.3297155916231,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 23,
+          "loss": 2.8283763461889566,
+          "acc": 0.8489074848907485,
+          "f1": 0.05102197633317965,
+          "epsilon": 94.88854204580828,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 24,
+          "loss": 2.8202389010619053,
+          "acc": 0.8528591352859135,
+          "f1": 0.05115014638226684,
+          "epsilon": 97.44736849999347,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 25,
+          "loss": 2.8240293352301493,
+          "acc": 0.8461180846118085,
+          "f1": 0.05093758746151693,
+          "epsilon": 100.00619495417865,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 26,
+          "loss": 2.8240293352301493,
+          "acc": 0.8512319851231985,
+          "f1": 0.053344225210506475,
+          "epsilon": 100.00619495417865,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ],
+          "label_corruption_ratio": 0.75,
+          "note": "best_checkpoint"
+        }
+      ],
+      [
+        {
+          "round": 1,
+          "loss": 2.8831828178002437,
+          "acc": 0.8549511854951185,
+          "f1": 0.05121778000584869,
+          "epsilon": 19.348186827375933,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.82513544900394,
+          "acc": 0.8519293351929336,
+          "f1": 0.05111362146632638,
+          "epsilon": 25.2539803767639,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.8235005781232636,
+          "acc": 0.8509995350999535,
+          "f1": 0.05108348333263566,
+          "epsilon": 30.290720882146857,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.8176778436280836,
+          "acc": 0.8561134356113436,
+          "f1": 0.05126170890920985,
+          "epsilon": 34.579614351797225,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.8170015948878517,
+          "acc": 0.8503021850302185,
+          "f1": 0.05108011115300295,
+          "epsilon": 38.868507821447594,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 6,
+          "loss": 2.8199626239370326,
+          "acc": 0.8537889353788936,
+          "f1": 0.051180224618900316,
+          "epsilon": 42.56574328610324,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 7,
+          "loss": 2.816990332173331,
+          "acc": 0.8423988842398884,
+          "f1": 0.05084175084175084,
+          "epsilon": 46.140649096277784,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 8,
+          "loss": 2.815133367334717,
+          "acc": 0.8500697350069735,
+          "f1": 0.051072565778448126,
+          "epsilon": 49.71555490645232,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 9,
+          "loss": 2.818041507917575,
+          "acc": 0.8523942352394235,
+          "f1": 0.05113509593931281,
+          "epsilon": 53.29046071662685,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 10,
+          "loss": 2.8217976805105507,
+          "acc": 0.8498372849837285,
+          "f1": 0.05107143854943704,
+          "epsilon": 56.820409074865076,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 11,
+          "loss": 2.8204202029002117,
+          "acc": 0.8491399349139935,
+          "f1": 0.05103594730150747,
+          "epsilon": 59.83361297211387,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 12,
+          "loss": 2.8207571128199067,
+          "acc": 0.8528591352859135,
+          "f1": 0.05117583061344046,
+          "epsilon": 62.84681686936266,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 13,
+          "loss": 2.816162199138244,
+          "acc": 0.8535564853556485,
+          "f1": 0.05116629044394281,
+          "epsilon": 65.86002076661144,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 14,
+          "loss": 2.8181812113587337,
+          "acc": 0.8535564853556485,
+          "f1": 0.05116629044394281,
+          "epsilon": 68.87322466386024,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 15,
+          "loss": 2.821901639524666,
+          "acc": 0.8507670850767085,
+          "f1": 0.05108235983754135,
+          "epsilon": 71.88642856110903,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 16,
+          "loss": 2.8240355792724463,
+          "acc": 0.8496048349604834,
+          "f1": 0.05105746933757997,
+          "epsilon": 74.89963245835781,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 17,
+          "loss": 2.8199142746036236,
+          "acc": 0.8526266852626685,
+          "f1": 0.051161882444834994,
+          "epsilon": 77.9128363556066,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 18,
+          "loss": 2.8201609743139313,
+          "acc": 0.8496048349604834,
+          "f1": 0.0510638892381631,
+          "epsilon": 80.92604025285539,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 19,
+          "loss": 2.8236801656871973,
+          "acc": 0.8547187354718735,
+          "f1": 0.05120385456267146,
+          "epsilon": 83.93924415010419,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 20,
+          "loss": 2.822243288166311,
+          "acc": 0.8509995350999535,
+          "f1": 0.051089899243629465,
+          "epsilon": 86.95244804735297,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 21,
+          "loss": 2.830251194419855,
+          "acc": 0.8493723849372385,
+          "f1": 0.0510691823899371,
+          "epsilon": 89.7708891374379,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 22,
+          "loss": 2.8271015843810585,
+          "acc": 0.8561134356113436,
+          "f1": 0.05281273567049856,
+          "epsilon": 92.3297155916231,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 23,
+          "loss": 2.8178315923702937,
+          "acc": 0.8537889353788936,
+          "f1": 0.05118664381175356,
+          "epsilon": 94.88854204580828,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 24,
+          "loss": 2.8234650678209703,
+          "acc": 0.8440260344026035,
+          "f1": 0.05090781633368384,
+          "epsilon": 97.44736849999347,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 25,
+          "loss": 2.826233837549369,
+          "acc": 0.8554160855416085,
+          "f1": 0.05122637044461149,
+          "epsilon": 100.00619495417865,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 26,
+          "loss": 2.826233837549369,
+          "acc": 0.8561134356113436,
+          "f1": 0.05281273567049856,
+          "epsilon": 100.00619495417865,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ],
+          "label_corruption_ratio": 0.75,
+          "note": "best_checkpoint"
+        }
+      ]
+    ]
+  },
+  {
+    "config": {
+      "topology": "VFL",
+      "fusion": "Late",
+      "attack_type": "label_flip",
+      "attack_ratio": 0.75,
+      "dp_epsilon": 200.0,
+      "stop_protocol": "early",
+      "aggregation": "coordinator",
+      "early_stopping": true,
+      "fixed_rounds": false,
+      "rounds": 25,
+      "epochs": 3,
+      "exp05_extension": "attack_earlystop_audit"
+    },
+    "runs": [
+      [
+        {
+          "round": 1,
+          "loss": 2.876181609918197,
+          "acc": 0.8561134356113436,
+          "f1": 0.051255288354486755,
+          "epsilon": 32.82740251684421,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.8168846113195776,
+          "acc": 0.8486750348675035,
+          "f1": 0.05100800536485184,
+          "epsilon": 44.5384966086324,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.8139676271138625,
+          "acc": 0.8558809855880986,
+          "f1": 0.051260632892007406,
+          "epsilon": 53.92810442222759,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.815754907802291,
+          "acc": 0.8556485355648535,
+          "f1": 0.05123387197795315,
+          "epsilon": 63.008015862177736,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.815754907802291,
+          "acc": 0.8558809855880986,
+          "f1": 0.051260632892007406,
+          "epsilon": 63.008015862177736,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ],
+          "label_corruption_ratio": 0.75,
+          "note": "best_checkpoint"
+        }
+      ],
+      [
+        {
+          "round": 1,
+          "loss": 2.871687907829101,
+          "acc": 0.8479776847977685,
+          "f1": 0.0509981546720349,
+          "epsilon": 32.82740251684421,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.816938534413708,
+          "acc": 0.8526266852626685,
+          "f1": 0.05114262210510171,
+          "epsilon": 44.5384966086324,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.8152632830287705,
+          "acc": 0.8530915853091585,
+          "f1": 0.05117050794049163,
+          "epsilon": 53.92810442222759,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.8133397600958387,
+          "acc": 0.8558809855880986,
+          "f1": 0.0512477904435815,
+          "epsilon": 63.008015862177736,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.8133397600958387,
+          "acc": 0.8558809855880986,
+          "f1": 0.0512477904435815,
+          "epsilon": 63.008015862177736,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ],
+          "label_corruption_ratio": 0.75,
+          "note": "best_checkpoint"
+        }
+      ],
+      [
+        {
+          "round": 1,
+          "loss": 2.871105569431712,
+          "acc": 0.8516968851696886,
+          "f1": 0.05110608977041314,
+          "epsilon": 32.82740251684421,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.8201102387218477,
+          "acc": 0.8530915853091585,
+          "f1": 0.05115125160283213,
+          "epsilon": 44.5384966086324,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.8170360613454113,
+          "acc": 0.8544862854486286,
+          "f1": 0.05119634550569622,
+          "epsilon": 53.92810442222759,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.8126234708782163,
+          "acc": 0.8563458856345886,
+          "f1": 0.05126278438739303,
+          "epsilon": 63.008015862177736,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.8126234708782163,
+          "acc": 0.8563458856345886,
+          "f1": 0.05126278438739303,
+          "epsilon": 63.008015862177736,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ],
+          "label_corruption_ratio": 0.75,
+          "note": "best_checkpoint"
+        }
+      ]
+    ]
+  },
+  {
+    "config": {
+      "topology": "VFL",
+      "fusion": "Late",
+      "attack_type": "label_flip",
+      "attack_ratio": 0.75,
+      "dp_epsilon": 200.0,
+      "stop_protocol": "fixed",
+      "aggregation": "coordinator",
+      "early_stopping": false,
+      "fixed_rounds": true,
+      "rounds": 25,
+      "epochs": 3,
+      "exp05_extension": "attack_earlystop_audit"
+    },
+    "runs": [
+      [
+        {
+          "round": 1,
+          "loss": 2.8739263969925393,
+          "acc": 0.8556485355648535,
+          "f1": 0.05123387197795315,
+          "epsilon": 32.82740251684421,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.817670636398417,
+          "acc": 0.8519293351929336,
+          "f1": 0.051120037939018606,
+          "epsilon": 44.5384966086324,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.815210679917024,
+          "acc": 0.8535564853556485,
+          "f1": 0.0511727078891258,
+          "epsilon": 53.92810442222759,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.815533566856177,
+          "acc": 0.8554160855416085,
+          "f1": 0.051232788984950366,
+          "epsilon": 63.008015862177736,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.8149774199297593,
+          "acc": 0.8544862854486286,
+          "f1": 0.05119634550569622,
+          "epsilon": 72.04705260295185,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 6,
+          "loss": 2.811944417971259,
+          "acc": 0.8317061831706183,
+          "f1": 0.05045121263395375,
+          "epsilon": 79.24935640363242,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 7,
+          "loss": 2.8156074470771135,
+          "acc": 0.8403068340306834,
+          "f1": 0.05074111504126663,
+          "epsilon": 86.45166020431299,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 8,
+          "loss": 2.814416853061209,
+          "acc": 0.8516968851696886,
+          "f1": 0.05110608977041314,
+          "epsilon": 93.65396400499354,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 9,
+          "loss": 2.810860047742384,
+          "acc": 0.8491399349139935,
+          "f1": 0.05103594730150747,
+          "epsilon": 100.8562678056741,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 10,
+          "loss": 2.8137326805030054,
+          "acc": 0.8512319851231985,
+          "f1": 0.05263952664300192,
+          "epsilon": 108.05857160635466,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 11,
+          "loss": 2.8118183984091667,
+          "acc": 0.8407717340771734,
+          "f1": 0.05279062392112468,
+          "epsilon": 115.26087540703523,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 12,
+          "loss": 2.8159518020528016,
+          "acc": 0.8414690841469085,
+          "f1": 0.05083056011907269,
+          "epsilon": 122.4631792077158,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 13,
+          "loss": 2.817126363279878,
+          "acc": 0.8512319851231985,
+          "f1": 0.05109743675610811,
+          "epsilon": 129.66548300839636,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 14,
+          "loss": 2.8125092372485634,
+          "acc": 0.8521617852161785,
+          "f1": 0.05113398610762407,
+          "epsilon": 136.1536800791104,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 15,
+          "loss": 2.8164979466887075,
+          "acc": 0.8470478847047884,
+          "f1": 0.050974303020129536,
+          "epsilon": 141.96028150821445,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 16,
+          "loss": 2.8146271894407873,
+          "acc": 0.8514644351464435,
+          "f1": 0.051117809595579,
+          "epsilon": 147.7668829373185,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 17,
+          "loss": 2.8149810228227845,
+          "acc": 0.8514644351464435,
+          "f1": 0.05110497237569061,
+          "epsilon": 153.5734843664226,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 18,
+          "loss": 2.8174415876583696,
+          "acc": 0.8477452347745235,
+          "f1": 0.05100342633382281,
+          "epsilon": 159.38008579552667,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 19,
+          "loss": 2.8144382359614712,
+          "acc": 0.8500697350069735,
+          "f1": 0.051059730250481696,
+          "epsilon": 165.18668722463076,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 20,
+          "loss": 2.817317624803545,
+          "acc": 0.8479776847977685,
+          "f1": 0.05103025724956985,
+          "epsilon": 170.99328865373482,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 21,
+          "loss": 2.8150884980389907,
+          "acc": 0.8547187354718735,
+          "f1": 0.05120385456267146,
+          "epsilon": 176.7998900828389,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 22,
+          "loss": 2.8142434837395798,
+          "acc": 0.8426313342631334,
+          "f1": 0.050836523763445385,
+          "epsilon": 182.60649151194298,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 23,
+          "loss": 2.818236991015859,
+          "acc": 0.8535564853556485,
+          "f1": 0.05117912694430507,
+          "epsilon": 188.41309294104707,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 24,
+          "loss": 2.8244549509642787,
+          "acc": 0.8509995350999535,
+          "f1": 0.05109631676645871,
+          "epsilon": 194.21969437015113,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 25,
+          "loss": 2.818881071237577,
+          "acc": 0.8491399349139935,
+          "f1": 0.051029530913865834,
+          "epsilon": 200.0262957992552,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 26,
+          "loss": 2.818881071237577,
+          "acc": 0.8407717340771734,
+          "f1": 0.05279062392112468,
+          "epsilon": 200.0262957992552,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ],
+          "label_corruption_ratio": 0.75,
+          "note": "best_checkpoint"
+        }
+      ],
+      [
+        {
+          "round": 1,
+          "loss": 2.8716184967072405,
+          "acc": 0.8472803347280334,
+          "f1": 0.05096262740656851,
+          "epsilon": 32.82740251684421,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.816389231407167,
+          "acc": 0.8542538354253836,
+          "f1": 0.05118883456604404,
+          "epsilon": 44.5384966086324,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.8162866602993737,
+          "acc": 0.8440260344026035,
+          "f1": 0.05086930329648776,
+          "epsilon": 53.92810442222759,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.813676171265039,
+          "acc": 0.8547187354718735,
+          "f1": 0.05121669243519564,
+          "epsilon": 63.008015862177736,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.813971114443652,
+          "acc": 0.8530915853091585,
+          "f1": 0.053638542940245795,
+          "epsilon": 72.04705260295185,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 6,
+          "loss": 2.8138662363279496,
+          "acc": 0.8509995350999535,
+          "f1": 0.05110915665005375,
+          "epsilon": 79.24935640363242,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 7,
+          "loss": 2.815124305911065,
+          "acc": 0.8521617852161785,
+          "f1": 0.05112756788418895,
+          "epsilon": 86.45166020431299,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 8,
+          "loss": 2.8155036072167636,
+          "acc": 0.8537889353788936,
+          "f1": 0.051180224618900316,
+          "epsilon": 93.65396400499354,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 9,
+          "loss": 2.8124844114744523,
+          "acc": 0.8549511854951185,
+          "f1": 0.05121136173767753,
+          "epsilon": 100.8562678056741,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 10,
+          "loss": 2.81448837889405,
+          "acc": 0.8561134356113436,
+          "f1": 0.05126170890920985,
+          "epsilon": 108.05857160635466,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 11,
+          "loss": 2.813766066248123,
+          "acc": 0.8544862854486286,
+          "f1": 0.051209183104870167,
+          "epsilon": 115.26087540703523,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 12,
+          "loss": 2.8133886932789993,
+          "acc": 0.8530915853091585,
+          "f1": 0.05117050794049163,
+          "epsilon": 122.4631792077158,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 13,
+          "loss": 2.8148017552601887,
+          "acc": 0.8509995350999535,
+          "f1": 0.05110273590173088,
+          "epsilon": 129.66548300839636,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 14,
+          "loss": 2.8221336183961068,
+          "acc": 0.8523942352394235,
+          "f1": 0.05115435586245379,
+          "epsilon": 136.1536800791104,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 15,
+          "loss": 2.812945091729948,
+          "acc": 0.8516968851696886,
+          "f1": 0.051125343603053014,
+          "epsilon": 141.96028150821445,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 16,
+          "loss": 2.8205828151057326,
+          "acc": 0.8549511854951185,
+          "f1": 0.05121136173767753,
+          "epsilon": 147.7668829373185,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 17,
+          "loss": 2.8156829712054425,
+          "acc": 0.8519293351929336,
+          "f1": 0.051139297026525456,
+          "epsilon": 153.5734843664226,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 18,
+          "loss": 2.8191349017399845,
+          "acc": 0.8526266852626685,
+          "f1": 0.051155460719914086,
+          "epsilon": 159.38008579552667,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 19,
+          "loss": 2.8212430513787945,
+          "acc": 0.8503021850302185,
+          "f1": 0.05107369244087012,
+          "epsilon": 165.18668722463076,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 20,
+          "loss": 2.8115597678496775,
+          "acc": 0.8544862854486286,
+          "f1": 0.051222027143772816,
+          "epsilon": 170.99328865373482,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 21,
+          "loss": 2.818033120403044,
+          "acc": 0.8540213854021386,
+          "f1": 0.0511813217430068,
+          "epsilon": 176.7998900828389,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 22,
+          "loss": 2.8160192097330885,
+          "acc": 0.8533240353324035,
+          "f1": 0.0511651892735686,
+          "epsilon": 182.60649151194298,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 23,
+          "loss": 2.817444736960141,
+          "acc": 0.8507670850767085,
+          "f1": 0.05107594406765469,
+          "epsilon": 188.41309294104707,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 24,
+          "loss": 2.816269033981617,
+          "acc": 0.8544862854486286,
+          "f1": 0.051202763500619836,
+          "epsilon": 194.21969437015113,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 25,
+          "loss": 2.8173110301108526,
+          "acc": 0.8537889353788936,
+          "f1": 0.051173807035876005,
+          "epsilon": 200.0262957992552,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ]
+        },
+        {
+          "round": 26,
+          "loss": 2.8173110301108526,
+          "acc": 0.8530915853091585,
+          "f1": 0.053638542940245795,
+          "epsilon": 200.0262957992552,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "objects",
+            "ambient"
+          ],
+          "label_corruption_ratio": 0.75,
+          "note": "best_checkpoint"
+        }
+      ],
+      [
+        {
+          "round": 1,
+          "loss": 2.870835369593089,
+          "acc": 0.8558809855880986,
+          "f1": 0.05124137163215319,
+          "epsilon": 32.82740251684421,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 2,
+          "loss": 2.8207381880259295,
+          "acc": 0.8547187354718735,
+          "f1": 0.05120385456267146,
+          "epsilon": 44.5384966086324,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 3,
+          "loss": 2.817129258283305,
+          "acc": 0.8554160855416085,
+          "f1": 0.05122637044461149,
+          "epsilon": 53.92810442222759,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 4,
+          "loss": 2.8135882403757644,
+          "acc": 0.8563458856345886,
+          "f1": 0.05126278438739303,
+          "epsilon": 63.008015862177736,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 5,
+          "loss": 2.812021134599657,
+          "acc": 0.8535564853556485,
+          "f1": 0.05116629044394281,
+          "epsilon": 72.04705260295185,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 6,
+          "loss": 2.81510005991497,
+          "acc": 0.8530915853091585,
+          "f1": 0.05115125160283213,
+          "epsilon": 79.24935640363242,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 7,
+          "loss": 2.8127537931534947,
+          "acc": 0.8470478847047884,
+          "f1": 0.05096788631531834,
+          "epsilon": 86.45166020431299,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 8,
+          "loss": 2.8119731432457664,
+          "acc": 0.8414690841469085,
+          "f1": 0.05078563411896745,
+          "epsilon": 93.65396400499354,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 9,
+          "loss": 2.813552995513563,
+          "acc": 0.8530915853091585,
+          "f1": 0.05115766877151898,
+          "epsilon": 100.8562678056741,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 10,
+          "loss": 2.816341862251366,
+          "acc": 0.8542538354253836,
+          "f1": 0.051195252423938485,
+          "epsilon": 108.05857160635466,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 11,
+          "loss": 2.8155255554588923,
+          "acc": 0.8516968851696886,
+          "f1": 0.05111892404710085,
+          "epsilon": 115.26087540703523,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 12,
+          "loss": 2.8122617042022098,
+          "acc": 0.8551836355183635,
+          "f1": 0.05122528543581176,
+          "epsilon": 122.4631792077158,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 13,
+          "loss": 2.811128160705886,
+          "acc": 0.8547187354718735,
+          "f1": 0.05120385456267146,
+          "epsilon": 129.66548300839636,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 14,
+          "loss": 2.813751766981869,
+          "acc": 0.8549511854951185,
+          "f1": 0.05121778000584869,
+          "epsilon": 136.1536800791104,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 15,
+          "loss": 2.8158573557956306,
+          "acc": 0.8514644351464435,
+          "f1": 0.051117809595579,
+          "epsilon": 141.96028150821445,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 16,
+          "loss": 2.818890178412722,
+          "acc": 0.8493723849372385,
+          "f1": 0.05104991826983528,
+          "epsilon": 147.7668829373185,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 17,
+          "loss": 2.815878458486509,
+          "acc": 0.8544862854486286,
+          "f1": 0.051222027143772816,
+          "epsilon": 153.5734843664226,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 18,
+          "loss": 2.814603232537862,
+          "acc": 0.8521617852161785,
+          "f1": 0.05113398610762407,
+          "epsilon": 159.38008579552667,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 19,
+          "loss": 2.813648218139509,
+          "acc": 0.8535564853556485,
+          "f1": 0.05116629044394281,
+          "epsilon": 165.18668722463076,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 20,
+          "loss": 2.8149261379849,
+          "acc": 0.8523942352394235,
+          "f1": 0.05114793427622953,
+          "epsilon": 170.99328865373482,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 21,
+          "loss": 2.8182412272487216,
+          "acc": 0.8500697350069735,
+          "f1": 0.051066147207909175,
+          "epsilon": 176.7998900828389,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 22,
+          "loss": 2.816588709617583,
+          "acc": 0.8570432357043236,
+          "f1": 0.05127884174072683,
+          "epsilon": 182.60649151194298,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 23,
+          "loss": 2.8106270706296392,
+          "acc": 0.8535564853556485,
+          "f1": 0.05119839377588154,
+          "epsilon": 188.41309294104707,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 24,
+          "loss": 2.816875548822468,
+          "acc": 0.8489074848907485,
+          "f1": 0.051054073701280546,
+          "epsilon": 194.21969437015113,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 25,
+          "loss": 2.81726929871604,
+          "acc": 0.8556485355648535,
+          "f1": 0.05123387197795315,
+          "epsilon": 200.0262957992552,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ]
+        },
+        {
+          "round": 26,
+          "loss": 2.81726929871604,
+          "acc": 0.8570432357043236,
+          "f1": 0.05127884174072683,
+          "epsilon": 200.0262957992552,
+          "fusion_mode": "Late",
+          "topology": "VFL",
+          "aggregation": "coordinator",
+          "attack_type": "label_flip",
+          "attack_ratio": 0.75,
+          "num_malicious": 3,
+          "malicious_silos": [
+            "body_upper",
+            "body_lower",
+            "ambient"
+          ],
+          "label_corruption_ratio": 0.75,
+          "note": "best_checkpoint"
+        }
+      ]
+    ]
+  }
+]

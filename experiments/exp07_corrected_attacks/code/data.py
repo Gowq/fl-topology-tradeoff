@@ -29,6 +29,20 @@ OPPORTUNITY_GROUPS = {
     "ambient_a": ("ambient", slice(0, 5)),
     "ambient_b": ("ambient", slice(5, 10)),
 }
+MHEALTH_SPLIT = {
+    "holdout": "cross-subject",
+    "train_subjects": tuple(range(1, 9)),
+    "test_subjects": (10,),
+    "unused_subjects": (9,),
+}
+OPPORTUNITY_SPLIT = {
+    "holdout": "cross-subject",
+    "train_subjects": (1, 3, 4),
+    "test_subjects": (2,),
+    "train_runs": ("Drill", "ADL1", "ADL2"),
+    "test_runs": ("ADL4", "ADL5"),
+    "hfl_chunks_per_subject": (3, 3, 2),
+}
 
 
 @dataclass(frozen=True)
@@ -92,8 +106,9 @@ def _mhealth_subject(data_root: Path, subject_id: int, window: int = 128,
 
 
 def _mhealth(data_root: Path) -> tuple[list[WindowSet], WindowSet, int]:
-    train_raw = [_mhealth_subject(data_root, subject) for subject in range(1, 9)]
-    test_raw = _mhealth_subject(data_root, 10)
+    train_raw = [_mhealth_subject(data_root, subject)
+                 for subject in MHEALTH_SPLIT["train_subjects"]]
+    test_raw = _mhealth_subject(data_root, MHEALTH_SPLIT["test_subjects"][0])
     stats = {}
     for source in ("chest", "left_ankle", "right_arm"):
         joined = np.concatenate([modalities[source] for modalities, _ in train_raw])
@@ -117,7 +132,7 @@ def _mhealth(data_root: Path) -> tuple[list[WindowSet], WindowSet, int]:
                          np.full(count, subject_id, dtype=np.int64))
 
     return ([convert(subject, index) for index, subject in enumerate(train_raw, start=1)],
-            convert(test_raw, 10), 12)
+            convert(test_raw, MHEALTH_SPLIT["test_subjects"][0]), 12)
 
 
 def _opportunity_directory(data_root: Path) -> Path:
@@ -177,13 +192,19 @@ def _normalize(train: list[WindowSet], test: WindowSet) -> tuple[list[WindowSet]
 
 
 def _opportunity(data_root: Path) -> tuple[list[WindowSet], WindowSet, int]:
-    subjects = [_opportunity_subject(data_root, subject, ("Drill", "ADL1", "ADL2"))
-                for subject in range(1, 5)]
-    test = _opportunity_subject(data_root, 2, ("ADL4", "ADL5"))
+    subjects = [
+        _opportunity_subject(data_root, subject, OPPORTUNITY_SPLIT["train_runs"])
+        for subject in OPPORTUNITY_SPLIT["train_subjects"]
+    ]
+    test = _opportunity_subject(
+        data_root, OPPORTUNITY_SPLIT["test_subjects"][0], OPPORTUNITY_SPLIT["test_runs"]
+    )
     subjects, test = _normalize(subjects, test)
     clients = []
-    for subject in subjects:
-        clients.extend(subject.take(indices) for indices in np.array_split(np.arange(len(subject)), 2))
+    for subject, chunks in zip(subjects, OPPORTUNITY_SPLIT["hfl_chunks_per_subject"]):
+        clients.extend(
+            subject.take(indices) for indices in np.array_split(np.arange(len(subject)), chunks)
+        )
     return clients, test, 18
 
 
@@ -192,6 +213,14 @@ def load_dataset(name: str, data_root: Path) -> tuple[list[WindowSet], WindowSet
         return _mhealth(data_root)
     if name == "opportunity":
         return _opportunity(data_root)
+    raise ValueError(f"unsupported dataset: {name}")
+
+
+def split_metadata(name: str) -> dict:
+    if name == "mhealth":
+        return dict(MHEALTH_SPLIT)
+    if name == "opportunity":
+        return dict(OPPORTUNITY_SPLIT)
     raise ValueError(f"unsupported dataset: {name}")
 
 

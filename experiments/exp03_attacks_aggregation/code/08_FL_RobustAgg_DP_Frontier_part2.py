@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # 08_FL_RobustAgg_DP_Frontier_part2.py — Median + Trimmed Mean under DP frontier
-# Re-roda exp03a parte 2 com DP corrigido e ε∈{20,100} (do exp06). Bug
+# Re-roda exp03a parte 2 com DP corrigido e ε∈{20,100} (do Exp02 frontier). Bug
 # σ=1/ε ausente; calibração via dp_plan_from_loaders (Opacus RDPAccountant).
 # Experiment 03a — Part 2: HFL Trimmed Mean + Median with Differential Privacy
 #

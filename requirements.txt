@@ -1,8 +1,7 @@
-# Pinned-minor for reproducibility; CPU wheels work, GPU recommended for full runs.
-torch>=2.1,<2.5
-torchvision>=0.16,<0.20
-opacus>=1.4,<1.6
-numpy>=1.24,<2.0
+torch>=2.11,<2.12
+torchvision>=0.26,<0.27
+opacus>=1.6,<1.7
+numpy>=1.24
 pandas>=2.0
 scipy>=1.10
 scikit-learn>=1.3

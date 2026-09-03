@@ -1,0 +1,106 @@
+{
+  "headroom": {
+    "mhealth/hfl": {
+      "mean": 0.7714080182563838,
+      "max": 0.8166953819127732
+    },
+    "mhealth/vfl": {
+      "mean": 0.8770532373941747,
+      "max": 0.9166666666666666
+    },
+    "opportunity/hfl": {
+      "mean": 0.0525283803142019,
+      "max": 0.19377843978362774
+    },
+    "opportunity/vfl": {
+      "mean": 0.09084033378316539,
+      "max": 0.23625456127295238
+    }
+  },
+  "clean_cells_at_or_below_floor": {
+    "opportunity": 6,
+    "mhealth": 0
+  },
+  "effects": {
+    "absolute_preregistered": {
+      "mhealth": {
+        "mean": 0.28779231018382834,
+        "ci95": [
+          0.24698196531567937,
+          0.3313850317430303
+        ],
+        "seed_clusters": 5,
+        "cells": 180
+      },
+      "opportunity": {
+        "mean": 0.029388195088828645,
+        "ci95": [
+          0.01950884737041499,
+          0.036834380536395234
+        ],
+        "seed_clusters": 5,
+        "cells": 180
+      }
+    },
+    "normalised_headroom_gt_0.05": {
+      "mhealth": {
+        "mean": 0.3877655433841217,
+        "ci95": [
+          0.33785081298751735,
+          0.4376802737807261
+        ],
+        "seed_clusters": 5,
+        "cells": 180
+      },
+      "opportunity": {
+        "mean": 0.539821432882557,
+        "ci95": [
+          0.32396976723453774,
+          0.7750020108473119
+        ],
+        "seed_clusters": 5,
+        "cells": 48
+      }
+    },
+    "normalised_no_dp_cells": {
+      "mhealth": {
+        "mean": 0.3825723606436703,
+        "ci95": [
+          0.3230816655681449,
+          0.4428658377254635
+        ],
+        "seed_clusters": 5,
+        "cells": 60
+      },
+      "opportunity": {
+        "mean": 0.7056084125401055,
+        "ci95": [
+          0.6288908725363751,
+          0.7675561778173786
+        ],
+        "seed_clusters": 5,
+        "cells": 60
+      }
+    },
+    "absolute_no_dp_cells": {
+      "mhealth": {
+        "mean": 0.2923977992199521,
+        "ci95": [
+          0.24131290844933423,
+          0.346594750674263
+        ],
+        "seed_clusters": 5,
+        "cells": 60
+      },
+      "opportunity": {
+        "mean": 0.0506250306781806,
+        "ci95": [
+          0.037467005213023874,
+          0.06608373060910529
+        ],
+        "seed_clusters": 5,
+        "cells": 60
+      }
+    }
+  }
+}

@@ -52,9 +52,30 @@ class EightPartyFusion(nn.Module):
             )
             if fusion == "intermediate" else nn.Identity()
         )
+        self._compromised_names: frozenset[str] = frozenset()
+        self._message_attack: str | None = None
 
-    def messages(self, values: dict[str, torch.Tensor]) -> dict[str, torch.Tensor]:
-        return {name: branch(values[name]) for name, branch in self.branches.items()}
+    def set_compromised(self, names, attack: str | None) -> None:
+        """Persist a VFL message attack across train and evaluation forwards."""
+
+        if attack not in {None, "sign_flip", "scaling"}:
+            raise ValueError(f"unsupported persistent message attack: {attack}")
+        names = frozenset(names)
+        unknown = names - set(self.branches)
+        if unknown:
+            raise ValueError(f"unknown compromised branches: {sorted(unknown)}")
+        self._compromised_names = names
+        self._message_attack = attack
+
+    def messages(self, values: dict[str, torch.Tensor],
+                 apply_attack: bool = True) -> dict[str, torch.Tensor]:
+        messages = {name: branch(values[name]) for name, branch in self.branches.items()}
+        if apply_attack and self._message_attack is not None:
+            from attacks import attack_message
+
+            for name in self._compromised_names:
+                messages[name] = attack_message(messages[name], self._message_attack)
+        return messages
 
     def fuse(self, messages: dict[str, torch.Tensor]) -> torch.Tensor:
         ordered = [messages[name] for name in self.branches]
@@ -65,3 +86,21 @@ class EightPartyFusion(nn.Module):
     def forward(self, values: dict[str, torch.Tensor]) -> torch.Tensor:
         return self.fuse(self.messages(values))
 
+
+def wrap_private_modules(model: EightPartyFusion, malicious, attack: str):
+    """Wrap exactly the VFL modules that execute a private optimizer step."""
+
+    from opacus.grad_sample import GradSampleModule
+
+    modules = []
+    for index, name in enumerate(list(model.branches)):
+        if attack == "free_rider" and index in malicious:
+            for parameter in model.branches[name].parameters():
+                parameter.requires_grad_(False)
+            continue
+        model.branches[name] = GradSampleModule(model.branches[name])
+        modules.append(model.branches[name])
+    if any(parameter.requires_grad for parameter in model.coordinator.parameters()):
+        model.coordinator = GradSampleModule(model.coordinator)
+        modules.append(model.coordinator)
+    return modules

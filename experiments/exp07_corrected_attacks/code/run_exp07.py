@@ -21,13 +21,12 @@ sys.path.insert(0, str(SHARED))
 
 from experiment_validity import composed_epsilon, dp_plan_from_loaders, manual_dp_fusion_step
 from attacks import (
-    attack_message,
     attack_update,
     corrupt_labels,
     label_poison_ids,
     malicious_indices,
 )
-from data import WindowSet, channel_counts, concatenate, load_dataset
+from data import WindowSet, channel_counts, concatenate, load_dataset, split_metadata
 from protocol import ExperimentConfig, build_protocol, smoke_protocol
 
 
@@ -222,37 +221,28 @@ def run_hfl(config, clients, test, num_classes, params, device):
     return rounds, selected, poisoned, sigma, steps_per_round
 
 
-def _wrap_vfl_modules(model, malicious, attack):
-    from opacus.grad_sample import GradSampleModule
-
-    modules = []
-    for index, name in enumerate(list(model.branches)):
-        if attack == "free_rider" and index in malicious:
-            for parameter in model.branches[name].parameters():
-                parameter.requires_grad_(False)
-            continue
-        model.branches[name] = GradSampleModule(model.branches[name])
-        modules.append(model.branches[name])
-    if any(parameter.requires_grad for parameter in model.coordinator.parameters()):
-        model.coordinator = GradSampleModule(model.coordinator)
-        modules.append(model.coordinator)
-    return modules
-
-
 def run_vfl(config, clients, test, num_classes, params, device):
     torch, _, _, _ = _torch()
+    from models import wrap_private_modules
+
     joined = concatenate(clients)
     loader = make_loader(joined, params["batch_size"], True)
     test_loader = make_loader(test, params["batch_size"], False)
     model = make_model(clients, config.fusion, num_classes, params, device)
     selected = malicious_indices(config.seed, config.attack_ratio) if not config.is_clean else ()
     poisoned = label_poison_ids(clients, selected) if config.attack == "label_flip" else frozenset()
-    planned_mechanisms = 8 + int(config.fusion == "intermediate")
+    names = list(model.branches)
+    if config.attack in {"sign_flip", "scaling"}:
+        model.set_compromised((names[index] for index in selected), config.attack)
+    private_modules = (
+        wrap_private_modules(model, selected, config.attack)
+        if config.epsilon is not None else []
+    )
+    planned_mechanisms = len(private_modules) if config.epsilon is not None else 0
     sigma, sample_rate, steps_per_round = dp_plan_from_loaders(
         config.epsilon or 0.0, [loader], params["batch_size"], params["rounds"],
-        params["local_epochs"], DELTA, mechanisms_per_step=planned_mechanisms,
+        params["local_epochs"], DELTA, mechanisms_per_step=max(1, planned_mechanisms),
     )
-    private_modules = _wrap_vfl_modules(model, selected, config.attack) if config.epsilon is not None else []
     if config.epsilon is None and config.attack == "free_rider":
         for index, name in enumerate(model.branches):
             if index in selected:
@@ -261,7 +251,6 @@ def run_vfl(config, clients, test, num_classes, params, device):
     optimizer = torch.optim.SGD((parameter for parameter in model.parameters() if parameter.requires_grad),
                                 lr=params["lr"], momentum=params["momentum"])
     rounds = []
-    names = list(model.branches)
     for round_index in range(params["rounds"]):
         losses = []
         model.train()
@@ -271,12 +260,7 @@ def run_vfl(config, clients, test, num_classes, params, device):
                 if poisoned:
                     labels = corrupt_labels(labels, example_ids.numpy(), poisoned, num_classes)
                 optimizer.zero_grad()
-                messages = model.messages(values)
-                if config.attack in {"sign_flip", "scaling"}:
-                    for index in selected:
-                        messages[names[index]] = attack_message(messages[names[index]], config.attack)
-                logits = model.fuse(messages)
-                loss = torch.nn.functional.cross_entropy(logits, labels)
+                loss = torch.nn.functional.cross_entropy(model(values), labels)
                 loss.backward()
                 if config.epsilon is not None:
                     for module in private_modules:
@@ -295,7 +279,7 @@ def run_vfl(config, clients, test, num_classes, params, device):
             "epsilon_spent": composed_epsilon(
                 sigma, sample_rate, (round_index + 1) * steps_per_round, DELTA
             ) if config.epsilon is not None else None,
-            "mechanisms_composed": planned_mechanisms,
+            "mechanisms_composed": planned_mechanisms if config.epsilon is not None else None,
         })
         rounds.append(metrics)
     return rounds, selected, poisoned, sigma, steps_per_round
@@ -320,10 +304,14 @@ def run_config(config: ExperimentConfig, args) -> dict:
         config, clients, test, num_classes, params, device
     )
     return {
-        "schema_version": 2,
+        "schema_version": 3,
         "experiment": "exp07_corrected_cross_dataset_attacks",
         "config": config.to_dict(),
-        "dataset": {"name": config.dataset, "num_classes": num_classes},
+        "dataset": {
+            "name": config.dataset,
+            "num_classes": num_classes,
+            "split": split_metadata(config.dataset),
+        },
         "privacy": {
             "target_epsilon": config.epsilon,
             "delta": DELTA if config.epsilon is not None else None,
@@ -331,6 +319,13 @@ def run_config(config: ExperimentConfig, args) -> dict:
             "noise_multiplier": sigma if config.epsilon is not None else None,
             "composed_steps_per_round": steps_per_round if config.epsilon is not None else None,
             "accounting": "global-topology-aware-rdp" if config.epsilon is not None else "no-dp-control",
+            "sampling": (
+                "poisson" if config.topology == "hfl" else "shuffled-fixed-batch"
+            ) if config.epsilon is not None else None,
+            "guarantee": (
+                "formal-opacus-rdp" if config.topology == "hfl"
+                else "poisson-accountant-approximation-for-shuffled-fixed-batches"
+            ) if config.epsilon is not None else None,
         },
         "attack_assignment": {
             "participant_indices": list(selected),
@@ -354,6 +349,8 @@ def atomic_json(path: Path, payload: dict) -> None:
 def parse_args():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config-index", type=int)
+    parser.add_argument("--config-start", type=int)
+    parser.add_argument("--config-count", type=int, default=1)
     parser.add_argument("--list", action="store_true")
     parser.add_argument("--smoke-only", action="store_true")
     parser.add_argument("--device", default="cuda" if os.environ.get("CUDA_VISIBLE_DEVICES") else "cpu")
@@ -373,19 +370,25 @@ def main() -> int:
     if args.list:
         print(json.dumps([config.to_dict() for config in configs], indent=2))
         return 0
-    if args.config_index is None or not 0 <= args.config_index < len(configs):
-        raise SystemExit(f"--config-index must be in [0, {len(configs) - 1}]")
+    if args.config_index is not None and args.config_start is not None:
+        raise SystemExit("use either --config-index or --config-start, not both")
+    start = args.config_index if args.config_index is not None else args.config_start
+    if start is None or not 0 <= start < len(configs):
+        raise SystemExit(f"config start must be in [0, {len(configs) - 1}]")
+    if args.config_count <= 0 or start + args.config_count > len(configs):
+        raise SystemExit("--config-count exceeds the protocol matrix")
     if args.smoke_only:
         args.rounds = 1
         args.local_epochs = 1
-    config = configs[args.config_index]
-    output = args.output_dir / f"{config.config_id}.json"
-    if output.exists():
-        print(f">>> Already complete: {output}")
-        return 0
-    print(f">>> Exp. 07 {args.config_index}/{len(configs) - 1}: {config.config_id}")
-    atomic_json(output, run_config(config, args))
-    print(f">>> Wrote {output}")
+    for index in range(start, start + args.config_count):
+        config = configs[index]
+        output = args.output_dir / f"{config.config_id}.json"
+        if output.exists():
+            print(f">>> Already complete: {output}")
+            continue
+        print(f">>> Exp. 07 {index}/{len(configs) - 1}: {config.config_id}")
+        atomic_json(output, run_config(config, args))
+        print(f">>> Wrote {output}")
     return 0
 
 

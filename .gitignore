@@ -9,5 +9,6 @@ data/
 experiments/*/code/data
 experiments/*/code/results
 experiments/*/code/logs
+experiments/*/raw_cluster_runs/
 *.log
 .directory

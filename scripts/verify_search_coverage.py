@@ -110,8 +110,8 @@ SUPPORTING_REFERENCE_KEYS = {
     "ding2022timetrojan",
     "bonawitz2019production",
     "hard2018federated",
-    "pentina2023melloddy",
     "yang2019federated",
+    "liu2021fate",
 }
 
 

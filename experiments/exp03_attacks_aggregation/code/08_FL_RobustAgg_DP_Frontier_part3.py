@@ -3,7 +3,7 @@
 # PART 3: VFL Coordinator + DP — Experiment 08 (Frontier regime)
 # Tests: OPPORTUNITY Vertical (Intermediate/Late) with attacks + DP (ε ∈ {20.0, 100.0})
 # Aggregation: Coordinator (passive defense via compartmentalization)
-# Based on: exp03a part3 (já bug-free) com ε re-calibrado do exp06.
+# Based on: exp03a part3 (já bug-free) com ε re-calibrado do Exp02 frontier.
 #
 # Grid: 1 agg × 2 fusion × 4 attack × 4 ratio × 2 ε = 64 configs
 # Sub-parts: a (0-15), b (16-31), c (32-47), d (48-63)
