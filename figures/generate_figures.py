@@ -173,6 +173,96 @@ if fixed_round_tail:
     fig.tight_layout()
     save(fig, "opportunity_fixed_round_high_budget.pdf")
 
+    # Journal compact panel: the topology comparison used in the argument.
+    # Full fusion-mode figures remain generated above and below for the artifact.
+    fig, axes = plt.subplots(1, 2, figsize=(PAGE_W, PAGE_W * 0.39))
+    ax = axes[0]
+    for topo, color, marker, label in [
+        ("horizontal", "#2E86AB", "o", "HFL Intermediate"),
+        ("vertical", "#C73E1D", "s", "VFL Intermediate"),
+    ]:
+        means, stds = [], []
+        for eps in EPS_ALL:
+            src = e01.get(("OPPORTUNITY", topo, "Intermediate", eps)) if eps in EPS01 \
+                  else e06.get((topo, "Intermediate", eps))
+            means.append(src[0] if src else np.nan)
+            stds.append(src[1] if src else np.nan)
+        ax.errorbar(XPOS, means, yerr=stds, marker=marker, markersize=4.5,
+                    capsize=2.5, linewidth=1.3, color=color, label=label)
+    floor_line(ax)
+    ax.set_xticks(XPOS)
+    ax.set_xticklabels([xlab(e) for e in EPS_ALL])
+    ax.set_xlabel("Privacy budget ε (RDP accountant)")
+    ax.set_ylabel("F1 (Macro)")
+    ax.set_ylim(0, 0.60)
+    ax.set_title("(a) Early-stopped frontier", fontsize=9)
+    ax.legend(loc="upper right", fontsize=7.5)
+
+    ax = axes[1]
+    for topo, color, marker, label in [
+        ("horizontal", "#2E86AB", "o", "HFL Intermediate"),
+        ("vertical", "#C73E1D", "s", "VFL Intermediate"),
+    ]:
+        xs, means, stds = [], [], []
+        for eps in [100.0, 200.0]:
+            vals = fixed.get((topo, "Intermediate", eps), [])
+            if not vals:
+                continue
+            xs.append(eps)
+            means.append(statistics.mean(vals))
+            stds.append(statistics.stdev(vals) if len(vals) > 1 else 0.0)
+        ax.errorbar(xs, means, yerr=stds, marker=marker, markersize=4.5,
+                    capsize=2.5, linewidth=1.3, color=color, label=label)
+    floor_line(ax)
+    ax.set_xticks([100, 200])
+    ax.set_xlabel("Privacy budget ε")
+    ax.set_ylabel("F1 (Macro)")
+    ax.set_ylim(0, 0.28)
+    ax.set_title("(b) Fixed-round high-budget tail", fontsize=9)
+    ax.legend(loc="upper left", fontsize=7.5)
+    fig.tight_layout()
+    save(fig, "opportunity_privacy_utility_combined.pdf")
+
+    # Journal overlay: one axis, with fixed-round observations highlighted by
+    # distinct colours, markers, and a dashed line for grayscale readability.
+    fig, ax = plt.subplots(figsize=(COL_W, COL_W * 0.82))
+    for topo, color, marker, label in [
+        ("horizontal", "#2E86AB", "o", "HFL, early stop"),
+        ("vertical", "#C73E1D", "s", "VFL, early stop"),
+    ]:
+        means, stds = [], []
+        for eps in EPS_ALL:
+            src = e01.get(("OPPORTUNITY", topo, "Intermediate", eps)) if eps in EPS01 \
+                  else e06.get((topo, "Intermediate", eps))
+            means.append(src[0] if src else np.nan)
+            stds.append(src[1] if src else np.nan)
+        ax.errorbar(XPOS, means, yerr=stds, marker=marker, markersize=4.5,
+                    capsize=2.5, linewidth=1.3, color=color, label=label)
+    for topo, color, marker, label in [
+        ("horizontal", "#3BB273", "^", "HFL, fixed rounds"),
+        ("vertical", "#8E44AD", "D", "VFL, fixed rounds"),
+    ]:
+        xs, means, stds = [], [], []
+        for eps in [100.0, 200.0]:
+            vals = fixed.get((topo, "Intermediate", eps), [])
+            if not vals:
+                continue
+            xs.append(EPS_ALL.index(eps))
+            means.append(statistics.mean(vals))
+            stds.append(statistics.stdev(vals) if len(vals) > 1 else 0.0)
+        ax.errorbar(xs, means, yerr=stds, marker=marker, markersize=5.5,
+                    capsize=3, linewidth=1.3, linestyle="--", color=color,
+                    label=label, zorder=4)
+    floor_line(ax)
+    ax.set_xticks(XPOS)
+    ax.set_xticklabels([xlab(e) for e in EPS_ALL])
+    ax.set_xlabel("Privacy budget ε (RDP accountant)")
+    ax.set_ylabel("F1 (Macro)")
+    ax.set_ylim(0, 0.60)
+    ax.legend(loc="upper right", ncol=2, fontsize=7)
+    fig.tight_layout()
+    save(fig, "opportunity_privacy_utility_overlay.pdf")
+
 # Fig: cifar_f1_vs_epsilon
 fig, ax = plt.subplots(figsize=(COL_W, COL_W * 0.78))
 for ds, color, marker in [("CIFAR10", "#2E86AB", "o"), ("CIFAR100", "#C73E1D", "s")]:

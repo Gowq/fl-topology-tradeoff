@@ -21,6 +21,31 @@ The scripts named `06_FL_Frontier*.py` are compatibility wrappers for the
 renamed Exp. 02 and Exp. 05 entry points. Raw cluster transfers and logs are not
 part of the scientific artifact.
 
+## Figure index
+
+`figures/opportunity_privacy_utility_overlay.pdf` is the compact overlay used
+by the journal manuscript: early-stopped curves and fixed-round points share
+one axis. Its two-panel predecessor remains as
+`figures/opportunity_privacy_utility_combined.pdf`. The complete fusion-mode
+views remain available as `figures/opportunity_fusion_f1.pdf` and
+`figures/opportunity_fixed_round_high_budget.pdf`.
+
+Detailed aggregation matrices removed from the page-limited manuscript remain
+available as `figures/heatmap_intermediate.pdf` and
+`figures/heatmap_late.pdf`. The stopping-rule audit shown in the manuscript for
+Intermediate fusion has its complete Late-fusion counterpart in
+`figures/audit_late_signflip.pdf`. All figures are regenerated from committed
+results by `figures/generate_figures.py`.
+
+## Related-work search audit
+
+The manuscript reports only the databases, date/language/field restrictions,
+query themes, and coverage totals. The exact Boolean string and inclusion
+accounting live in `scripts/verify_search_coverage.py`. Run it with
+`--print-query` to reproduce the query or with `--bibtex` against the paper's
+`references.bib` to verify the 37 query matches, four manual preprints, and
+three backward-snowballed works in the 44-paper reviewed corpus.
+
 ## Shared training configuration
 
 | Parameter | Exp. 01–03 | Exp. 04 | Exp. 07–08 |
