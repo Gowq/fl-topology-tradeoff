@@ -118,9 +118,12 @@ for e in frontier:
 
 EPS01 = [0.0, 1.0, 3.0, 5.0, 8.0]
 EPS06 = [10.0, 20.0, 50.0, 100.0, 200.0]
-EPS_ALL = EPS01 + EPS06
+# Result files use eps=0 as an internal sentinel for the non-private run.
+# On plots, however, no DP is the epsilon -> infinity limit and belongs at
+# the weak-privacy end of the axis, not at epsilon=0.
+EPS_ALL = [e for e in EPS01 + EPS06 if e != 0.0] + [0.0]
 XPOS = list(range(len(EPS_ALL)))
-xlab = lambda e: "0\n(no DP)" if e == 0 else str(int(e))
+xlab = lambda e: "$\\infty$\n(no DP)" if e == 0 else str(int(e))
 
 # Fig: opportunity_topology_f1 (baseline + frontier, HFL vs VFL Intermediate)
 fig, ax = plt.subplots(figsize=(COL_W, COL_W * 0.80))
@@ -263,15 +266,79 @@ if fixed_round_tail:
     fig.tight_layout()
     save(fig, "opportunity_privacy_utility_overlay.pdf")
 
+    # Journal protocol comparison: keep the complete early-stopped frontier
+    # separate from a focused dumbbell plot of the high-budget stopping-rule
+    # effect. This avoids four overlapping curves at epsilon 100 and 200.
+    fig, axes = plt.subplots(
+        2, 1, figsize=(COL_W, COL_W * 1.08),
+        gridspec_kw={"height_ratios": [1.65, 1.0]},
+    )
+    ax = axes[0]
+    for topo, color, marker, label in [
+        ("horizontal", "#2E86AB", "o", "HFL"),
+        ("vertical", "#C73E1D", "s", "VFL"),
+    ]:
+        means, stds = [], []
+        for eps in EPS_ALL:
+            src = e01.get(("OPPORTUNITY", topo, "Intermediate", eps)) if eps in EPS01 \
+                  else e06.get((topo, "Intermediate", eps))
+            means.append(src[0] if src else np.nan)
+            stds.append(src[1] if src else np.nan)
+        ax.errorbar(XPOS, means, yerr=stds, marker=marker, markersize=4.5,
+                    capsize=2.5, linewidth=1.3, color=color, label=label)
+    floor_line(ax)
+    ax.set_xticks(XPOS)
+    ax.set_xticklabels([xlab(e) for e in EPS_ALL])
+    ax.set_xlabel("Privacy budget ε (RDP accountant)")
+    ax.set_ylabel("F1 (Macro)")
+    ax.set_ylim(0, 0.60)
+    ax.set_title("(a) Early-stopped frontier", fontsize=9)
+    ax.legend(loc="upper left", fontsize=7.5, ncol=2)
+
+    ax = axes[1]
+    comparisons = [
+        ("horizontal", 100.0, "HFL, ε=100", 3.2, "#2E86AB"),
+        ("horizontal", 200.0, "HFL, ε=200", 2.2, "#2E86AB"),
+        ("vertical", 100.0, "VFL, ε=100", 0.8, "#C73E1D"),
+        ("vertical", 200.0, "VFL, ε=200", -0.2, "#C73E1D"),
+    ]
+    for topo, eps, _, ypos, color in comparisons:
+        early = e06[(topo, "Intermediate", eps)]
+        vals = fixed[(topo, "Intermediate", eps)]
+        fixed_stats = (
+            statistics.mean(vals),
+            statistics.stdev(vals) if len(vals) > 1 else 0.0,
+        )
+        ax.plot([early[0], fixed_stats[0]], [ypos, ypos], color=color,
+                linewidth=1.4, alpha=0.75, zorder=2)
+        ax.errorbar(early[0], ypos, xerr=early[1], marker="o", markersize=5,
+                    markerfacecolor="white", markeredgecolor=color, color=color,
+                    capsize=2.5, linestyle="none", zorder=3)
+        ax.errorbar(fixed_stats[0], ypos, xerr=fixed_stats[1], marker="D",
+                    markersize=5, color=color, capsize=2.5,
+                    linestyle="none", zorder=4)
+    ax.set_yticks([row[3] for row in comparisons])
+    ax.set_yticklabels([row[2] for row in comparisons], fontsize=8)
+    ax.set_xlim(0.12, 0.24)
+    ax.set_xlabel("F1 (Macro)")
+    ax.set_title("(b) Protocol comparison (open: early; filled: fixed)",
+                 fontsize=8.5)
+    fig.tight_layout(h_pad=0.8)
+    save(fig, "opportunity_privacy_utility_protocol.pdf")
+
 # Fig: cifar_f1_vs_epsilon
 fig, ax = plt.subplots(figsize=(COL_W, COL_W * 0.78))
+eps_cifar = [1.0, 3.0, 5.0, 8.0, 0.0]
+x_cifar = list(range(len(eps_cifar)))
 for ds, color, marker in [("CIFAR10", "#2E86AB", "o"), ("CIFAR100", "#C73E1D", "s")]:
-    eps_ds = sorted({k[3] for k in e01 if k[0] == ds})
-    means = [e01[(ds, "horizontal", "Horizontal", e)][0] for e in eps_ds]
-    stds  = [e01[(ds, "horizontal", "Horizontal", e)][1] for e in eps_ds]
-    ax.errorbar(eps_ds, means, yerr=stds, marker=marker, markersize=5, capsize=3,
+    stats = [e01.get((ds, "horizontal", "Horizontal", e), (np.nan, np.nan))
+             for e in eps_cifar]
+    means = [value[0] for value in stats]
+    stds = [value[1] for value in stats]
+    ax.errorbar(x_cifar, means, yerr=stds, marker=marker, markersize=5, capsize=3,
                 linewidth=1.4, color=color, label=ds.replace("CIFAR", "CIFAR-"))
-ax.set_xticks([0, 1, 3, 5, 8]); ax.set_xticklabels(["0\n(no DP)", "1", "3", "5", "8"])
+ax.set_xticks(x_cifar)
+ax.set_xticklabels(["1", "3", "5", "8", "$\\infty$\n(no DP)"])
 ax.set_xlabel("Privacy Budget (ε, RDP accountant)")
 ax.set_ylabel("F1 Score (Macro)"); ax.set_ylim(0, 1.05)
 ax.legend(loc="upper right"); fig.tight_layout(); save(fig, "cifar_f1_vs_epsilon.pdf")

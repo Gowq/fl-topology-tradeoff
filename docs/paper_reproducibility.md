@@ -23,11 +23,13 @@ part of the scientific artifact.
 
 ## Figure index
 
-`figures/opportunity_privacy_utility_overlay.pdf` is the compact overlay used
-by the journal manuscript: early-stopped curves and fixed-round points share
-one axis. Its two-panel predecessor remains as
-`figures/opportunity_privacy_utility_combined.pdf`. The complete fusion-mode
-views remain available as `figures/opportunity_fusion_f1.pdf` and
+`figures/opportunity_privacy_utility_protocol.pdf` is the compact comparison
+used by the journal manuscript. It separates the complete early-stopped
+frontier from a focused dumbbell view of early stopping versus fixed 25-round
+training at epsilon 100 and 200. The earlier overlay and two-panel versions
+remain as `figures/opportunity_privacy_utility_overlay.pdf` and
+`figures/opportunity_privacy_utility_combined.pdf`. Complete fusion-mode views
+remain available as `figures/opportunity_fusion_f1.pdf` and
 `figures/opportunity_fixed_round_high_budget.pdf`.
 
 Detailed aggregation matrices removed from the page-limited manuscript remain
@@ -73,9 +75,13 @@ subject 10; OPPORTUNITY Exp. 07–08 trains on S1/S3/S4 and tests on S2.
 All private cells use topology-aware calibration through the shared RDP
 utilities in `experiments/shared/code/experiment_validity.py`, with
 `delta=1e-5` and clipping norm `C=5`. Exp. 01 evaluates no DP and epsilon in
-{1, 5, 8}; Exp. 02 extends the frontier to {10, 20, 50, 100, 200}; Exp. 03 uses
+{1, 3, 5, 8}; Exp. 02 extends the frontier to {10, 20, 50, 100, 200}; Exp. 03 uses
 {20, 100}; Exp. 04 compares no DP with epsilon 3; Exp. 07–08 use no DP and
 epsilon in {20, 100}.
+
+The result JSON files encode no-DP controls with the internal sentinel
+`eps=0`; this is not a claim of zero-DP. Figures and manuscript text place
+those controls at the non-private limit, epsilon tending to infinity.
 
 For Exp. 07–08, HFL uses Opacus Poisson sampling and the formal RDP accountant.
 VFL composes the private branch/fusion mechanisms globally, but its shuffled
